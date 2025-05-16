@@ -1,0 +1,27 @@
+.navbar {
+  background-color: #fefef9;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 12px;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #4caf50;
+  margin: 0;
+}

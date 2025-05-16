@@ -1,0 +1,55 @@
+<div class="container">
+  <h2>Crear Nuevo Plan</h2>
+  <form [formGroup]="planForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>Nombre del plan:</label>
+      <input formControlName="name" type="text" />
+    </div>
+
+    <div>
+      <label>Descripción:</label>
+      <textarea formControlName="description"></textarea>
+    </div>
+
+    <div class="macro-row">
+      <div>
+        <label>Carbohidratos (g):</label>
+        <input formControlName="total_carbs" type="number" />
+      </div>
+      <div>
+        <label>Proteínas (g):</label>
+        <input formControlName="total_proteins" type="number" />
+      </div>
+      <div>
+        <label>Grasas (g):</label>
+        <input formControlName="total_fats" type="number" />
+      </div>
+    </div>
+
+    <div>
+      <label>Calorías por día:</label>
+      <input formControlName="calories_per_day" type="number" />
+    </div>
+
+    <div>
+      <label>Objetivo:</label>
+      <select formControlName="goal">
+        <option value="">-- Selecciona --</option>
+        <option value="Perder peso">Perder peso</option>
+        <option value="Ganar músculo">Ganar músculo</option>
+        <option value="Mantener peso">Mantener peso</option>
+        <option value="Mejorar salud">Mejorar salud</option>
+      </select>
+    </div>
+
+    <div>
+      <input formControlName="is_current" type="checkbox" />
+      <label>Marcar como plan actual</label>
+    </div>
+
+    <div class="buttons">
+      <button type="submit" [disabled]="!planForm.valid">Guardar</button>
+      <button type="reset" (click)="planForm.reset()">Cancelar</button>
+    </div>
+  </form>
+</div>
