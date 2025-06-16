@@ -1,0 +1,73 @@
+<!-- Student catalogue -->
+<div class="table-wrapper">
+  <h3>{{ 'title.tracking' | translate }}</h3>
+
+  <!--Add/Edit Form-->
+  <app-tracking-create-and-edit (editCanceled)="onCancelEdit()"
+                                (trackingAdded)="onTrackingAdded($event)"
+                                (trackingUpdated)="onTrackingUpdated($event)"
+                                [editMode] = "isEditMode"
+                                [tracking]="trackingData"/>
+  <!-- Data Table -->
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+         matSort matSortActive="name" matSortDirection="asc">
+
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> {{ 'tracking.id' | translate }} </th>
+      <td *matCellDef="let element" mat-cell>{{ element.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'tracking.date' | translate }}</th>
+      <td *matCellDef="let element" mat-cell>{{ element.date }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="time_of_day">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'tracking.time_of_day' | translate }}</th>
+      <td *matCellDef="let element" mat-cell>{{ element.time_of_day }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'tracking.quantity' | translate }}</th>
+      <td *matCellDef="let element" mat-cell>{{ element.quantity }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="notes">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'tracking.notes' | translate }}</th>
+      <td *matCellDef="let element" mat-cell>{{ element.notes }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="recipe_id">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'tracking.recipe_id' | translate }}</th>
+      <td *matCellDef="let element" mat-cell>{{ element.recipe_id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="user_id">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'tracking.user_id' | translate }}</th>
+      <td *matCellDef="let element" mat-cell>{{ element.user_id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="calories">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'tracking.calories' | translate }}</th>
+      <td *matCellDef="let element" mat-cell>{{ element.calories }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'tracking.created_at' | translate }}</th>
+      <td *matCellDef="let element" mat-cell>{{ element.created_at }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell> {{ 'tracking.actions' | translate }}</th>
+      <td *matCellDef="let element" mat-cell>
+        <a (click)="onEditItem(element)" href="javascript:void(0)"><mat-icon>edit</mat-icon></a>
+        <a (click)="onDeleteItem(element)" href="javascript:void(0)"><mat-icon>delete</mat-icon></a>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns:displayedColumns" [ngClass]="{'editable-row': trackingData.id === row.id }" mat-row></tr>
+  </table>
+  <!-- Paginator child component-->
+  <mat-paginator [pageSizeOptions]="[5, 10, 15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>

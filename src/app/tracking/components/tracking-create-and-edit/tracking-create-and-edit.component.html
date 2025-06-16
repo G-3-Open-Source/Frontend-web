@@ -1,0 +1,41 @@
+<!-- Create and Edit Form -->
+<h4>{{ editMode ? 'Edit Tracking' : 'New Tracking' }}</h4>
+<div class="form-section">
+
+  <form (submit)="onSubmit()" #trackingForm='ngForm' class="form-row">
+    <mat-form-field>
+      <input matInput placeholder="date" name="date" required [(ngModel)]="tracking.date">
+    </mat-form-field>
+    <mat-form-field id="time_of_day-form-field">
+      <input matInput placeholder="timeofday" name="timeofday" required [(ngModel)]="tracking.time_of_day">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput  type="number" placeholder="quantity" name="quantity" required [(ngModel)]="tracking.quantity">
+    </mat-form-field>
+    <mat-form-field id="notes-field">
+      <input matInput placeholder="notes" name="notes" required [(ngModel)]="tracking.notes">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput  type="number" placeholder="recipeid" name="recipeid" required [(ngModel)]="tracking.recipe_id">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput  type="number" placeholder="userid" name="userid" required [(ngModel)]="tracking.user_id">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput  type="number" placeholder="calories" name="calories" required [(ngModel)]="tracking.calories">
+    </mat-form-field>
+    <mat-form-field id="created_at-field">
+      <input matInput placeholder="createdat" name="createdat" required [(ngModel)]="tracking.created_at">
+    </mat-form-field>
+    <ng-container>
+      @if (editMode === true) {
+        <button mat-raised-button color="primary">Update</button>
+        <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+      }
+      @else {
+        <button mat-raised-button color="primary">Add</button>
+      }
+    </ng-container>
+  </form>
+
+</div>
