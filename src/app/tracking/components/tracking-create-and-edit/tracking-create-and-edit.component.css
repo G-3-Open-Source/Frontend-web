@@ -1,0 +1,43 @@
+/* tracking-form.component.css */
+
+h4 {
+  color: #63B663;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.form-section {
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+mat-form-field {
+  width: 100%;
+  color: #63B663;
+}
+
+input[matInput] {
+  color: #63B663;
+}
+
+::ng-deep .mat-form-field-label {
+  color: #63B663 !important;
+}
+
+::ng-deep .mat-input-element::placeholder {
+  color: #63B663;
+  opacity: 0.8;
+}
+
+button {
+  margin-top: 16px;
+  margin-right: 8px;
+}
+

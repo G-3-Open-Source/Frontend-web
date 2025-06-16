@@ -1,0 +1,47 @@
+/* tracking-list.component.css */
+
+.table-wrapper {
+  padding: 24px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+}
+
+h3 {
+  color: #63B663;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+  color: #63B663;
+}
+
+.mat-header-cell {
+  background-color: #e8f5e9;
+  color: #63B663;
+  font-weight: bold;
+}
+
+.mat-cell {
+  color: #4b8c4a;
+}
+
+.editable-row {
+  background-color: #f1fff2 !important;
+}
+
+mat-icon {
+  color: #63B663;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+mat-icon:hover {
+  transform: scale(1.2);
+  color: #4CAF50;
+}
+
+mat-paginator {
+  color: #63B663;
+}
