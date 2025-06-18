@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "frontend-app": {
+    "IngredientsCrud": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/frontend-app",
+            "outputPath": "dist/ingredients-crud",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -66,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "frontend-app:build:production"
+              "buildTarget": "IngredientsCrud:build:production"
             },
             "development": {
-              "buildTarget": "frontend-app:build:development"
+              "buildTarget": "IngredientsCrud:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -100,5 +100,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "73183dc7-eab7-4551-b281-a8b82f653837"
   }
 }

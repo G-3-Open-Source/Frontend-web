@@ -1,4 +1,8 @@
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:3000/'
+  production: true,
+// Server Base Path for Fake REST API
+  serverBasePath: 'http://localhost:3000/api/v1',
+// Server Base Path for Spring Boot REST API
+//serverBasePath: 'http://localhost:8090/api/v1',
+  ingredientsEndpointPath: '/ingredients'
 };
