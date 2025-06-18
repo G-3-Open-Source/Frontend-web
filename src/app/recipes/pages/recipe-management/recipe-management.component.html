@@ -1,0 +1,84 @@
+<!-- Recipe catalogue -->
+<div class="table-wrapper">
+  <h3>{{ 'title.recipes' | translate }}</h3>
+
+  <!-- Add/Edit Form -->
+  <app-recipe-create-and-edit
+    (editCanceled)="onCancelEdit()"
+    (recipeAdded)="onRecipeAdded($event)"
+    (recipeUpdated)="onRecipeUpdated($event)"
+    [editMode]="isEditMode"
+    [recipe]="recipeData">
+  </app-recipe-create-and-edit>
+
+  <!-- Data Table -->
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+         matSort matSortActive="name" matSortDirection="asc">
+
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        {{ 'recipe.id' | translate }}
+      </th>
+      <td *matCellDef="let element" mat-cell>{{ element.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        {{ 'recipe.name' | translate }}
+      </th>
+      <td *matCellDef="let element" mat-cell>{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        {{ 'recipe.description' | translate }}
+      </th>
+      <td *matCellDef="let element" mat-cell>{{ element.description }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="ingredients">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        {{ 'recipe.ingredients' | translate }}
+      </th>
+      <td *matCellDef="let element" mat-cell>{{ element.ingredients }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        {{ 'recipe.category' | translate }}
+      </th>
+      <td *matCellDef="let element" mat-cell>{{ element.category }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="preparationTime">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        {{ 'recipe.preparationTime' | translate }}
+      </th>
+      <td *matCellDef="let element" mat-cell>{{ element.preparationTime }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="difficulty">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        {{ 'recipe.difficulty' | translate }}
+      </th>
+      <td *matCellDef="let element" mat-cell>{{ element.difficulty }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell> {{ 'actions' | translate }}</th>
+      <td *matCellDef="let element" mat-cell>
+        <a (click)="onEditItem(element)" href="javascript:void(0)"><mat-icon>edit</mat-icon></a>
+        <a (click)="onDeleteItem(element)" href="javascript:void(0)"><mat-icon>delete</mat-icon></a>
+      </td>
+    </ng-container>
+
+    <!-- Only include visible columns -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"
+        [ngClass]="{'editable-row': recipeData.id === row.id }">
+    </tr>
+  </table>
+
+  <!-- Paginator -->
+  <mat-paginator [pageSizeOptions]="[5, 10, 15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>

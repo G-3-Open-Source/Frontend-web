@@ -4,6 +4,7 @@
     "placeholder": "Enter text to filter"
   },
   "title": {
+    "recipes": "Recipes",
     "ingredients": "Ingredients",
     "add": "New Ingredient",
     "edit": "Edit Ingredient"
@@ -19,6 +20,15 @@
     "allergies": "Allergies",
     "recipes": "Recipes",
     "actions": "Actions"
+  },
+  "recipe": {
+    "id": "N.º",
+    "name": "Name",
+    "ingredients": "Ingredients",
+    "description": "Description",
+    "category": "Category",
+    "preparationTime": "Preparation Time (Minutes)",
+    "difficulty": "Difficulty"
   },
   "footer": {
     "rights": "Copyright © 2025 {{ api }}, All rights reserved",

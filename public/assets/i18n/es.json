@@ -4,6 +4,7 @@
     "placeholder": "Ingrese texto para filtrar"
   },
   "title": {
+    "recipes": "Recetas",
     "ingredients": "Ingredientes",
     "add": "Nuevo Ingrediente",
     "edit": "Editar Ingrediente"
@@ -20,6 +21,15 @@
     "recipes": "Recetas",
     "actions": "Acciones"
 
+  },
+  "recipe": {
+    "id": "N.º",
+    "name": "Nombre",
+    "ingredients": "Ingredientes",
+    "description": "Descripción",
+    "category": "Categoria",
+    "preparationTime": "Tiempo de Preparación (Minutos)",
+    "difficulty": "Dificultad"
   },
   "footer": {
     "rights": "Copyright © 2025 {{ api }}, Todos los derechos reservados",

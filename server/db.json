@@ -88,5 +88,25 @@
       "allergies": "fish",
       "recipes": 10
     }
+  ],
+  "recipes": [
+    {
+      "id": 1,
+      "name": "Tallarin Rojo",
+      "ingredients": "Fideos, Pomarola",
+      "description": "Plato tradicional de pasta con salsa de tomate.",
+      "category": "Almuerzo",
+      "preparationTime": 30,
+      "difficulty": "Fácil"
+    },
+    {
+      "id": 2,
+      "name": "Ensalada",
+      "ingredients": "Vegetales, Limon",
+      "description": "Ensalada fresca con aderezo de limón.",
+      "category": "Cena",
+      "preparationTime": 10,
+      "difficulty": "Muy fácil"
+    }
   ]
 }
