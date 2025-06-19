@@ -1,8 +1,6 @@
-<div class="container">
-  <div >
-    <app-navbar></app-navbar>
-    <main >
-      <router-outlet></router-outlet>
-    </main>
-  </div>
-</div>
+<app-navbar [options]="options" [sidenav]="sidenav"></app-navbar>
+<app-sidenav [options]="options" #sidenav></app-sidenav>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>

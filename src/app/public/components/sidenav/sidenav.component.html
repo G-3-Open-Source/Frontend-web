@@ -1,0 +1,9 @@
+<aside *ngIf="opened" class="backdrop" (click)="opened = false">
+  <ul class="sidebar-list">
+    <li *ngFor="let option of options" (click)="handleClick(option)">
+      <span class="icon">{{ option.icon }}</span>
+      {{ option.title }}
+    </li>
+  </ul>
+</aside>
+

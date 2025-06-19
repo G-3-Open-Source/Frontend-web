@@ -12,27 +12,28 @@ import {environment as env} from '../../../environments/environment';
 })
 export class MealPlanService extends BaseService<MealPlan> {
   constructor(protected override http: HttpClient) {
-    super(http, '/meal_plans');
+    super(http)
+    this.resourceEndpoint = '/meal_plans';
   }
 
   //GET
   getAllMealPlans(): Observable<MealPlan[]> {
-    return this.http.get<MealPlanResponse[]>(`${env.apiUrl}/meal_plans`).pipe(
+    return this.http.get<MealPlanResponse[]>(`${env.serverBasePath}/meal_plans`).pipe(
       map(data => MealPlanAssembler.toEntityFromResponseArray(data)),
 
     );
   }
   getMealPlanById(id: string): Observable<MealPlan> {
-    return this.http.get<MealPlanResponse>(`${env.apiUrl}/meal_plans/${id}`).pipe(
+    return this.http.get<MealPlanResponse>(`${env.serverBasePath}/meal_plans/${id}`).pipe(
       map(data => MealPlanAssembler.toEntityFromResponse(data))
     );
   }
   getTags(): Observable<any> {
-    return this.http.get<MealPlanTags>(`${env.apiUrl}/meal_plan_tags`);
+    return this.http.get<MealPlanTags>(`${env.serverBasePath}/meal_plan_tags`);
   }
 
   getDetailsMealPlanbyId(id: string): Observable<MealPlan> {
-    return this.http.get<MealPlanResponse>(`${env.apiUrl}meal_plans/${id}`).pipe(
+    return this.http.get<MealPlanResponse>(`${env.serverBasePath}meal_plans/${id}`).pipe(
       map(data => MealPlanAssembler.toEntityFromResponse(data))
     );
   }
@@ -40,29 +41,29 @@ export class MealPlanService extends BaseService<MealPlan> {
 
   //POST
   createMealPlan(mealPlan: MealPlan): Observable<any> {
-    return this.http.post<MealPlanResponse>(`${env.apiUrl}/meal_plans`, mealPlan).pipe(
+    return this.http.post<MealPlanResponse>(`${env.serverBasePath}/meal_plans`, mealPlan).pipe(
       map(data => MealPlanAssembler.toEntityFromResponse(data))
     );
   }
 
   //PUT
   saveMealPlan(mealPlanId: string, mealPlan: MealPlan): Observable<any> {
-    return this.http.put<MealPlanResponse>(`${env.apiUrl}/meal_plans/${mealPlanId}`, mealPlan).pipe(
+    return this.http.put<MealPlanResponse>(`${env.serverBasePath}/meal_plans/${mealPlanId}`, mealPlan).pipe(
       map(data => MealPlanAssembler.toEntityFromResponse(data))
     );
   }
   updateMealPlan(mealPlanid: string, MealPlan: MealPlan): Observable<any> {
-    return this.http.put<MealPlanResponse>(`${env.apiUrl}/meal_plans/${mealPlanid}`, MealPlan).pipe(
+    return this.http.put<MealPlanResponse>(`${env.serverBasePath}/meal_plans/${mealPlanid}`, MealPlan).pipe(
       map(data => MealPlanAssembler.toEntityFromResponse(data))
     );
   }
 
   //DELETE
   deleteMealPlan(id: string): Observable<any> {
-    return this.http.delete(`${env.apiUrl}/meal_plans/${id}`);
+    return this.http.delete(`${env.serverBasePath}/meal_plans/${id}`);
   }
   deleteMealPlanRecipe(id: string): Observable<any> {
-    return this.http.delete(`${env.apiUrl}meal_plan_recipes/${id}`);
+    return this.http.delete(`${env.serverBasePath}meal_plan_recipes/${id}`);
   }
 
 

@@ -7,8 +7,8 @@ import { catchError, Observable, retry, throwError } from "rxjs";
   providedIn: 'root'
 })
 export class BaseService<T> {
-  protected basePath: string = `${environment.apiUrl}`;
-  protected resourceEndpoint: string;
+  // protected basePath: string = `${environment.apiUrl}`;
+  // protected resourceEndpoint: string;
 
   basePath: string = `${environment.serverBasePath}`;
   resourceEndpoint: string = '/resources';
@@ -20,10 +20,8 @@ export class BaseService<T> {
   }
 
   constructor(
-    protected http: HttpClient,
-    resourceEndpoint: string
+    protected http: HttpClient
   ) {
-    this.resourceEndpoint = resourceEndpoint;
   }
   handleError(error: HttpErrorResponse) {
     // Default error handling

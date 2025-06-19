@@ -8,7 +8,7 @@ import { Recipe } from "../model/recipe.entity";
 })
 export class RecipeService extends BaseService<Recipe> {
   constructor(http: HttpClient) {
-    super(http);
+    super(http );
     this.resourceEndpoint = '/recipes';
   }
 }

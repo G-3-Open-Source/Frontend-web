@@ -19,37 +19,12 @@ import { LanguageSwitcherComponent } from "./public/components/language-switcher
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, MatToolbarModule, MatButtonModule, MatIconModule,
-    MatSidenavModule, MatDividerModule, MatListModule, LanguageSwitcherComponent],
-  imports: [RouterOutlet, MealPlanListComponent, MealPlanDetailComponent, LayoutComponent],
+    MatSidenavModule, MatDividerModule, MatListModule, LanguageSwitcherComponent, MealPlanListComponent, MealPlanDetailComponent, LayoutComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
-  title = 'IngredientsCrud';
+export class AppComponent {
+  title = 'frontend-app';
 
-  @ViewChild(MatSidenav, {static: true}) sidenav!: MatSidenav;
-  options = [
-    { icon: 'home', path: '/home', title: 'Home'},
-    { icon: 'person', path: '/recipe/ingredients', title: 'Ingredients'},
-    { icon: 'person', path: '/recipe/recipe', title: 'Recipes'},
-    { icon: 'info', path:'/about', title: 'About'}
-  ];
 
-  constructor(private translate: TranslateService, private observer: BreakpointObserver) {
-    translate.setDefaultLang('en');
-    translate.use('en');
-  }
-
-  ngOnInit(): void {
-    this.observer.observe(['(max-width: 1280px)']) // Observa el ancho de la pantalla
-      .subscribe((response) => {  // Se suscribe a los cambios en el ancho de la pantalla
-        if (response.matches) { // Si el ancho de la pantalla es menor a 1280px
-          this.sidenav.mode = 'over'; // Se despliega sobre el contenido
-          this.sidenav.close(); // Se cierra
-        } else {
-          this.sidenav.mode = 'side'; // Se despliega al lado del contenido
-          this.sidenav.open();  // Se abre
-        }
-      });
-  }
 }
