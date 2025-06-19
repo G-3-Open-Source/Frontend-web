@@ -3,12 +3,14 @@ import {MatSidenav} from '@angular/material/sidenav';
 import {TranslateService} from '@ngx-translate/core';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {NgForOf, NgIf} from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
   imports: [
     NgForOf,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.css'

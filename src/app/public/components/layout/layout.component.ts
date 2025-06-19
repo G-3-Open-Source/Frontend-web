@@ -2,16 +2,13 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {NavbarComponent} from '../navbar/navbar.component';
 import {SidenavComponent} from '../sidenav/sidenav.component';
-import {MatSidenavModule, MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
-import {LanguageSwitcherComponent} from '../language-switcher/language-switcher.component';
-import {MatAnchor, MatIconButton} from '@angular/material/button';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
 import {MatListModule} from '@angular/material/list';
-import {MatToolbar} from '@angular/material/toolbar';
-import {MatIcon} from '@angular/material/icon';
+
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, NavbarComponent, SidenavComponent, LanguageSwitcherComponent, MatAnchor, MatIcon,
-    MatIconButton, MatListModule,MatSidenavModule, MatSidenav, MatSidenavContainer, MatSidenavContent, MatToolbar, RouterLink],
+  imports: [RouterOutlet, NavbarComponent, SidenavComponent, MatListModule,MatSidenavModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })

@@ -6,9 +6,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { RecommendationsService } from '../../services/recommendations.service';
 import { Recommendation } from '../../model/recommendation.entity';
-import { RecommendationFormDialogComponent } from '../../../public/components/recommendation-form-dialog/recommendation-form-dialog.component';
+//import { RecommendationFormDialogComponent } from '../../../public/components/recommendation-form-dialog/recommendation-form-dialog.component';
 import {DatePipe, NgClass} from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import {MatIconButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-recommendation-management',
@@ -21,7 +22,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSort,
     MatIconModule,
     TranslateModule,
-    DatePipe
+    DatePipe,
+    MatIconButton
   ]
 })
 export class RecommendationManagementComponent implements OnInit, AfterViewInit {
@@ -60,7 +62,9 @@ export class RecommendationManagementComponent implements OnInit, AfterViewInit 
   private getAllRecommendations(): void {
     this.recommendationsService.getAll().subscribe({
       next: (response) => {
-        this.dataSource.data = response;
+        this.dataSource.data = this.dataSource.data.map(item =>
+          item.id === response.id ? response : item
+        );
       },
       error: (err) => {
         console.error('Error loading recommendations:', err);
@@ -69,7 +73,7 @@ export class RecommendationManagementComponent implements OnInit, AfterViewInit 
   }
 
   openAddDialog(): void {
-    const dialogRef = this.dialog.open(RecommendationFormDialogComponent, {
+/*    const dialogRef = this.dialog.open(RecommendationFormDialogComponent, {
       width: '600px',
       data: {
         recommendation: new Recommendation(),
@@ -81,11 +85,11 @@ export class RecommendationManagementComponent implements OnInit, AfterViewInit 
       if (result) {
         this.createRecommendation(result);
       }
-    });
+    });*/
   }
 
   openEditDialog(element: Recommendation): void {
-    const dialogRef = this.dialog.open(RecommendationFormDialogComponent, {
+/*    const dialogRef = this.dialog.open(RecommendationFormDialogComponent, {
       width: '600px',
       data: {
         recommendation: {...element},
@@ -97,7 +101,7 @@ export class RecommendationManagementComponent implements OnInit, AfterViewInit 
       if (result) {
         this.updateRecommendation(result);
       }
-    });
+    });*/
   }
 
   private createRecommendation(recommendation: Recommendation): void {

@@ -1,6 +1,6 @@
 <aside *ngIf="opened" class="backdrop" (click)="opened = false">
   <ul class="sidebar-list">
-    <li *ngFor="let option of options" (click)="handleClick(option)">
+    <li *ngFor="let option of options" (click)="handleClick(option)" [routerLink]="option.path">
       <span class="icon">{{ option.icon }}</span>
       {{ option.title }}
     </li>
