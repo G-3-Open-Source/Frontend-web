@@ -22,6 +22,18 @@
     "actions": "Acciones"
 
   },
+  "recommendation": {
+    "id": "ID",
+    "meal_plan_id": "ID Plan Alimenticio",
+    "user_id": "ID Usuario",
+    "reason": "Motivo",
+    "time_of_day": "Momento del día",
+    "created_at": "Fecha de creación",
+    "notes": "Notas",
+    "score": "Puntuación",
+    "status": "Estado",
+    "actions": "Acciones"
+  },
   "recipe": {
     "id": "N.º",
     "name": "Nombre",
