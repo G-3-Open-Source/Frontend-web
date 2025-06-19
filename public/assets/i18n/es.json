@@ -1,0 +1,29 @@
+{
+  "filter": {
+    "label": "Filtro",
+    "placeholder": "Ingrese texto para filtrar"
+  },
+  "title": {
+    "ingredients": "Ingredientes",
+    "add": "Nuevo Ingrediente",
+    "edit": "Editar Ingrediente"
+  },
+  "ingredient": {
+    "id": "N.º",
+    "name": "Nombre",
+    "category": "Categoría",
+    "calories": "Calorías",
+    "carbs": "Carbohidratos",
+    "proteins": "Proteínas",
+    "fats": "Grasas",
+    "allergies": "Alergias",
+    "recipes": "Recetas",
+    "actions": "Acciones"
+
+  },
+  "footer": {
+    "rights": "Copyright © 2025 {{ api }}, Todos los derechos reservados",
+    "intro": "Desarrollado ",
+    "author": "por el equipo {{ team }}"
+  }
+}

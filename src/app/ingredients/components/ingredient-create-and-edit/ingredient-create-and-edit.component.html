@@ -1,0 +1,50 @@
+<!-- Create and Edit Form -->
+<h4>{{ editMode ? 'Edit Ingredient' : 'New Ingredient' }}</h4>
+
+<div class="form-section">
+  <form (submit)="onSubmit()" #ingredientForm="ngForm" class="form-row">
+
+    <mat-form-field>
+      <input matInput placeholder="Name" name="name" required [(ngModel)]="ingredient.name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Category" name="category" required [(ngModel)]="ingredient.category">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="number" placeholder="Calories" name="calories" required [(ngModel)]="ingredient.calories">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="number" placeholder="Carbohydrates" name="carbs" required [(ngModel)]="ingredient.carbs">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="number" placeholder="Proteins" name="proteins" required [(ngModel)]="ingredient.proteins">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="number" placeholder="Fats" name="fats" required [(ngModel)]="ingredient.fats">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Allergies" name="allergies" [(ngModel)]="ingredient.allergies">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="number" placeholder="Recipes (count)" name="recipes" required [(ngModel)]="ingredient.recipes">
+    </mat-form-field>
+
+    <ng-container>
+      @if (editMode === true) {
+        <button mat-raised-button color="primary">Update</button>
+        <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+      }
+      @else {
+        <button mat-raised-button color="primary">Add</button>
+      }
+    </ng-container>
+
+  </form>
+</div>

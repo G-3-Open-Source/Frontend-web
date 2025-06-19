@@ -1,0 +1,28 @@
+{
+  "filter": {
+    "label": "Filter",
+    "placeholder": "Enter text to filter"
+  },
+  "title": {
+    "ingredients": "Ingredients",
+    "add": "New Ingredient",
+    "edit": "Edit Ingredient"
+  },
+  "ingredient": {
+    "id": "No.",
+    "name": "Name",
+    "category": "Category",
+    "calories": "Calories",
+    "carbs": "Carbohydrates",
+    "proteins": "Proteins",
+    "fats": "Fats",
+    "allergies": "Allergies",
+    "recipes": "Recipes",
+    "actions": "Actions"
+  },
+  "footer": {
+    "rights": "Copyright © 2025 {{ api }}, All rights reserved",
+    "intro": "Developed ",
+    "author": "by {{ team }} Team"
+  }
+}

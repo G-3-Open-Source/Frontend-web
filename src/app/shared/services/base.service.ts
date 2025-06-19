@@ -10,6 +10,9 @@ export class BaseService<T> {
   protected basePath: string = `${environment.apiUrl}`;
   protected resourceEndpoint: string;
 
+  basePath: string = `${environment.serverBasePath}`;
+  resourceEndpoint: string = '/resources';
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-type': 'application/json',

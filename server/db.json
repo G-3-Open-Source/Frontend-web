@@ -1,0 +1,92 @@
+{
+  "ingredients": [
+    {
+      "id": 1,
+      "name": "Tomato",
+      "category": "Vegetable",
+      "calories": 18,
+      "carbs": 3.9,
+      "proteins": 0.9,
+      "fats": 0.2,
+      "allergies": "",
+      "recipes": 1
+    },
+    {
+      "id": 2,
+      "name": "Chicken Breast",
+      "category": "Meat",
+      "calories": 165,
+      "carbs": 0,
+      "proteins": 31,
+      "fats": 3.6,
+      "allergies": "",
+      "recipes": 2
+    },
+    {
+      "id": 3,
+      "name": "Almond Milk",
+      "category": "Dairy Alternative",
+      "calories": 15,
+      "carbs": 1.3,
+      "proteins": 0.6,
+      "fats": 1.2,
+      "allergies": "nuts",
+      "recipes": 6
+    },
+    {
+      "id": 4,
+      "name": "Egg",
+      "category": "Protein",
+      "calories": 78,
+      "carbs": 0.6,
+      "proteins": 6,
+      "fats": 5,
+      "allergies": "eggs",
+      "recipes": 4
+    },
+    {
+      "id": 5,
+      "name": "Spinach",
+      "category": "Vegetable",
+      "calories": 23,
+      "carbs": 3.6,
+      "proteins": 2.9,
+      "fats": 0.4,
+      "allergies": "",
+      "recipes": 6
+    },
+    {
+      "id": 6,
+      "name": "Peanut Butter",
+      "category": "Spread",
+      "calories": 588,
+      "carbs": 20,
+      "proteins": 25,
+      "fats": 50,
+      "allergies": "nuts",
+      "recipes": 7
+    },
+    {
+      "id": 7,
+      "name": "Quinoa",
+      "category": "Grain",
+      "calories": 120,
+      "carbs": 21.3,
+      "proteins": 4.4,
+      "fats": 1.9,
+      "allergies": "",
+      "recipes": 8
+    },
+    {
+      "id": 8,
+      "name": "Salmon",
+      "category": "Fish",
+      "calories": 208,
+      "carbs": 0,
+      "proteins": 20,
+      "fats": 13,
+      "allergies": "fish",
+      "recipes": 10
+    }
+  ]
+}
