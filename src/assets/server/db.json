@@ -1,0 +1,199 @@
+{
+  "meal_plans": [
+    {
+      "id": "1",
+      "name": "Plan Keto Inicial",
+      "description": "Plan bajo en carbohidratos para comenzar una dieta cetogénica.",
+      "total_carbs": 50,
+      "total_proteins": 120,
+      "total_fats": 130,
+      "calories_per_day": 1800,
+      "goal": "Perder peso",
+      "is_current": true,
+      "profile_id": 1,
+      "created_at": "2025-05-01T08:00:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Plan Hipercalórico Musculación",
+      "description": "Ideal para aumentar masa muscular.",
+      "total_carbs": 200,
+      "total_proteins": 161,
+      "total_fats": 50,
+      "calories_per_day": 3200,
+      "goal": "Ganar masa muscular",
+      "is_current": false,
+      "profile_id": 2,
+      "created_at": "2025-05-03T09:15:00Z"
+    },
+    {
+      "id": "3",
+      "name": "Plan Vegano Equilibrado",
+      "description": "Comidas 100% veganas con balance de macronutrientes.",
+      "total_carbs": 250,
+      "total_proteins": 50,
+      "total_fats": 23,
+      "calories_per_day": 1400,
+      "goal": "Mejorar salud",
+      "is_current": false,
+      "profile_id": 3,
+      "created_at": "2025-04-20T10:00:00Z"
+    },
+    {
+      "id": "4",
+      "name": "Plan Intermitente 16/8",
+      "description": "Plan con ayuno intermitente y comidas densas en nutrientes.",
+      "total_carbs": 100,
+      "total_proteins": 110,
+      "total_fats": 90,
+      "calories_per_day": 2000,
+      "goal": "Controlar apetito",
+      "is_current": false,
+      "profile_id": 4,
+      "created_at": "2025-04-10T07:30:00Z"
+    },
+    {
+      "id": "5",
+      "name": "Plan Detox",
+      "description": "Plan a base de frutas, verduras y jugos naturales.",
+      "total_carbs": 150,
+      "total_proteins": 70,
+      "total_fats": 40,
+      "calories_per_day": 1600,
+      "goal": "Desintoxicar cuerpo",
+      "is_current": false,
+      "profile_id": 5,
+      "created_at": "2025-03-15T11:00:00Z"
+    },
+    {
+      "id": "6",
+      "name": "Plan Senior Vitalidad",
+      "description": "Plan diseñado para personas mayores con requerimientos especiales.",
+      "total_carbs": 180,
+      "total_proteins": 90,
+      "total_fats": 60,
+      "calories_per_day": 1900,
+      "goal": "Mantener energía",
+      "is_current": true,
+      "profile_id": 6,
+      "created_at": "2025-05-05T12:00:00Z"
+    },
+    {
+      "id": "7",
+      "name": "Plan Bajo en Sodio",
+      "description": "Enfocado en controlar la presión arterial.",
+      "total_carbs": 200,
+      "total_proteins": 100,
+      "total_fats": 80,
+      "calories_per_day": 2100,
+      "goal": "Salud cardiovascular",
+      "is_current": false,
+      "profile_id": 7,
+      "created_at": "2025-04-25T14:00:00Z"
+    },
+    {
+      "id": "8",
+      "name": "Plan Estudiante Activo",
+      "description": "Diseñado para jóvenes activos física y mentalmente.",
+      "total_carbs": 250,
+      "total_proteins": 130,
+      "total_fats": 80,
+      "calories_per_day": 2600,
+      "goal": "Rendimiento físico y cognitivo",
+      "is_current": true,
+      "profile_id": 8,
+      "created_at": "2025-04-22T08:30:00Z"
+    },
+    {
+      "id": "10",
+      "name": "Plan Fit Exprés",
+      "description": "Plan de corta duración para definir y perder grasa.",
+      "total_carbs": 130,
+      "total_proteins": 140,
+      "total_fats": 50,
+      "calories_per_day": 1900,
+      "goal": "Definición muscular",
+      "is_current": true,
+      "profile_id": 10,
+      "created_at": "2025-05-10T10:20:00Z"
+    }
+  ],
+  "meal_plan_day_meals": [
+    {
+      "meal_plan_id": 1,
+      "recipe_id": 3,
+      "meal_plan_type_id": 2,
+      "day_number": 1,
+      "id": "1fb8"
+    },
+    {
+      "meal_plan_id": 2,
+      "recipe_id": 5,
+      "meal_plan_type_id": 1,
+      "day_number": 2,
+      "id": "07a1"
+    },
+    {
+      "meal_plan_id": 3,
+      "recipe_id": 2,
+      "meal_plan_type_id": 3,
+      "day_number": 3,
+      "id": "2f6d"
+    },
+    {
+      "meal_plan_id": 4,
+      "recipe_id": 7,
+      "meal_plan_type_id": 1,
+      "day_number": 1,
+      "id": "620b"
+    },
+    {
+      "meal_plan_id": 5,
+      "recipe_id": 1,
+      "meal_plan_type_id": 2,
+      "day_number": 4,
+      "id": "3f32"
+    }
+  ],
+  "meal_plan_types": [
+    {
+      "id": "1",
+      "type": "breakfast"
+    },
+    {
+      "id": "2",
+      "type": "lunch"
+    },
+    {
+      "id": "3",
+      "type": "dinner"
+    }
+  ],
+  "meal_plan_tags": [
+    {
+      "id": "1",
+      "name": "keto",
+      "meal_plan_id": 1
+    },
+    {
+      "id": "2",
+      "name": "vegan",
+      "meal_plan_id": 2
+    },
+    {
+      "id": "3",
+      "name": "low-carb",
+      "meal_plan_id": 3
+    },
+    {
+      "id": "4",
+      "name": "high-protein",
+      "meal_plan_id": 4
+    },
+    {
+      "id": "5",
+      "name": "gluten-free",
+      "meal_plan_id": 5
+    }
+  ]
+}

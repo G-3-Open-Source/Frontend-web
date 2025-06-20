@@ -1,0 +1,110 @@
+<div class="plan-container">
+  <form [formGroup]="planForm" (ngSubmit)="savePlan()" novalidate>
+    <div class="plan-card">
+      <div class="plan-header">
+        <h2 *ngIf="!editMode">{{ plan?.name }}</h2>
+        <input *ngIf="editMode" type="text" formControlName="name" placeholder="Nombre del plan" required class="form-input title-input" />
+      </div>
+
+      <div class="plan-subtitle">
+        <span class="chip" [class.primary]="plan?.is_current" [class.secondary]="!plan?.is_current">
+          {{ plan?.is_current ? 'Plan Actual' : 'Plan Histórico' }}
+        </span>
+        <span class="chip accent">{{ plan?.goal }}</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="plan-content">
+
+        <div class="section">
+          <h3>Descripción</h3>
+          <p *ngIf="!editMode" class="description-text">{{ plan?.description }}</p>
+          <textarea *ngIf="editMode" formControlName="description" rows="3" placeholder="Descripción" required class="form-input textarea-input"></textarea>
+        </div>
+
+        <div class="section">
+          <h3>Macronutrientes</h3>
+          <div class="macro-grid">
+            <div class="macro-item">
+              <label>Carbohidratos</label>
+              <span *ngIf="!editMode" class="macro-value">{{ plan?.total_carbs }}<span class="unit">g</span></span>
+              <input *ngIf="editMode" type="number" formControlName="total_carbs" required class="form-input macro-input" />
+            </div>
+            <div class="macro-item">
+              <label>Proteínas</label>
+              <span *ngIf="!editMode" class="macro-value">{{ plan?.total_proteins }}<span class="unit">g</span></span>
+              <input *ngIf="editMode" type="number" formControlName="total_proteins" required class="form-input macro-input" />
+            </div>
+            <div class="macro-item">
+              <label>Grasas</label>
+              <span *ngIf="!editMode" class="macro-value">{{ plan?.total_fats }}<span class="unit">g</span></span>
+              <input *ngIf="editMode" type="number" formControlName="total_fats" required class="form-input macro-input" />
+            </div>
+          </div>
+        </div>
+
+        <
+        <div class="section">
+          <h3>Calorías</h3>
+          <div class="calories-display">
+            <span *ngIf="!editMode" class="calories-value">{{ plan?.calories_per_day }}<span class="unit">kcal/día</span></span>
+            <div *ngIf="editMode" class="calories-edit">
+              <input type="number" formControlName="calories_per_day" placeholder="kcal/día" class="form-input calories-input" />
+              <span class="calories-calculated">≈ {{ calculateCalories() }} kcal calculadas</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="section">
+          <h3>Objetivo</h3>
+          <p *ngIf="!editMode" class="goal-text">{{ plan?.goal }}</p>
+          <select *ngIf="editMode" formControlName="goal" class="form-input select-input">
+            <option value="Perder peso">Perder peso</option>
+            <option value="Ganar músculo">Ganar músculo</option>
+            <option value="Mantener peso">Mantener peso</option>
+            <option value="Mejorar salud">Mejorar salud</option>
+          </select>
+        </div>
+
+
+        <div *ngIf="editMode" class="section current-checkbox">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="is_current" class="checkbox-input" />
+            <span class="checkmark"></span>
+            Marcar como plan actual
+          </label>
+        </div>
+      </div>
+
+
+      <div class="actions">
+        <button type="button" (click)="toggleEditMode()" *ngIf="!editMode" class="btn edit-btn">
+          <i class="fas fa-edit"></i> Editar
+        </button>
+        <button type="button" (click)="confirmDelete()" *ngIf="!editMode" class="btn delete-btn">
+          <i class="fas fa-trash"></i> Eliminar
+        </button>
+        <button type="button" (click)="toggleEditMode()" *ngIf="editMode" class="btn cancel-btn">
+          Cancelar
+        </button>
+        <button type="submit" *ngIf="editMode" [disabled]="!planForm.valid" class="btn save-btn">
+          <i class="fas fa-save"></i> Guardar Cambios
+        </button>
+      </div>
+    </div>
+  </form>
+
+<!--  modal-->
+  <div *ngIf="showDeleteModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3>¿Eliminar plan?</h3>
+      <p>¿Estás seguro de que deseas eliminar permanentemente este plan de comidas?</p>
+      <div class="modal-actions">
+        <button (click)="showDeleteModal = false" class="btn cancel-btn">Cancelar</button>
+        <button (click)="deletePlan()" class="btn delete-btn">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

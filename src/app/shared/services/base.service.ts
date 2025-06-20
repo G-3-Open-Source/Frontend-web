@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { environment } from "../../../environments/environment";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { catchError, Observable, retry, throwError } from "rxjs";
@@ -8,6 +7,8 @@ import { catchError, Observable, retry, throwError } from "rxjs";
   providedIn: 'root'
 })
 export class BaseService<T> {
+  // protected basePath: string = `${environment.apiUrl}`;
+  // protected resourceEndpoint: string;
 
   basePath: string = `${environment.serverBasePath}`;
   resourceEndpoint: string = '/resources';
@@ -18,8 +19,10 @@ export class BaseService<T> {
     })
   }
 
-  constructor(private http: HttpClient) {  }
-
+  constructor(
+    protected http: HttpClient
+  ) {
+  }
   handleError(error: HttpErrorResponse) {
     // Default error handling
     if (error.error instanceof ErrorEvent) {
@@ -55,7 +58,7 @@ export class BaseService<T> {
       .pipe(retry(2), catchError(this.handleError));
   }
 
-  private resourcePath(): string {
+  protected resourcePath(): string {
     return `${this.basePath}${this.resourceEndpoint}`;
   }
 }

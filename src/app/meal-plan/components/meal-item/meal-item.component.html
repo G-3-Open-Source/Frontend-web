@@ -1,0 +1,20 @@
+<mat-card class="meal-card">
+  <mat-card-header>
+    <mat-card-title class="meal-title">
+      {{ plan.name }}
+    </mat-card-title>
+    <mat-card-subtitle class="meal-subtitle">
+      Categoría: {{ plan.calories_per_day }}
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p class="meal-description">{{ plan.description }}</p>
+    <p class="meal-detail">Objetivo: {{ plan.goal }}</p>
+    <p class="meal-detail">Calorías por día: {{ plan.calories_per_day }}Kcal</p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button class="meal-btn" (click)="goToDetail()">Ver Detalle</button>
+  </mat-card-actions>
+</mat-card>

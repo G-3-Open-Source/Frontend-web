@@ -1,0 +1,51 @@
+.meal-card {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  background-color: #1f2937; /* similar a Tailwind gray-800 */
+  color: #f9fafb; /* texto claro */
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.meal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.meal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #d1d5db; /* gris claro */
+}
+
+.meal-subtitle {
+  font-size: 0.9rem;
+  color: #9ca3af; /* gris suave */
+}
+
+.meal-description {
+  color: #047857; /* esmeralda */
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.meal-detail {
+  font-size: 0.85rem;
+  color: #d1d5db;
+  margin: 2px 0;
+}
+
+.meal-btn {
+  color: #3b82f6; /* azul primario */
+  font-weight: 500;
+  font-size: 0.95rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  transition: text-decoration 0.2s ease;
+}
+
+.meal-btn:hover {
+  text-decoration: underline;
+}
