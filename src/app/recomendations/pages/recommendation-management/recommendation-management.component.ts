@@ -1,15 +1,14 @@
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { RecommendationsService } from '../../services/recommendations.service';
 import { Recommendation } from '../../model/recommendation.entity';
-//import { RecommendationFormDialogComponent } from '../../../public/components/recommendation-form-dialog/recommendation-form-dialog.component';
-import {DatePipe, NgClass} from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import {MatIconButton} from '@angular/material/button';
+import { RecommendationFormDialogComponent } from '../../../public/components/recommendation-form-dialog/recommendation-form-dialog.component';
 
 @Component({
   selector: 'app-recommendation-management',
@@ -17,17 +16,15 @@ import {MatIconButton} from '@angular/material/button';
   styleUrls: ['./recommendation-management.component.css'],
   standalone: true,
   imports: [
-    MatTableModule,
-    MatPaginator,
-    MatSort,
+    MatTableDataSource,
+    MatPaginatorModule,
+    MatSortModule,
     MatIconModule,
     TranslateModule,
-    DatePipe,
-    MatIconButton
   ]
 })
 export class RecommendationManagementComponent implements OnInit, AfterViewInit {
-  recommendationData: Recommendation;
+  recommendationData: Recommendation = new Recommendation();
   dataSource = new MatTableDataSource<Recommendation>();
   displayedColumns: string[] = [
     'id',
@@ -46,9 +43,7 @@ export class RecommendationManagementComponent implements OnInit, AfterViewInit 
   constructor(
     private recommendationsService: RecommendationsService,
     private dialog: MatDialog
-  ) {
-    this.recommendationData = new Recommendation();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getAllRecommendations();
@@ -61,19 +56,17 @@ export class RecommendationManagementComponent implements OnInit, AfterViewInit 
 
   private getAllRecommendations(): void {
     this.recommendationsService.getAll().subscribe({
-      next: (response) => {
-        this.dataSource.data = this.dataSource.data.map(item =>
-          item.id === response.id ? response : item
-        );
+      next: (response: Recommendation[]) => {
+        this.dataSource.data = response;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error loading recommendations:', err);
       }
     });
   }
 
   openAddDialog(): void {
-/*    const dialogRef = this.dialog.open(RecommendationFormDialogComponent, {
+    const dialogRef = this.dialog.open(RecommendationFormDialogComponent, {
       width: '600px',
       data: {
         recommendation: new Recommendation(),
@@ -81,35 +74,35 @@ export class RecommendationManagementComponent implements OnInit, AfterViewInit 
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: Recommendation | undefined) => {
       if (result) {
         this.createRecommendation(result);
       }
-    });*/
+    });
   }
 
   openEditDialog(element: Recommendation): void {
-/*    const dialogRef = this.dialog.open(RecommendationFormDialogComponent, {
+    const dialogRef = this.dialog.open(RecommendationFormDialogComponent, {
       width: '600px',
       data: {
-        recommendation: {...element},
+        recommendation: { ...element },
         isEditMode: true
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: Recommendation | undefined) => {
       if (result) {
         this.updateRecommendation(result);
       }
-    });*/
+    });
   }
 
   private createRecommendation(recommendation: Recommendation): void {
     this.recommendationsService.create(recommendation).subscribe({
-      next: (response) => {
+      next: (response: Recommendation) => {
         this.dataSource.data = [...this.dataSource.data, response];
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error creating recommendation:', err);
       }
     });
@@ -117,12 +110,12 @@ export class RecommendationManagementComponent implements OnInit, AfterViewInit 
 
   private updateRecommendation(recommendation: Recommendation): void {
     this.recommendationsService.update(recommendation.id, recommendation).subscribe({
-      next: (response) => {
+      next: (response: Recommendation) => {
         this.dataSource.data = this.dataSource.data.map(item =>
           item.id === response.id ? response : item
         );
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error updating recommendation:', err);
       }
     });
@@ -134,7 +127,7 @@ export class RecommendationManagementComponent implements OnInit, AfterViewInit 
         next: () => {
           this.dataSource.data = this.dataSource.data.filter(item => item.id !== id);
         },
-        error: (err) => {
+        error: (err: any) => {
           console.error('Error deleting recommendation:', err);
         }
       });

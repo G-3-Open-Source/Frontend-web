@@ -21,6 +21,16 @@
     "recipes": "Recipes",
     "actions": "Actions"
   },
+  "recommendation": {
+    "id": "ID",
+    "reason": "Reason",
+    "time_of_day": "Time of Day",
+    "created_at": "Created At",
+    "notes": "Notes",
+    "score": "Score",
+    "status": "Status",
+    "actions": "Actions"
+  },
   "recipe": {
     "id": "N.º",
     "name": "Name",

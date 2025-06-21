@@ -1,0 +1,39 @@
+.table-wrapper {
+  padding: 20px;
+}
+
+.add-button {
+  margin-bottom: 20px;
+}
+
+.status-badge {
+  padding: 4px 8px;
+
+  font-size: 0.75rem;
+  text-transform: capitalize;
+}
+
+.status-badge.active {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.pending {
+  background-color: #fff8e1;
+  color: #ff8f00;
+}
+
+.status-badge.inactive {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.mat-elevation-z8 {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.mat-column-actions {
+  width: 120px;
+  text-align: center;
+}
