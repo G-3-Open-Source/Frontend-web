@@ -1,9 +1,10 @@
 {
-  "name": "ingredients-crud",
+  "name": "frontend-app",
   "version": "0.0.0",
+  "main": "server.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "build": "ng build --configuration production && cp src/_redirects dist/frontend-app/"
@@ -21,6 +22,7 @@
     "@angular/router": "^19.2.0",
     "@ngx-translate/core": "^16.0.4",
     "@ngx-translate/http-loader": "^16.0.1",
+    "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
