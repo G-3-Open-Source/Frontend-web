@@ -1,0 +1,112 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #f9fafc;
+  border-radius: 2rem;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: #f0f0f0;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.card p {
+  margin-bottom: 16px;
+
+}
+
+.card .price,
+.card .summary,
+.card .score {
+  font-weight: bold;
+  color: #3b82f6;
+}
+
+.card button {
+  background-color: #4caf50;
+  border: 2px solid #4caf50;
+
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.card button:hover {
+  background-color: #2a622d;
+  color: white;
+}
+
+.card-premium {
+  background: #fef3c7;
+  border-left: 6px solid #facc15;
+  grid-row: 3 / 4;
+  grid-column: 2 / 3;
+
+}
+
+.card-create-plan {
+  background: #4f46e5;
+  grid-row: 2 / 3;
+  grid-column: 2 / 4;
+}
+
+.card-meal-plans {
+  background: #22c55e;
+  grid-row: 1 / 1;
+  grid-column: 1 / 3;
+}
+
+.card-recommendations {
+  background: #14b8a6;
+  grid-row: 3 / 4;
+  grid-column: 2 / 3;
+}
+
+.card-recipes {
+  background: #0ea5e9;
+  grid-row: 1 / 2;
+  grid-column: 3 / 4;
+
+}
+.card-ingredients{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #3b82f6;
+  grid-row: 2/ 4;
+  grid-column: 1 / 2;
+}
+
+.card-tracking {
+  background: #1e293b;
+  grid-area: 4 / 3 / 3 / 4;
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+}

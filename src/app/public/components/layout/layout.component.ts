@@ -14,12 +14,12 @@ import {MatListModule} from '@angular/material/list';
 })
 export class LayoutComponent {
   options = [
-    { title: 'Inicio', path: '/home', icon: '🏠' },
-    { title: 'Planes', path: '/meal-plan', icon: '📋' },
-    { title: 'Recetas', path: '/recipe/recipe', icon: '🍽️' },
-    { title: 'Ingredientes', path: '/recipe/ingredients', icon: '🥦' },
+    { title: 'Home', path: '/', icon: '🏠' },
+    { title: 'Meal Plans', path: '/meal-plan', icon: '📋' },
+    { title: 'Recipes', path: '/recipe/recipe', icon: '🍽️' },
+    { title: 'Ingredients', path: '/recipe/ingredients', icon: '🥦' },
     { title: 'Tracking', path: '/tracking', icon: '📊' },
-    { title: 'Recomendaciones', path: '/recommendations', icon: '💡' }
+    { title: 'Recommendations', path: '/recommendations', icon: '💡' }
   ];
 
   @ViewChild('sidenav') sidenav!: SidenavComponent;

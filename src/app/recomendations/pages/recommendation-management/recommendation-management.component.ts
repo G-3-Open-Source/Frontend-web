@@ -1,5 +1,12 @@
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import {
+  MatCell, MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatTable,
+  MatTableDataSource
+} from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,6 +16,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RecommendationsService } from '../../services/recommendations.service';
 import { Recommendation } from '../../model/recommendation.entity';
 import { RecommendationFormDialogComponent } from '../../../public/components/recommendation-form-dialog/recommendation-form-dialog.component';
+import {DatePipe} from '@angular/common';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-recommendation-management',
@@ -16,11 +26,24 @@ import { RecommendationFormDialogComponent } from '../../../public/components/re
   styleUrls: ['./recommendation-management.component.css'],
   standalone: true,
   imports: [
-    MatTableDataSource,
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
     TranslateModule,
+    DatePipe,
+    MatTable,
+    MatButton,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCell,
+    MatIconButton,
+    MatHeaderRow,
+    MatRow,
+    MatTooltip,
+    MatCellDef,
+    MatHeaderRowDef,
+    MatRowDef,
   ]
 })
 export class RecommendationManagementComponent implements OnInit, AfterViewInit {
@@ -56,8 +79,8 @@ export class RecommendationManagementComponent implements OnInit, AfterViewInit 
 
   private getAllRecommendations(): void {
     this.recommendationsService.getAll().subscribe({
-      next: (response: Recommendation[]) => {
-        this.dataSource.data = response;
+      next: (response: Recommendation | Recommendation[]) => {
+        this.dataSource.data = Array.isArray(response) ? response : [response];
       },
       error: (err: any) => {
         console.error('Error loading recommendations:', err);
