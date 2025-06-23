@@ -10,6 +10,7 @@ import {environment as env} from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
+
 export class MealPlanService extends BaseService<MealPlan> {
   constructor(protected override http: HttpClient) {
     super(http)
