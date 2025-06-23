@@ -1,112 +1,283 @@
 .dashboard {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 20px;
-  padding: 24px;
-  max-width: 1200px;
-  margin: 0 auto;
-  background: #f9fafc;
-  border-radius: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 1400px;
+  margin: -30px auto;
+
 }
 
 .card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 2px 16px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  color: #f0f0f0;
+  justify-content: space-between;
+  min-height: 100px;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.card:hover::before {
+  transform: scaleX(1);
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-8px);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.1);
+  border-color: rgba(102, 126, 234, 0.3);
 }
 
 .card h2 {
-  font-size: 1.4rem;
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #2d3748;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
 }
 
 .card p {
-  margin-bottom: 16px;
-
-}
-
-.card .price,
-.card .summary,
-.card .score {
-  font-weight: bold;
-  color: #3b82f6;
+  color: #718096;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  flex-grow: 1;
 }
 
 .card button {
-  background-color: #4caf50;
-  border: 2px solid #4caf50;
-
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.875rem 1.5rem;
+  border-radius: 12px;
   font-weight: 600;
-  transition: background-color 0.2s, color 0.2s;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 .card button:hover {
-  background-color: #2a622d;
-  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
 }
 
-.card-premium {
-  background: #fef3c7;
-  border-left: 6px solid #facc15;
-  grid-row: 3 / 4;
-  grid-column: 2 / 3;
-
+.card button:active {
+  transform: translateY(0);
 }
 
+/* Estilos específicos para cada tarjeta */
 .card-create-plan {
-  background: #4f46e5;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 253, 244, 0.95) 100%);
   grid-row: 2 / 3;
   grid-column: 2 / 4;
 }
 
+.card-create-plan h2 {
+  color: #22543d;
+}
+
+.card-create-plan button {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+}
+
+.card-create-plan button:hover {
+  background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+  box-shadow: 0 6px 25px rgba(72, 187, 120, 0.4);
+}
+
 .card-meal-plans {
-  background: #22c55e;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 240, 0.95) 100%);
   grid-row: 1 / 1;
   grid-column: 1 / 3;
 }
 
+.card-meal-plans h2 {
+  color: #c05621;
+}
+
+.card-meal-plans button {
+  background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+  box-shadow: 0 4px 15px rgba(237, 137, 54, 0.3);
+}
+
+.card-meal-plans button:hover {
+  background: linear-gradient(135deg, #dd6b20 0%, #c05621 100%);
+  box-shadow: 0 6px 25px rgba(237, 137, 54, 0.4);
+}
+
 .card-recommendations {
-  background: #14b8a6;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 243, 255, 0.95) 100%);
   grid-row: 3 / 4;
   grid-column: 2 / 3;
 }
 
-.card-recipes {
-  background: #0ea5e9;
-  grid-row: 1 / 2;
-  grid-column: 3 / 4;
-
+.card-recommendations h2 {
+  color: #553c9a;
 }
-.card-ingredients{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: #3b82f6;
+
+.card-recommendations button {
+  background: linear-gradient(135deg, #9f7aea 0%, #805ad5 100%);
+  box-shadow: 0 4px 15px rgba(159, 122, 234, 0.3);
+}
+
+.card-recommendations button:hover {
+  background: linear-gradient(135deg, #805ad5 0%, #6b46c1 100%);
+  box-shadow: 0 6px 25px rgba(159, 122, 234, 0.4);
+}
+
+.card-ingredients {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(236, 254, 255, 0.95) 100%);
   grid-row: 2/ 4;
   grid-column: 1 / 2;
 }
 
+.card-ingredients h2 {
+  color: #0c4a6e;
+}
+
+.card-ingredients button {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+}
+
+.card-ingredients button:hover {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  box-shadow: 0 6px 25px rgba(14, 165, 233, 0.4);
+}
+
+.card-recipes {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(254, 242, 242, 0.95) 100%);
+  grid-row: 1 / 2;
+  grid-column: 3 / 4;
+}
+
+.card-recipes h2 {
+  color: #991b1b;
+}
+
+.card-recipes button {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+.card-recipes button:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  box-shadow: 0 6px 25px rgba(239, 68, 68, 0.4);
+}
+
 .card-tracking {
-  background: #1e293b;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 253, 250, 0.95) 100%);
   grid-area: 4 / 3 / 3 / 4;
 }
 
+.card-tracking h2 {
+  color: #065f46;
+}
+
+.card-tracking button {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.card-tracking button:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  box-shadow: 0 6px 25px rgba(16, 185, 129, 0.4);
+}
+
+/* Responsividad */
 @media (max-width: 768px) {
   .dashboard {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
   }
+
+  .card {
+    padding: 1.5rem;
+    min-height: 180px;
+  }
+
+  .card h2 {
+    font-size: 1.25rem;
+  }
+
+  .card button {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .dashboard {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Animaciones de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Efecto de pulso sutil en los botones */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+  }
+  100% {
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  }
+}
+
+.card button {
+  animation: pulse 3s infinite;
 }

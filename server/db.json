@@ -1,5 +1,96 @@
 {
-  "meal_plans": [
+  "tracking_goals": [
+    {
+      "id": 1,
+      "user_id": 101,
+      "daily_calories": 2200,
+      "daily_protein": 150.00,
+      "daily_carbs": 250.00,
+      "daily_fat": 70.00
+    }
+  ],
+  "tracking": [
+    {
+      "id": 1,
+      "date": "2025-05-14",
+      "time_of_day": "breakfast",
+      "quantity": 1.00,
+      "notes": "Desayuno saludable con avena",
+      "recipe_id": 10,
+      "user_id": 101,
+      "calories": 350.00,
+      "created_at": "2025-05-14T08:15:00Z"
+    },
+    {
+      "id": 2,
+      "date": "2025-05-14",
+      "time_of_day": "lunch",
+      "quantity": 1.50,
+      "notes": "Ensalada de pollo con arroz",
+      "recipe_id": 12,
+      "user_id": 101,
+      "calories": 600.00,
+      "created_at": "2025-05-14T13:10:00Z"
+    },
+    {
+      "id": 3,
+      "date": "2025-05-14",
+      "time_of_day": "dinner",
+      "quantity": 1.00,
+      "notes": "Pescado con papas al horno",
+      "recipe_id": 14,
+      "user_id": 101,
+      "calories": 500.00,
+      "created_at": "2025-05-14T20:45:00Z"
+    }
+  ],
+  "recommendations": [
+    {
+      "id": 1,
+      "meal_plan_id": 101,
+      "user_id": 1,
+      "reason": "Importancia de las proteínas",
+      "time_of_day": "mañana",
+      "created_at": "2025-05-15T08:00:00Z",
+      "notes": "Incluya fuentes de proteínas magras como pollo, pescado o legumbres en sus comidas.",
+      "score": 8.5,
+      "status": "activa"
+    },
+    {
+      "id": 2,
+      "meal_plan_id": 102,
+      "user_id": 1,
+      "reason": "Balance de carbohidratos",
+      "time_of_day": "tarde",
+      "created_at": "2025-05-15T12:30:00Z",
+      "notes": "Reduzca el consumo de carbohidratos simples en la tarde.",
+      "score": 7.2,
+      "status": "activa"
+    },
+    {
+      "id": 3,
+      "meal_plan_id": 103,
+      "user_id": 2,
+      "reason": "Hidratación adecuada",
+      "time_of_day": "todo el día",
+      "created_at": "2025-05-16T09:15:00Z",
+      "notes": "Beba al menos 2 litros de agua durante el día.",
+      "score": 9.1,
+      "status": "pendiente"
+    },
+    {
+      "id": 4,
+      "meal_plan_id": 104,
+      "user_id": 3,
+      "reason": "Suplementos vitamínicos",
+      "time_of_day": "noche",
+      "created_at": "2025-05-16T18:45:00Z",
+      "notes": "Considere tomar un complejo B antes de dormir.",
+      "score": 6.8,
+      "status": "inactiva"
+    }
+  ],
+  "meal-plan": [
     {
       "id": "1",
       "name": "Plan Keto Inicial",
