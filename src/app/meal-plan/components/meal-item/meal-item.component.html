@@ -1,14 +1,19 @@
-<div class="meal-card weight-loss">
+<div class="meal-card">
+  <div class="info-container">
   <div class="meal-card-header">
     <h2 class="meal-title">{{ plan.name }}</h2>
-    <div class="meal-subtitle">Categoría: {{ plan.calories_per_day }}</div>
+    <div class="meal-subtitle">Categoría: {{ plan.category }}</div>
   </div>
   <div class="meal-card-content">
     <p class="meal-description">
       {{ plan.description }}
     </p>
-    <p class="meal-detail">Objetivo: {{ plan.goal }}</p>
-    <p class="meal-detail">Calorías por día: {{ plan.calories_per_day }} Kcal</p>
+    <div class="meal-tags">
+      <span *ngFor="let tag of plan.tags" class="tag">{{ tag }}</span>
+    </div>
+    <p class="meal-detail">Calorías por día: {{ plan.calories }} kcal</p>
+    <p class="meal-detail">Carbs: {{ plan.carbs }}g | Proteínas: {{ plan.proteins }}g | Grasas: {{ plan.fats }}g</p>
+  </div>
   </div>
   <div class="meal-card-actions">
     <button class="meal-btn" (click)="goToDetail()">Ver Detalle</button>

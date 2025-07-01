@@ -3,14 +3,15 @@ export class MealPlan {
     public id: number,
     public name: string,
     public description: string,
-    public total_carbs: number,
-    public total_proteins: number,
-    public total_fats: number,
-    public calories_per_day: number,
-    public goal: string,
-    public is_current: boolean,
-    public profile_id: number,
-    public created_at: string,
+    public carbs: number,
+    public proteins: number,
+    public fats: number,
+    public calories: number,
+    public isCurrent: boolean,
+    public category: string,
+    public profileId: number,
+    public entries: MealPlanEntries[],
+    public tags: string[],
 
   ) {}
 
@@ -24,27 +25,27 @@ export class MealPlan {
     }*/
 }
 
-export class MealPlanDay {
+export class MealPlanEntries {
   constructor(
-    public meal_plan_id: number,
-    public recipe_id: number,
-    public day: number,
-    public id: string,
-  ){}
-}
-export class MealPlanType{
-  constructor(
+    public mealPlanId: number,
+    public recipeId: number,
+    public mealPlanType: string,
     public id: number,
-    public type: string,
-  ) {
-  }
+  ){}
 }
 
 export class MealPlanTags{
   constructor(
-    public id: number,
+    //public id: number,
     public tag: string,
-    public meal_plan_id: number,
+    //public meal_plan_id: number,
+  ) {
+  }
+}
+export class MealPlanType{
+  constructor(
+  // public id: number,
+    public type: string,
   ) {
   }
 }

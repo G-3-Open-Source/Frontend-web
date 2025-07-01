@@ -6,15 +6,15 @@
       <label for="calorieFilter">Filtrar por Calorías</label>
       <select id="calorieFilter" [(ngModel)]="selectedCalories" (change)="filterByCalories()">
         <option value="">Todos</option>
-        <option *ngFor="let calorie of calories_per_day" [value]="calorie">{{ calorie }}</option>
+        <option *ngFor="let calorie of calories" [value]="calorie">{{ calorie }}</option>
       </select>
     </div>
 
     <div class="filter">
-      <label for="goalFilter">Filtrar por Objetivo</label>
-      <select id="goalFilter" [(ngModel)]="selectedGoal" (change)="filterByGoal()">
+      <label for="tagFilter">Filtrar por Tags</label>
+      <select id="tagFilter" [(ngModel)]="selectedTag" (change)="filterByTag()">
         <option value="">Todos</option>
-        <option *ngFor="let goal of goals" [value]="goal">{{ goal }}</option>
+        <option *ngFor="let tag of tags" [value]="tag">{{ tag }}</option>
       </select>
     </div>
 
@@ -28,3 +28,4 @@
     <app-meal-item *ngFor="let plan of filteredMealPlans" [plan]="plan"></app-meal-item>
   </div>
 </section>
+

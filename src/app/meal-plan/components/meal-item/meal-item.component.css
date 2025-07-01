@@ -1,253 +1,81 @@
-.cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  max-width: 1400px;
-  width: 100%;
-}
-
 .meal-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 0;
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.12),
-    0 8px 32px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  position: relative;
-  overflow: hidden;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 1rem auto;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+  min-height: 280px;
   display: flex;
   flex-direction: column;
-  height: 500px;
+  justify-content: space-between;
 }
+.info-container{
 
-.meal-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 5px;
-  background: linear-gradient(90deg, #48bb78 0%, #38a169 50%, #2f855a 100%);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
 }
-
 .meal-card:hover {
-  transform: translateY(-12px) scale(1.02);
-  box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.16),
-    0 12px 48px rgba(0, 0, 0, 0.12);
-  border-color: rgba(72, 187, 120, 0.4);
-}
-
-.meal-card:hover::before {
-  transform: scaleX(1);
+  transform: scale(1.01);
 }
 
 .meal-card-header {
-  padding: 2rem 2rem 1rem 2rem;
-  position: relative;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .meal-title {
+  margin: 0;
   font-size: 1.5rem;
-  font-weight: 700;
-  color: #1a202c;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.025em;
-  line-height: 1.3;
-  background: linear-gradient(135deg, #2d3748, #4a5568);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-weight: bold;
+  color: #2d3748;
 }
 
 .meal-subtitle {
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   color: #718096;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  display: inline-block;
-  background: linear-gradient(135deg, #e2e8f0, #cbd5e0);
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  border: 1px solid rgba(203, 213, 224, 0.5);
-}
-
-.meal-card-content {
-  padding: 0 2rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
 }
 
 .meal-description {
-  color: #4a5568;
-  line-height: 1.6;
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-  flex-grow: 1;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.meal-tags {
+  margin-bottom: 0.75rem;
+}
+
+.tag {
+  background-color: #edf2f7;
+  color: #2b6cb0;
+  font-size: 0.85rem;
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  margin-right: 0.5rem;
+  display: inline-block;
 }
 
 .meal-detail {
-  color: #2d3748;
   font-size: 0.9rem;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0;
-  border-left: 3px solid transparent;
-  padding-left: 0.75rem;
-  transition: all 0.3s ease;
-}
-
-.meal-detail:hover {
-  border-left-color: #48bb78;
-  background: rgba(72, 187, 120, 0.05);
-  border-radius: 0 8px 8px 0;
-}
-
-.meal-detail::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background: linear-gradient(135deg, #48bb78, #38a169);
-  border-radius: 50%;
-  flex-shrink: 0;
+  color: #4a5568;
+  margin: 0.25rem 0;
 }
 
 .meal-card-actions {
-  padding: 1rem 2rem 2rem 2rem;
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
+  margin-top: 1rem;
+  text-align: right;
 }
 
 .meal-btn {
-  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  background-color: #4caf50;
   color: white;
+  padding: 0.5rem 1.2rem;
   border: none;
-  padding: 0.875rem 2rem;
-  border-radius: 50px;
-  font-weight: 600;
-  font-size: 0.95rem;
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  text-transform: none;
-  letter-spacing: 0.025em;
-  box-shadow: 0 8px 25px rgba(72, 187, 120, 0.3);
-  position: relative;
-  overflow: hidden;
+  transition: background-color 0.2s ease;
 }
-
-.meal-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
 .meal-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 35px rgba(72, 187, 120, 0.4);
-  background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
-}
-
-.meal-btn:hover::before {
-  left: 100%;
-}
-
-.meal-btn:active {
-  transform: translateY(0);
-  transition: transform 0.1s;
-}
-
-.meal-card {
-  border-top: 5px solid #4caf50;
-}
-
-.meal-card .meal-btn {
-  background: linear-gradient(135deg, #4caf50 0%, #2a622d 100%);
-  box-shadow: 0 8px 25px #091509;
-}
-
-.meal-card .meal-btn:hover {
-  background: linear-gradient(135deg, #4caf50 0%, #2a622d 100%);
-  box-shadow: 0 12px 35px #091509;
-}
-
-
-@media (max-width: 768px) {
-  .cards-container {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 1rem;
-  }
-
-  .meal-card-header {
-    padding: 1.5rem 1.5rem 1rem 1.5rem;
-  }
-
-  .meal-card-content {
-    padding: 0 1.5rem;
-  }
-
-  .meal-card-actions {
-    padding: 1rem 1.5rem 1.5rem 1.5rem;
-  }
-
-  .meal-title {
-    font-size: 1.25rem;
-  }
-
-  .meal-btn {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.9rem;
-  }
-}
-
-@keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.9) translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-.meal-card {
-  animation: fadeInScale 0.6s ease-out forwards;
-}
-
-.meal-card.loading {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.9) 25%,
-    rgba(255, 255, 255, 0.95) 50%,
-    rgba(255, 255, 255, 0.9) 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+  background-color: #2d6330;
 }

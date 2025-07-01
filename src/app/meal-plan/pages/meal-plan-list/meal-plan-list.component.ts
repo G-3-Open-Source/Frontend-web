@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MealPlan} from '../../model/meal-plan.entity';
+import {MealPlan, MealPlanTags} from '../../model/meal-plan.entity';
 import {MatCardModule} from '@angular/material/card';
 import {FormsModule} from '@angular/forms';
 import {NgForOf, NgIf} from '@angular/common';
@@ -17,10 +17,10 @@ import {Router} from '@angular/router';
 export class MealPlanListComponent implements OnInit{
   mealPlans: MealPlan[] = [];
   filteredMealPlans: MealPlan[] = [];
-  selectedGoal: string = '';
+  selectedTag: string = '';
   selectedCalories: number = 0;
-  goals: string[] = [];
-  calories_per_day: number[] = [];
+  tags: string[] = [];
+  calories: number[] = [];
   constructor(private dataService: MealPlanService, private router: Router) {
   }
 
@@ -31,8 +31,8 @@ export class MealPlanListComponent implements OnInit{
         console.log('Data fetched:', data);
         this.mealPlans = data;
         this.filteredMealPlans = data;
-        this.goals = [...new Set(this.mealPlans.map(plan => plan.goal))];
-        this.calories_per_day = [...new Set(this.mealPlans.map(plan => plan.calories_per_day))];
+        this.tags = [...new Set(this.mealPlans.map(plan => plan.tags).flat())];
+        this.calories = [...new Set(this.mealPlans.map(plan => plan.calories))];
       },
       error: (err) => console.error('Error fetching data:', err)
 
@@ -41,16 +41,16 @@ export class MealPlanListComponent implements OnInit{
   goToCreateMealPlan(): void {
     this.router.navigate(['/meal-plan/create-plan']);
   }
-  filterByCalories(): void {
-    if (this.selectedCalories) {
-      this.filteredMealPlans = this.mealPlans.filter(plan => plan.calories_per_day === this.selectedCalories);
-    } else {
-      this.filteredMealPlans = [...this.mealPlans];
-    }
+filterByCalories(): void {
+  if (this.selectedCalories) {
+    this.filteredMealPlans = this.mealPlans.filter(plan => plan.calories == this.selectedCalories);
+  } else {
+    this.filteredMealPlans = [...this.mealPlans];
   }
-  filterByGoal(): void {
-    if (this.selectedGoal) {
-      this.filteredMealPlans = this.mealPlans.filter(plan => plan.goal === this.selectedGoal);
+}
+  filterByTag(): void {
+    if (this.selectedTag) {
+      this.filteredMealPlans = this.mealPlans.filter(plan => plan.tags.includes(this.selectedTag));
     } else {
       this.filteredMealPlans = [...this.mealPlans];
     }

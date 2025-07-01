@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MealPlanService } from '../../services/meal-plan.service';
-import {NgIf} from '@angular/common';
-
+import {NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-meal-plan-detail',
   imports: [
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    NgForOf
   ],
   templateUrl: './meal-plan-detail.component.html',
   styleUrls: ['./meal-plan-detail.component.css']
@@ -31,27 +31,32 @@ export class MealPlanDetailComponent implements OnInit {
     this.planForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      total_carbs: ['', [Validators.required, Validators.min(0)]],
-      total_proteins: ['', [Validators.required, Validators.min(0)]],
-      total_fats: ['', [Validators.required, Validators.min(0)]],
-      calories_per_day: ['', [Validators.required, Validators.min(0)]],
-      goal: ['', Validators.required],
-      is_current: [false]
+      carbs: ['', [Validators.required, Validators.min(0)]],
+      proteins: ['', [Validators.required, Validators.min(0)]],
+      fats: ['', [Validators.required, Validators.min(0)]],
+      calories: ['', [Validators.required, Validators.min(0)]],
+      category: ['', Validators.required],
+      tags: [''],
+      isCurrent: [false]
     });
   }
 
   ngOnInit(): void {
     const planId: any = this.route.snapshot.paramMap.get('id');
     this.loadPlan(planId);
+    this.planForm.disable(); // Deshabilitar el formulario inicialmente
   }
-  enableEdit() {
-    this.editMode = true;
-  }
+
   loadPlan(id: string): void {
     this.planService.getMealPlanById(id).subscribe({
       next: (data) => {
         this.plan = data;
-        this.planForm.patchValue(data);
+        // Convertir el array de tags a string para el formulario
+        const formData = {
+          ...data,
+          tags: data.tags?.join(', ') || ''
+        };
+        this.planForm.patchValue(formData);
       },
       error: (err) => {
         console.error('Error loading plan:', err);
@@ -66,17 +71,29 @@ export class MealPlanDetailComponent implements OnInit {
       this.planForm.enable();
     } else {
       this.planForm.disable();
-      this.planForm.patchValue(this.plan);
+      this.planForm.patchValue({
+        ...this.plan,
+        tags: this.plan.tags?.join(', ') || ''
+      });
     }
   }
 
   savePlan(): void {
     if (this.planForm.valid) {
-      const updatedPlan = { ...this.plan, ...this.planForm.value };
+      // Convertir el string de tags de vuelta a array
+      const formValue = {
+        ...this.planForm.value,
+        tags: this.planForm.value.tags ?
+          this.planForm.value.tags.split(',').map((tag: string) => tag.trim()) : []
+      };
+
+      const updatedPlan = { ...this.plan, ...formValue };
+
       this.planService.saveMealPlan(this.plan.id, updatedPlan).subscribe({
         next: () => {
           this.plan = updatedPlan;
           this.editMode = false;
+          this.planForm.disable();
           this.snackBar.open('Plan actualizado con éxito', 'Cerrar', { duration: 3000 });
         },
         error: (err) => {
@@ -87,13 +104,6 @@ export class MealPlanDetailComponent implements OnInit {
     }
   }
 
-  calculateCalories(): number {
-    if (this.planForm.valid) {
-      const { total_carbs, total_proteins, total_fats } = this.planForm.value;
-      return (total_carbs * 4) + (total_proteins * 4) + (total_fats * 9);
-    }
-    return 0;
-  }
   confirmDelete(): void {
     this.showDeleteModal = true;
   }
@@ -102,10 +112,12 @@ export class MealPlanDetailComponent implements OnInit {
     this.planService.deleteMealPlan(this.plan.id).subscribe({
       next: () => {
         this.router.navigate(['/meal-plan']);
+        this.snackBar.open('Plan eliminado con éxito', 'Cerrar', { duration: 3000 });
       },
       error: (err) => {
         console.error('Error deleting plan:', err);
         this.showDeleteModal = false;
+        this.snackBar.open('Error al eliminar el plan', 'Cerrar', { duration: 3000 });
       }
     });
   }
