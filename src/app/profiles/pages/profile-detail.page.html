@@ -1,0 +1,109 @@
+<div class="profile-container">
+  <h2 *ngIf="!editMode">{{ user?.name }}'s Profile</h2>
+  <h2 *ngIf=" editMode">Create Your Profile</h2>
+
+  <form [formGroup]="profileForm" class="profile-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" [readonly]="!editMode">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" [readonly]="!editMode">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" *ngIf="editMode">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Birth Date</mat-label>
+      <input matInput type="date" formControlName="birthDate" [readonly]="!editMode">
+    </mat-form-field>
+
+    <mat-checkbox formControlName="isActive" [disabled]="!editMode">
+      Active
+    </mat-checkbox>
+
+    <h3>Health Profile</h3>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Gender</mat-label>
+      <input matInput formControlName="gender" [readonly]="!editMode">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Height (cm)</mat-label>
+      <input matInput type="number" formControlName="height" [readonly]="!editMode">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Weight (kg)</mat-label>
+      <input matInput type="number" formControlName="weight" [readonly]="!editMode">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>User Score</mat-label>
+      <input matInput type="number" formControlName="userScore" [readonly]="!editMode">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Activity Level</mat-label>
+      <mat-select formControlName="activityLevelId" [disabled]="!editMode">
+        <mat-option [value]="null">None</mat-option>
+        <mat-option *ngFor="let lvl of activityLevels" [value]="lvl.id">
+          {{ lvl.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Objective</mat-label>
+      <mat-select formControlName="objectiveId" [disabled]="!editMode">
+        <mat-option [value]="null">None</mat-option>
+        <mat-option *ngFor="let obj of objectives" [value]="obj.id">
+          {{ obj.objectiveName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Allergies</mat-label>
+      <mat-select formControlName="allergyIds" multiple [disabled]="!editMode">
+        <mat-option *ngFor="let al of allergies" [value]="al.id">
+          {{ al.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="btn-container">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="loading"
+        *ngIf="editMode"
+        type="button"
+        (click)="save()"
+      >
+        {{ userProfile ? 'Save Changes' : 'Create Profile' }}
+        <mat-progress-spinner
+          *ngIf="loading"
+          diameter="20"
+          mode="indeterminate"
+        ></mat-progress-spinner>
+      </button>
+
+      <button
+        mat-raised-button
+        color="accent"
+        *ngIf="!editMode"
+        type="button"
+        (click)="edit()"
+      >
+        Edit
+      </button>
+    </div>
+  </form>
+</div>

@@ -4,9 +4,9 @@
       "id": 1,
       "user_id": 101,
       "daily_calories": 2200,
-      "daily_protein": 150.00,
-      "daily_carbs": 250.00,
-      "daily_fat": 70.00
+      "daily_protein": 150,
+      "daily_carbs": 250,
+      "daily_fat": 70
     }
   ],
   "tracking": [
@@ -14,33 +14,33 @@
       "id": 1,
       "date": "2025-05-14",
       "time_of_day": "breakfast",
-      "quantity": 1.00,
+      "quantity": 1,
       "notes": "Desayuno saludable con avena",
       "recipe_id": 10,
       "user_id": 101,
-      "calories": 350.00,
+      "calories": 350,
       "created_at": "2025-05-14T08:15:00Z"
     },
     {
       "id": 2,
       "date": "2025-05-14",
       "time_of_day": "lunch",
-      "quantity": 1.50,
+      "quantity": 1.5,
       "notes": "Ensalada de pollo con arroz",
       "recipe_id": 12,
       "user_id": 101,
-      "calories": 600.00,
+      "calories": 600,
       "created_at": "2025-05-14T13:10:00Z"
     },
     {
       "id": 3,
       "date": "2025-05-14",
       "time_of_day": "dinner",
-      "quantity": 1.00,
+      "quantity": 1,
       "notes": "Pescado con papas al horno",
       "recipe_id": 14,
       "user_id": 101,
-      "calories": 500.00,
+      "calories": 500,
       "created_at": "2025-05-14T20:45:00Z"
     }
   ],
@@ -443,6 +443,92 @@
           "status": "inactiva"
         }
       ]
+    }
+  ],
+  "user-profiles": [
+    {
+      "id": 1,
+      "gender": "Male",
+      "height": 1,
+      "weight": 70,
+      "userScore": 85,
+      "activityLevelId": 1,
+      "activityLevelName": "Sedentary",
+      "objectiveId": 1,
+      "objectiveName": "Lose Weight",
+      "allergyNames": [
+        "Nut Allergy",
+        "Gluten Allergy"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Héctor Ríos",
+      "email": "hector@example.com",
+      "password": "••••••",
+      "isActive": true,
+      "birthDate": "1990-05-15",
+      "userProfileId": 1
+    }
+  ],
+  "objectives": [
+    {
+      "id": 1,
+      "objectiveName": "Lose Weight",
+      "score": 50,
+      "description": "Objective to reduce body weight through diet and exercise."
+    },
+    {
+      "id": 2,
+      "objectiveName": "Gain Muscle",
+      "score": 70,
+      "description": "Objective to increase muscle mass with strength training and diet."
+    }
+  ],
+  "allergies": [
+    {
+      "id": 1,
+      "name": "Nut Allergy",
+      "relatedIngredients": [
+        {
+          "name": "Almonds"
+        },
+        {
+          "name": "Pecans"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Gluten Allergy",
+      "relatedIngredients": [
+        {
+          "name": "Wheat"
+        },
+        {
+          "name": "Barley"
+        }
+      ]
+    }
+  ],
+  "activity-levels": [
+    {
+      "id": 1,
+      "name": "Sedentary",
+      "description": "Little or no exercise",
+      "activityFactor": 1.2,
+      "createdAt": "2025-07-07T00:00:00.000Z",
+      "updatedAt": "2025-07-07T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Active",
+      "description": "Moderate exercise 3-5 days/week",
+      "activityFactor": 1.55,
+      "createdAt": "2025-07-07T00:00:00.000Z",
+      "updatedAt": "2025-07-07T00:00:00.000Z"
     }
   ]
 }

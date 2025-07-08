@@ -91,9 +91,10 @@ export class IngredientManagementComponent implements OnInit, AfterViewInit  {
 
    // UI Event Handlers
 
-  onEditItem(element: Ingredient) {
+  onEditItem(arg: Ingredient | Event): void {
+    const element = arg as Ingredient;
     this.isEditMode = true;
-    this.ingredientData =element;
+    this.ingredientData = element;
   }
 
   onDeleteItem(element: Ingredient) {
