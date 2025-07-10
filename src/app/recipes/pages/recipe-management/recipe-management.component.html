@@ -1,8 +1,8 @@
-<!-- Recipe catalogue -->
+<!-- Catálogo de Recetas -->
 <div class="table-wrapper">
   <h3>{{ 'title.recipes' | translate }}</h3>
 
-  <!-- Add/Edit Form -->
+  <!-- Formulario Crear/Editar -->
   <app-recipe-create-and-edit
     (editCanceled)="onCancelEdit()"
     (recipeAdded)="onRecipeAdded($event)"
@@ -11,7 +11,7 @@
     [recipe]="recipeData">
   </app-recipe-create-and-edit>
 
-  <!-- Data Table -->
+  <!-- Tabla de Recetas -->
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
          matSort matSortActive="name" matSortDirection="asc">
 
@@ -36,18 +36,18 @@
       <td *matCellDef="let element" mat-cell>{{ element.description }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="ingredients">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>
-        {{ 'recipe.ingredients' | translate }}
-      </th>
-      <td *matCellDef="let element" mat-cell>{{ element.ingredients }}</td>
-    </ng-container>
-
     <ng-container matColumnDef="category">
       <th *matHeaderCellDef mat-header-cell mat-sort-header>
         {{ 'recipe.category' | translate }}
       </th>
       <td *matCellDef="let element" mat-cell>{{ element.category }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="recipeType">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        {{ 'recipe.recipeType' | translate }}
+      </th>
+      <td *matCellDef="let element" mat-cell>{{ element.recipeType }}</td>
     </ng-container>
 
     <ng-container matColumnDef="preparationTime">
@@ -64,6 +64,22 @@
       <td *matCellDef="let element" mat-cell>{{ element.difficulty }}</td>
     </ng-container>
 
+    <ng-container matColumnDef="userId">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        {{ 'recipe.userId' | translate }}
+      </th>
+      <td *matCellDef="let element" mat-cell>{{ element.userId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="ingredients">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        {{ 'recipe.ingredients' | translate }}
+      </th>
+      <td *matCellDef="let element" mat-cell>
+        {{ element.ingredients?.join(', ') }}
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="actions">
       <th *matHeaderCellDef mat-header-cell> {{ 'actions' | translate }}</th>
       <td *matCellDef="let element" mat-cell>
@@ -72,13 +88,11 @@
       </td>
     </ng-container>
 
-    <!-- Only include visible columns -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"
         [ngClass]="{'editable-row': recipeData.id === row.id }">
     </tr>
   </table>
 
-  <!-- Paginator -->
   <mat-paginator [pageSizeOptions]="[5, 10, 15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
 </div>
