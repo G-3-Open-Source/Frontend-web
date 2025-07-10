@@ -8,6 +8,6 @@ import { User } from '../model/user.entity';
 export class UserService extends BaseService<User> {
   constructor(http: HttpClient) {
     super(http);
-    this.resourceEndpoint = '/users';
+    this.resourceEndpoint = '/profiles';
   }
 }
