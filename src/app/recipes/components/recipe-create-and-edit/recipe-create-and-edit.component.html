@@ -1,12 +1,7 @@
-<!-- Create and Edit Form -->
+<!-- Formulario Crear/Editar Receta (con userId) -->
 <h4>{{ editMode ? 'Edit Recipe' : 'New Recipe' }}</h4>
 <div class="form-section">
-
   <form (submit)="onSubmit()" #recipeForm="ngForm" class="form-row">
-    <mat-form-field>
-      <input matInput placeholder="ID" name="id" required [(ngModel)]="recipe.id">
-    </mat-form-field>
-
     <mat-form-field>
       <input matInput placeholder="Name" name="name" required [(ngModel)]="recipe.name">
     </mat-form-field>
@@ -16,19 +11,23 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Ingredients" name="ingredients" required [(ngModel)]="recipe.ingredients">
-    </mat-form-field>
-
-    <mat-form-field>
       <input matInput placeholder="Category" name="category" required [(ngModel)]="recipe.category">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Preparation Time" name="preparationTime" required [(ngModel)]="recipe.preparationTime">
+      <input matInput placeholder="Recipe Type" name="recipeType" required [(ngModel)]="recipe.recipeType">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Preparation Time" name="preparationTime" type="number" required [(ngModel)]="recipe.preparationTime">
     </mat-form-field>
 
     <mat-form-field>
       <input matInput placeholder="Difficulty" name="difficulty" required [(ngModel)]="recipe.difficulty">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="User ID" name="userId" type="number" required [(ngModel)]="recipe.userId">
     </mat-form-field>
 
     <ng-container>
@@ -41,5 +40,4 @@
       }
     </ng-container>
   </form>
-
 </div>

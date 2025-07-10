@@ -5,44 +5,36 @@
   <form (submit)="onSubmit()" #ingredientForm="ngForm" class="form-row">
 
     <mat-form-field>
-      <input matInput placeholder="Name" name="name" required [(ngModel)]="ingredient.name">
+      <input matInput placeholder="Nombre" name="name" required [(ngModel)]="ingredient.name">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Category" name="category" required [(ngModel)]="ingredient.category">
+      <input matInput type="number" placeholder="Calorías" name="calories" required [(ngModel)]="ingredient.calories">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="number" placeholder="Calories" name="calories" required [(ngModel)]="ingredient.calories">
+      <input matInput type="number" placeholder="Carbohidratos" name="carbohydrates" required [(ngModel)]="ingredient.carbohydrates">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="number" placeholder="Carbohydrates" name="carbs" required [(ngModel)]="ingredient.carbs">
+      <input matInput type="number" placeholder="Proteínas" name="proteins" required [(ngModel)]="ingredient.proteins">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="number" placeholder="Proteins" name="proteins" required [(ngModel)]="ingredient.proteins">
+      <input matInput type="number" placeholder="Grasas" name="fats" required [(ngModel)]="ingredient.fats">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="number" placeholder="Fats" name="fats" required [(ngModel)]="ingredient.fats">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="Allergies" name="allergies" [(ngModel)]="ingredient.allergies">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput type="number" placeholder="Recipes (count)" name="recipes" required [(ngModel)]="ingredient.recipes">
+      <input matInput type="number" placeholder="ID Macronutrientes" name="macronutrientValuesId" required [(ngModel)]="ingredient.macronutrientValuesId">
     </mat-form-field>
 
     <ng-container>
       @if (editMode === true) {
-        <button mat-raised-button color="primary">Update</button>
-        <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button color="primary">Actualizar</button>
+        <button mat-raised-button color="warn" (click)="onCancel()">Cancelar</button>
       }
       @else {
-        <button mat-raised-button color="primary">Add</button>
+        <button mat-raised-button color="primary">Agregar</button>
       }
     </ng-container>
 

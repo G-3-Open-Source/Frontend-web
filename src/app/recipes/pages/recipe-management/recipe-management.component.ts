@@ -17,29 +17,35 @@ import { TranslateModule } from "@ngx-translate/core";
   styleUrl: './recipe-management.component.css'
 })
 export class RecipeManagementComponent implements OnInit, AfterViewInit {
-  // Atributos
   recipeData: Recipe;
   dataSource!: MatTableDataSource<Recipe>;
-  displayedColumns: string[] = ['id', 'name', 'description', 'ingredients', 'category', 'preparationTime', 'difficulty', 'actions'];
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'description',
+    'category',
+    'recipeType',
+    'preparationTime',
+    'difficulty',
+    'userId',
+    'ingredients',
+    'actions'
+  ];
   isEditMode: boolean;
 
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
-  // Constructor
   constructor(private recipeService: RecipeService) {
     this.isEditMode = false;
     this.recipeData = {} as Recipe;
     this.dataSource = new MatTableDataSource<Recipe>();
   }
 
-  // Métodos privados
   private resetEditState(): void {
     this.isEditMode = false;
     this.recipeData = {} as Recipe;
   }
-
-  // Acciones CRUD
 
   private getAllRecipes(): void {
     this.recipeService.getAll()
@@ -52,7 +58,7 @@ export class RecipeManagementComponent implements OnInit, AfterViewInit {
     this.recipeService.create(this.recipeData)
       .subscribe((response: Recipe) => {
         this.dataSource.data.push({ ...response });
-        this.dataSource.data = this.dataSource.data.map(recipe => recipe); // trigger update
+        this.dataSource.data = this.dataSource.data.map(recipe => recipe);
       });
   }
 
@@ -72,8 +78,6 @@ export class RecipeManagementComponent implements OnInit, AfterViewInit {
         this.dataSource.data = this.dataSource.data.filter((recipe: Recipe) => recipe.id !== recipeId);
       });
   }
-
-  // Manejadores de eventos UI
 
   onEditItem(element: Recipe) {
     this.isEditMode = true;
@@ -100,8 +104,6 @@ export class RecipeManagementComponent implements OnInit, AfterViewInit {
     this.updateRecipe();
     this.resetEditState();
   }
-
-  // Ciclo de vida
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
