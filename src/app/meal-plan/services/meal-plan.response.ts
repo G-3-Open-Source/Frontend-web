@@ -16,6 +16,7 @@ export interface MealPlanResponse {
 export interface MealPlanEntriesResponse{
   id: number;
   recipeId: number;
+  day: number;
   mealPlanType: string;
   mealPlanId: number;
 }

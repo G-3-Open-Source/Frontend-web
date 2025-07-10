@@ -21,6 +21,9 @@ export class MealPlanDetailComponent implements OnInit {
   planForm: FormGroup;
   showDeleteModal = false;
 
+  daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+  mealTypes = ['Desayuno', 'Comida', 'Cena', 'Snack'];
+
   constructor(
     private route: ActivatedRoute,
     private planService: MealPlanService,

@@ -64,9 +64,9 @@
           <h3>Entradas del plan</h3>
           <div *ngIf="plan?.entries?.length > 0; else noEntries">
             <div *ngFor="let entry of plan.entries" class="entry-item">
-              <p>Receta ID: {{ entry.recipeId }}</p>
-              <p>Día: {{ entry.day }}</p>
-              <p>Tipo de comida: {{ entry.mealPlanType }}</p>
+              <p>Receta: {{ entry.day }}</p>
+              <p>Día: {{ daysOfWeek[entry.day - 1] }}</p>
+              <p>Tipo de comida: {{ mealTypes[entry.mealPlanType - 1] }}</p>
             </div>
           </div>
           <ng-template #noEntries>

@@ -25,6 +25,7 @@ export class MealPlanAssembler {
       entries: response.entries.map(entry => ({
         mealPlanId: entry.mealPlanId,
         recipeId: entry.recipeId,
+        day: entry.day,
         mealPlanType: entry.mealPlanType,
         id: entry.id
       })),
