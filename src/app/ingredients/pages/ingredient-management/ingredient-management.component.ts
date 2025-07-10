@@ -19,32 +19,31 @@ import { TranslateModule } from "@ngx-translate/core";
 })
 export class IngredientManagementComponent implements OnInit, AfterViewInit  {
 
-  // Attributes
+  // Atributos
   ingredientData: Ingredient;
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
-    'id', 'name', 'category', 'calories', 'carbs',
-    'proteins', 'fats', 'allergies', 'recipes', 'actions'
+    'id', 'name', 'calories', 'carbohydrates', 'proteins', 'fats', 'macronutrientValuesId', 'actions'
   ];
   isEditMode: boolean;
 
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
-// Constructor
+  // Constructor
   constructor(private ingredientService: IngredientsService) {
     this.isEditMode = false;
     this.ingredientData = {} as Ingredient;
     this.dataSource = new MatTableDataSource<any>();
   }
 
-// Private Methods
+  // Métodos privados
   private resetEditState(): void {
     this.isEditMode = false;
     this.ingredientData = {} as Ingredient;
   }
 
-// CRUD Actions
+  // Acciones CRUD
 
   private getAllIngredients(): void {
     this.ingredientService.getAll()
@@ -52,7 +51,6 @@ export class IngredientManagementComponent implements OnInit, AfterViewInit  {
         this.dataSource.data = response;
       });
   };
-  /////////////////
 
   private createIngredient(): void {
     this.ingredientService.create(this.ingredientData)
@@ -64,7 +62,6 @@ export class IngredientManagementComponent implements OnInit, AfterViewInit  {
           }); // Trigger Angular change detection
       });
   };
-
 
   private updateIngredient(): void {
     let ingredientToUpdate: Ingredient = this.ingredientData;
@@ -79,7 +76,6 @@ export class IngredientManagementComponent implements OnInit, AfterViewInit  {
       });
   };
 
-
   private deleteIngredient(ingredientId: number): void {
     this.ingredientService.delete(ingredientId)
       .subscribe(() => {
@@ -89,11 +85,12 @@ export class IngredientManagementComponent implements OnInit, AfterViewInit  {
       });
   };
 
-   // UI Event Handlers
+  // Manejadores de eventos de UI
 
-  onEditItem(element: Ingredient) {
+  onEditItem(arg: Ingredient | Event): void {
+    const element = arg as Ingredient;
     this.isEditMode = true;
-    this.ingredientData =element;
+    this.ingredientData = element;
   }
 
   onDeleteItem(element: Ingredient) {
@@ -117,7 +114,7 @@ export class IngredientManagementComponent implements OnInit, AfterViewInit  {
     this.resetEditState();
   }
 
-// Lifecycle Hooks
+  // Ciclo de vida
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;

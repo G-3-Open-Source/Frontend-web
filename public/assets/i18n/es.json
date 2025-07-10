@@ -38,10 +38,12 @@
     "id": "N.º",
     "name": "Nombre",
     "ingredients": "Ingredientes",
+    "recipeType": "Tipo de Receta",
     "description": "Descripción",
     "category": "Categoria",
     "preparationTime": "Tiempo de Preparación (Minutos)",
-    "difficulty": "Dificultad"
+    "difficulty": "Dificultad",
+    "userId": "ID Usuario"
   },
   "footer": {
     "rights": "Copyright © 2025 {{ api }}, Todos los derechos reservados",

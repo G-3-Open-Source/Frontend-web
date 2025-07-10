@@ -1,41 +1,37 @@
-<!-- Create and Edit Form -->
-<h4>{{ editMode ? 'Edit Tracking' : 'New Tracking' }}</h4>
+<!-- Meal Plan Entry Form -->
 <div class="form-section">
+  <h4>{{ editingMealEntry ? 'Edit Meal Entry' : 'Add Meal Entry from Recipe' }}</h4>
+  <form (ngSubmit)="onSubmitMealEntry()" #mealEntryForm="ngForm" class="form-row">
 
-  <form (submit)="onSubmit()" #trackingForm='ngForm' class="form-row">
     <mat-form-field>
-      <input matInput placeholder="date" name="date" required [(ngModel)]="tracking.date">
+      <mat-label>User ID</mat-label>
+      <input matInput type="number" name="userId" required [(ngModel)]="mealEntryData.userId">
     </mat-form-field>
-    <mat-form-field id="time_of_day-form-field">
-      <input matInput placeholder="timeofday" name="timeofday" required [(ngModel)]="tracking.time_of_day">
-    </mat-form-field>
+
     <mat-form-field>
-      <input matInput  type="number" placeholder="quantity" name="quantity" required [(ngModel)]="tracking.quantity">
+      <mat-label>Recipe ID</mat-label>
+      <input matInput type="number" name="recipeId" required [(ngModel)]="mealEntryData.recipeId">
     </mat-form-field>
-    <mat-form-field id="notes-field">
-      <input matInput placeholder="notes" name="notes" required [(ngModel)]="tracking.notes">
-    </mat-form-field>
+
     <mat-form-field>
-      <input matInput  type="number" placeholder="recipeid" name="recipeid" required [(ngModel)]="tracking.recipe_id">
+      <mat-label>Meal Type</mat-label>
+      <mat-select name="mealPlanType" required [(ngModel)]="mealEntryData.mealPlanType">
+        <mat-option *ngFor="let type of mealTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+
     <mat-form-field>
-      <input matInput  type="number" placeholder="userid" name="userid" required [(ngModel)]="tracking.user_id">
+      <mat-label>Day Number</mat-label>
+      <input matInput type="number" name="dayNumber" required [(ngModel)]="mealEntryData.dayNumber">
     </mat-form-field>
-    <mat-form-field>
-      <input matInput  type="number" placeholder="calories" name="calories" required [(ngModel)]="tracking.calories">
-    </mat-form-field>
-    <mat-form-field id="created_at-field">
-      <input matInput placeholder="createdat" name="createdat" required [(ngModel)]="tracking.created_at">
-    </mat-form-field>
-    <ng-container>
-      @if (editMode === true) {
-        <button mat-raised-button color="primary">Update</button>
-        <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
-      }
-      @else {
-        <button mat-raised-button color="primary">Add</button>
-      }
-    </ng-container>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">
+        {{ editingMealEntry ? 'Update Entry' : 'Add Entry' }}
+      </button>
+      <button mat-raised-button color="warn" type="button" (click)="onCancelMealEntry()">Cancel</button>
+    </div>
   </form>
-
 </div>

@@ -13,7 +13,6 @@ import { MatButtonModule } from "@angular/material/button";
   styleUrl: './recipe-create-and-edit.component.css'
 })
 export class RecipeCreateAndEditComponent {
-  // Attributes
   @Input() recipe: Recipe;
   @Input() editMode: boolean = false;
   @Output() recipeAdded: EventEmitter<Recipe> = new EventEmitter<Recipe>();
@@ -21,19 +20,16 @@ export class RecipeCreateAndEditComponent {
   @Output() editCanceled: EventEmitter<any> = new EventEmitter();
   @ViewChild('recipeForm', { static: false }) recipeForm!: NgForm;
 
-  // Constructor
   constructor() {
     this.recipe = {} as Recipe;
   }
 
-  // Private methods
   private resetEditState(): void {
     this.recipe = {} as Recipe;
     this.editMode = false;
     this.recipeForm.resetForm();
   }
 
-  // Event Handlers
   onSubmit(): void {
     if (this.recipeForm.form.valid) {
       const emitter: EventEmitter<Recipe> = this.editMode ? this.recipeUpdated : this.recipeAdded;
@@ -49,4 +45,3 @@ export class RecipeCreateAndEditComponent {
     this.resetEditState();
   }
 }
-

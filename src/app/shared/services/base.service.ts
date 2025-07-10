@@ -57,6 +57,29 @@ export class BaseService<T> {
     return this.http.get<T>(this.resourcePath(), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
+  getOne(id: number): Observable<T> {
+    return this.http.get<T>(`${this.resourcePath()}/${id}`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
+
+  getAllArray(): Observable<T[]> {
+    return this.http
+      .get<T[]>(this.resourcePath(), this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+  createJson(item: any): Observable<T> {
+    return this.http
+      .post<T>(this.resourcePath(), item, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+  updateJson(id: any, item: any): Observable<T> {
+    return this.http
+      .put<T>(`${this.resourcePath()}/${id}`, item, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
 
   protected resourcePath(): string {
     return `${this.basePath}${this.resourceEndpoint}`;
