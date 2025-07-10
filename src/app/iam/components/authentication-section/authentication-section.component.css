@@ -1,0 +1,191 @@
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 20px;
+  animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.welcome-message {
+  color: #2d3748;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.welcome-message::before {
+  content: '🌱';
+  font-size: 16px;
+  -webkit-text-fill-color: initial;
+}
+
+
+.auth-btn {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.auth-btn:hover::before {
+  left: 100%;
+}
+
+.auth-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.auth-btn:active {
+  transform: translateY(0);
+}
+
+.sign-out-btn {
+  background: linear-gradient(135deg, #e53e3e 0%, #ff6b6b 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+
+.sign-out-btn:hover::before {
+  left: 100%;
+}
+
+.sign-out-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(229, 62, 62, 0.3);
+}
+
+.sign-out-btn:active {
+  transform: translateY(0);
+}
+
+.auth-btn:first-child::before {
+  content: '🔐 ';
+  position: static;
+  background: none;
+  left: auto;
+  width: auto;
+  height: auto;
+  margin-right: 6px;
+}
+
+.auth-btn:last-child::before {
+  content: '✨ ';
+  position: static;
+  background: none;
+  left: auto;
+  width: auto;
+  height: auto;
+  margin-right: 6px;
+}
+
+.sign-out-btn::after {
+  content: ' 🚪';
+  margin-left: 6px;
+}
+
+
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 12px 16px;
+    gap: 8px;
+  }
+
+  .welcome-message {
+    font-size: 14px;
+  }
+
+  .auth-btn,
+  .sign-out-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .welcome-message {
+    text-align: center;
+  }
+
+  .auth-container > *:not(:last-child)::after {
+    display: none;
+  }
+}
+
+.auth-btn,
+.sign-out-btn {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.welcome-message:hover {
+  animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}

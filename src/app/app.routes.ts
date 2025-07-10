@@ -15,20 +15,28 @@ import {
   TrackingCreateAndEditComponent
 } from './tracking/components/tracking-create-and-edit/tracking-create-and-edit.component';
 import {ProfileDetailPage} from './profiles/pages/profile-detail.page';
+import {SignUpComponent} from './iam/pages/sign-up/sign-up.component';
+import {SignInComponent} from './iam/pages/sign-in/sign-in.component';
+import {authenticationGuard} from './iam/services/authentication.guard';
 
 export const routes: Routes = [
+  { path: 'sign-up', component: SignUpComponent },
+  { path: 'sign-in', component: SignInComponent },
   {
     path: '',
     component: LayoutComponent,
     children: [
-      { path: '', component: HomeComponent },
-      { path: 'about', component: AboutComponent },
-      { path: 'recipe/ingredients', component: IngredientManagementComponent },
-      { path: 'recipe/recipe', component: RecipeManagementComponent },
-      {path: 'tracking', component: TrackingManagementComponent},
-      {path: 'recommendations', component: RecommendationManagementComponent},
-      { path: 'profiles', loadComponent: () => import('./profiles/pages/profile-detail.page').then(m => m.ProfileDetailPage) },
+      { path: '', component: HomeComponent, canActivate: [authenticationGuard] },
+      { path: 'about', component: AboutComponent, canActivate: [authenticationGuard] },
+      { path: 'recipe/ingredients', component: IngredientManagementComponent, canActivate: [authenticationGuard] },
+      { path: 'recipe/recipe', component: RecipeManagementComponent, canActivate: [authenticationGuard] },
+      {path: 'tracking', component: TrackingManagementComponent, canActivate: [authenticationGuard]},
+      {path: 'recommendations', component: RecommendationManagementComponent, canActivate: [authenticationGuard]},
+      { path: 'profiles',
+        canActivate: [authenticationGuard],
+        loadComponent: () => import('./profiles/pages/profile-detail.page').then(m => m.ProfileDetailPage) },
       {path: 'meal-plan',
+        canActivate: [authenticationGuard],
         loadChildren: () =>
           import('./meal-plan/meal-plan.module').then(m => m.MealPlanModule)
       },
