@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {FormArray} from '@angular/forms';
 import { OnInit } from '@angular/core';
 import {NgForOf} from '@angular/common';
+import {AuthenticationService} from '../../../iam/services/authentication.service';
 
 @Component({
   selector: 'app-create-plan',
@@ -17,12 +18,17 @@ import {NgForOf} from '@angular/common';
 })
 export class CreatePlanComponent implements OnInit {
   planForm: FormGroup;
-  profileId = 1;
+  profileId = 0;
 
   ngOnInit(): void {
     this.addEntry();
+    this.authService.currentUserId.subscribe(userId => {
+      console.log(userId)
+      this.profileId = userId;
+    });
   }
-  constructor(private fb: FormBuilder, private mealPlanService: MealPlanService, private router: Router) {
+  constructor(private fb: FormBuilder, private mealPlanService: MealPlanService, private router: Router,
+  private authService: AuthenticationService) {
     this.planForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
