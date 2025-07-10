@@ -27,7 +27,7 @@ export const routes: Routes = [
       { path: 'recipe/recipe', component: RecipeManagementComponent },
       {path: 'tracking', component: TrackingManagementComponent},
       {path: 'recommendations', component: RecommendationManagementComponent},
-      { path: 'profile', loadComponent: () => import('./profiles/pages/profile-detail.page').then(m => m.ProfileDetailPage) },
+      { path: 'profiles', loadComponent: () => import('./profiles/pages/profile-detail.page').then(m => m.ProfileDetailPage) },
       {path: 'meal-plan',
         loadChildren: () =>
           import('./meal-plan/meal-plan.module').then(m => m.MealPlanModule)

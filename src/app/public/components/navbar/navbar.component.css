@@ -58,3 +58,20 @@
     display: block;
   }
 }
+.right-section {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+}
+
+.right-actions .profile-icon mat-icon {
+  font-size: 28px;
+  color: #333; /* color propio, no blanco */
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.right-actions .profile-icon mat-icon:hover {
+  color: #1976d2;
+}
