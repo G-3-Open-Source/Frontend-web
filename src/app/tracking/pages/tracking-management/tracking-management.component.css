@@ -1,47 +1,133 @@
-/* tracking-list.component.css */
+/* Contenedor principal */
+.tracking-management-container {
+  padding: 2rem;
+  background-color: #f9fdf9;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
 
-.table-wrapper {
-  padding: 24px;
-  background-color: #f9f9f9;
+/* Títulos */
+h2, h3, h4, h5 {
+  color: #388E3C;
+  margin-bottom: 1rem;
+}
+
+/* Sección de búsqueda */
+.search-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+/* Botones */
+button[color="primary"] {
+  background-color: #4CAF50 !important;
+  color: white;
+}
+
+button[color="primary"]:hover {
+  background-color: #388E3C !important;
+}
+
+button[color="warn"] {
+  background-color: #f44336 !important;
+  color: white;
+}
+
+/* Cards de macros */
+.macro-summary {
+  margin-top: 1.5rem;
+}
+
+.macro-cards {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.macro-card {
+  flex: 1;
+  min-width: 220px;
+  background-color: #E8F5E9;
+  border: 1px solid #C8E6C9;
   border-radius: 12px;
+  padding: 1rem;
 }
 
-h3 {
-  color: #63B663;
-  margin-bottom: 16px;
-  font-weight: bold;
+.macro-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #2E7D32;
+  margin-bottom: 0.5rem;
 }
 
-table {
+.progress-bar {
+  background-color: #C8E6C9;
+  border-radius: 8px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background-color: #4CAF50;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+/* Tabla de entradas */
+.table-container {
+  margin-top: 1.5rem;
+  border: 1px solid #A5D6A7;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.meal-entries-table {
   width: 100%;
-  color: #63B663;
 }
 
-.mat-header-cell {
-  background-color: #e8f5e9;
-  color: #63B663;
+.meal-entries-table th {
+  background-color: #A5D6A7;
+  color: #1B5E20;
   font-weight: bold;
 }
 
-.mat-cell {
-  color: #4b8c4a;
+.meal-entries-table td {
+  background-color: #F1F8E9;
 }
 
-.editable-row {
-  background-color: #f1fff2 !important;
+/* Estado vacío */
+.empty-state {
+  text-align: center;
+  margin-top: 2rem;
+  color: #789262;
 }
 
-mat-icon {
-  color: #63B663;
-  cursor: pointer;
-  transition: transform 0.2s ease;
+.empty-state mat-icon {
+  font-size: 48px;
+  color: #C8E6C9;
 }
 
-mat-icon:hover {
-  transform: scale(1.2);
-  color: #4CAF50;
+/* Formulario */
+.form-section {
+  background-color: #E8F5E9;
+  border: 1px solid #C8E6C9;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 1rem;
 }
 
-mat-paginator {
-  color: #63B663;
+.form-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.mat-form-field {
+  width: 100%;
 }

@@ -1,52 +1,82 @@
-import { Component } from '@angular/core';
-import { EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from "@angular/forms";
-import { MatFormField } from "@angular/material/form-field";
+import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
-import {Tracking} from '../../model/tracking.entity';
+import { MatSelectModule } from "@angular/material/select";
+import { CommonModule } from "@angular/common";
+import {
+  Tracking,
+  CreateMealPlanEntryRequest,
+  MealPlanEntry
+} from '../../model/tracking.entity';
 
 @Component({
   selector: 'app-tracking-create-and-edit',
-  imports: [MatFormField, MatInputModule, MatButtonModule, FormsModule],
+  standalone: true,
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    FormsModule,
+    CommonModule
+  ],
   templateUrl: './tracking-create-and-edit.component.html',
   styleUrl: './tracking-create-and-edit.component.css'
 })
-export class TrackingCreateAndEditComponent {
-  // Attributes
-  @Input() tracking: Tracking;
-  @Input() editMode: boolean = false;
-  @Output() trackingAdded: EventEmitter<Tracking> = new EventEmitter<Tracking>();
-  @Output() trackingUpdated: EventEmitter<Tracking> = new EventEmitter<Tracking>();
-  @Output() editCanceled: EventEmitter<any> = new EventEmitter();
-  @ViewChild('trackingForm', {static: false}) trackingForm!: NgForm;
+export class TrackingCreateAndEditComponent implements OnInit {
+  @Input() tracking: Tracking = new Tracking();
+  @Input() editingMealEntry: MealPlanEntry | null = null;
 
-  // Methods
-  constructor() {
-    this.tracking = {} as Tracking;
-  }
+  @Output() mealPlanEntryAdded = new EventEmitter<{ trackingId: number, entry: CreateMealPlanEntryRequest }>();
+  @Output() mealPlanEntryUpdated = new EventEmitter<{ entryId: number, entry: CreateMealPlanEntryRequest }>();
+  @Output() editCanceled = new EventEmitter<void>();
 
-  // Private methods
-  private resetEditState(): void {
-    this.tracking = {} as Tracking;
-    this.editMode = false;
-    this.trackingForm.resetForm();
-  }
+  @ViewChild('mealEntryForm', { static: false }) mealEntryForm!: NgForm;
 
-  // Event Handlers
+  mealEntryData: CreateMealPlanEntryRequest = new CreateMealPlanEntryRequest();
+  mealTypes: string[] = ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK'];
 
-  onSubmit(): void {
-    if (this.trackingForm.form.valid) {
-      let emitter: EventEmitter<Tracking> = this.editMode ? this.trackingUpdated : this.trackingAdded;
-      emitter.emit(this.tracking);
-      this.resetEditState();
+  ngOnInit(): void {
+    if (this.editingMealEntry) {
+      this.mealEntryData = {
+        userId: this.editingMealEntry.userId ?? 0,
+        recipeId: this.editingMealEntry.recipeId ?? 0,
+        mealPlanType: this.editingMealEntry.mealType,
+        dayNumber: this.editingMealEntry.dayNumber ?? 0
+      };
     } else {
-      console.error('Invalid data in form');
+      this.resetForm();
     }
   }
 
-  onCancel(): void {
+  private resetForm(): void {
+    this.mealEntryData = new CreateMealPlanEntryRequest();
+    this.mealEntryData.userId = this.tracking.userId;
+  }
+
+  onSubmitMealEntry(): void {
+    if (this.mealEntryForm?.valid) {
+      if (this.editingMealEntry) {
+        this.mealPlanEntryUpdated.emit({
+          entryId: this.editingMealEntry.id,
+          entry: this.mealEntryData
+        });
+      } else {
+        this.mealPlanEntryAdded.emit({
+          trackingId: this.tracking.id,
+          entry: this.mealEntryData
+        });
+      }
+      this.resetForm();
+    } else {
+      console.error('Invalid data in meal entry form');
+    }
+  }
+
+  onCancelMealEntry(): void {
     this.editCanceled.emit();
-    this.resetEditState();
+    this.resetForm();
   }
 }
