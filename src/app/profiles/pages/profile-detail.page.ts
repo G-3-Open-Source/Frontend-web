@@ -20,6 +20,7 @@ import { Allergy } from '../model/allergy.entity';
 import { Objective } from '../model/objetive.entity';
 import { Profile } from '../model/profile.entity';
 import { User } from '../model/user.entity';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-detail',
@@ -34,7 +35,8 @@ import { User } from '../model/user.entity';
     MatProgressSpinnerModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    TranslatePipe
   ],
   templateUrl: './profile-detail.page.html',
   styleUrls: ['./profile-detail.page.css']
