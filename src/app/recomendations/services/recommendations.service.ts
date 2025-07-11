@@ -21,13 +21,10 @@ export class RecommendationsService extends BaseService<Recommendation> {
     );
   }
 
-  // Auto-asignar recomendaciones a un usuario (sin enviar body)
   autoAssignToUser(userId: number): Observable<Recommendation[]> {
-    // No se envía body, solo los parámetros de configuración si es necesario (como headers)
     return this.http.post<Recommendation[]>(
       `${this.basePath}${this.resourceEndpoint}/auto-assign/${userId}`,
-      undefined,
-      this.httpOptions
+      undefined // body vacío, pero no null
     );
   }
 }
