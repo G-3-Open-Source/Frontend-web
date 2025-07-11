@@ -19,13 +19,20 @@ import {AuthenticationService} from '../../../iam/services/authentication.servic
 export class CreatePlanComponent implements OnInit {
   planForm: FormGroup;
   profileId = 0;
+  recipes:any;
 
   ngOnInit(): void {
     this.addEntry();
-    this.authService.currentUserId.subscribe(userId => {
-      console.log(userId)
-      this.profileId = userId;
+    this.mealPlanService.getAllRecipes().subscribe({
+      next: (data) => {
+        console.log('Recetas recibidas:', data);
+        this.recipes = data;
+      },
+      error: (err) => {
+        console.error('Error al cargar recetas:', err);
+      }
     });
+
   }
   constructor(private fb: FormBuilder, private mealPlanService: MealPlanService, private router: Router,
   private authService: AuthenticationService) {
