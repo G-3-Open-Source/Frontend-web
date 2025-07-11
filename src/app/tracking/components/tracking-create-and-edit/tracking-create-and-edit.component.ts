@@ -40,8 +40,9 @@ export class TrackingCreateAndEditComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.editingMealEntry) {
+      const storedUserId = localStorage.getItem('userId');
       this.mealEntryData = {
-        userId: this.editingMealEntry.userId ?? 0,
+        userId: this.editingMealEntry.userId ?? (storedUserId ? parseInt(storedUserId, 10) : 0),
         recipeId: this.editingMealEntry.recipeId ?? 0,
         mealPlanType: this.editingMealEntry.mealType,
         dayNumber: this.editingMealEntry.dayNumber ?? 0

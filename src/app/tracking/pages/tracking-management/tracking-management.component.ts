@@ -21,7 +21,6 @@ import { TrackingService } from '../../services/tracking.service';
 import { TrackingCreateAndEditComponent } from '../../components/tracking-create-and-edit/tracking-create-and-edit.component';
 import { forkJoin } from 'rxjs';
 
-
 @Component({
   selector: 'app-tracking-management',
   standalone: true,
@@ -46,8 +45,7 @@ export class TrackingManagementComponent implements OnInit, AfterViewInit {
 
   selectedTrackingMealEntries: MealPlanEntry[] = [];
   mealEntriesDataSource!: MatTableDataSource<MealPlanEntry>;
-  mealEntriesColumns: string[] = [ 'recipeId', 'mealPlanType', 'dayNumber', 'actions'];
-
+  mealEntriesColumns: string[] = ['recipeId', 'mealPlanType', 'dayNumber', 'actions'];
 
   showMealEntryForm: boolean = false;
   editingMealEntry: MealPlanEntry | null = null;
@@ -60,6 +58,7 @@ export class TrackingManagementComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.mealEntriesDataSource.data = this.selectedTrackingMealEntries;
+    this.initTrackingFlow(); // <-- Se inicia todo al cargar
   }
 
   ngAfterViewInit(): void {
@@ -74,110 +73,111 @@ export class TrackingManagementComponent implements OnInit, AfterViewInit {
     this.editingMealEntry = null;
   }
 
-  private updateConsumedMacros(trackingId: number): void {
-    this.trackingService.getConsumedMacros(trackingId)
-      .subscribe({
-        next: (macros: MacronutrientValues) => {
-          this.currentTracking.consumedMacros = macros;
-        },
-        error: (error) => {
-          console.error('Error updating consumed macros:', error);
+  private initTrackingFlow(): void {
+    const userId = Number(localStorage.getItem('userId'));
+    if (!userId || userId <= 0) {
+      console.warn('No hay userId válido en localStorage');
+      return;
+    }
+
+    this.trackingService.getTrackingByUserId(userId).subscribe({
+      next: (existingTracking) => {
+        if (existingTracking) {
+          console.log('Tracking ya existe. Cargando...');
+          this.getTrackingByUserId(userId);
+        } else {
+          this.createTrackingGoalAndTracking(userId);
         }
-      });
+      },
+      error: () => {
+        // Si no existe, crear tracking goal y tracking
+        this.createTrackingGoalAndTracking(userId);
+      }
+    });
+  }
+
+  private createTrackingGoalAndTracking(userId: number): void {
+    this.trackingService.createTrackingGoalFromProfile(userId).subscribe({
+      next: (trackingGoalId: number) => {
+        const trackingRequest = {
+          userId: userId,
+          trackingGoalId: trackingGoalId,
+          date: new Date().toISOString().split('T')[0]
+        };
+
+        this.trackingService.createTracking(trackingRequest).subscribe({
+          next: () => {
+            this.getTrackingByUserId(userId); // Cargar datos después de crear
+          },
+          error: (err) => {
+            console.error('Error creando tracking:', err);
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Error creando tracking goal:', err);
+      }
+    });
   }
 
   private getTrackingByUserId(userId: number): void {
     const tracking$ = this.trackingService.getTrackingByUserId(userId);
     const goal$ = this.trackingService.getTrackingGoalByUserId(userId);
 
-    forkJoin([tracking$, goal$])
-      .subscribe({
-        next: ([tracking, goal]) => {
-          this.currentTracking = tracking;
-          this.currentTracking.trackingGoal = {
-            id: goal.id,
-            name: goal.name || 'Default Goal',
-            description: goal.description || '',
-            targetCalories: goal.targetMacros?.calories || 0,
-            targetProtein: goal.targetMacros?.proteins || 0,
-            targetCarbs: goal.targetMacros?.carbs || 0,
-            targetFats: goal.targetMacros?.fats || 0,
-          };
+    forkJoin([tracking$, goal$]).subscribe({
+      next: ([tracking, goal]) => {
+        this.currentTracking = tracking;
+        this.currentTracking.trackingGoal = {
+          id: goal.id,
+          name: goal.name || 'Default Goal',
+          description: goal.description || '',
+          targetCalories: goal.targetMacros?.calories || 0,
+          targetProtein: goal.targetMacros?.proteins || 0,
+          targetCarbs: goal.targetMacros?.carbs || 0,
+          targetFats: goal.targetMacros?.fats || 0
+        };
 
-          this.loadMealPlanEntries(tracking.id);
-          this.updateConsumedMacros(tracking.id);
-        },
-        error: (error) => {
-          console.error('Error fetching tracking or tracking goal:', error);
-          this.resetState();
-        }
-      });
+        this.loadMealPlanEntries(tracking.id);
+        this.updateConsumedMacros(tracking.id);
+      },
+      error: (error) => {
+        console.error('Error fetching tracking or goal:', error);
+        this.resetState();
+      }
+    });
   }
 
   private loadMealPlanEntries(trackingId: number): void {
-    this.trackingService.getAllMealsByTrackingId(trackingId)
-      .subscribe({
-        next: (entries: MealPlanEntry[]) => {
-          this.selectedTrackingMealEntries = entries;
-          this.mealEntriesDataSource.data = entries;
-          this.currentTracking.mealPlanEntries = entries;
-        },
-        error: (error) => {
-          console.error('Error loading meal plan entries:', error);
-          this.selectedTrackingMealEntries = [];
-          this.mealEntriesDataSource.data = [];
-        }
-      });
+    this.trackingService.getAllMealsByTrackingId(trackingId).subscribe({
+      next: (entries: MealPlanEntry[]) => {
+        this.selectedTrackingMealEntries = entries;
+        this.mealEntriesDataSource.data = entries;
+        this.currentTracking.mealPlanEntries = entries;
+      },
+      error: (error) => {
+        console.error('Error loading meals:', error);
+        this.selectedTrackingMealEntries = [];
+        this.mealEntriesDataSource.data = [];
+      }
+    });
   }
 
-  private addMealPlanEntry(trackingId: number, request: CreateMealPlanEntryRequest): void {
-    this.trackingService.createMealPlanEntry(trackingId, request)
-      .subscribe({
-        next: () => {
-          this.loadMealPlanEntries(trackingId);
-          this.updateConsumedMacros(trackingId);
-          this.showMealEntryForm = false;
-          this.editingMealEntry = null;
-        },
-        error: (error) => {
-          console.error('Error adding meal plan entry:', error);
-        }
-      });
-  }
-
-  private updateMealPlanEntry(entryId: number, request: UpdateMealPlanEntryRequest): void {
-    this.trackingService.updateMealPlanEntry(entryId, request)
-      .subscribe({
-        next: () => {
-          this.loadMealPlanEntries(this.currentTracking.id);
-          this.updateConsumedMacros(this.currentTracking.id);
-          this.showMealEntryForm = false;
-          this.editingMealEntry = null;
-        },
-        error: (error) => {
-          console.error('Error updating meal plan entry:', error);
-        }
-      });
-  }
-
-  private removeMealPlanEntry(trackingId: number, entryId: number): void {
-    this.trackingService.removeMealPlanEntry(trackingId, entryId)
-      .subscribe({
-        next: () => {
-          this.loadMealPlanEntries(trackingId);
-          this.updateConsumedMacros(trackingId);
-        },
-        error: (error) => {
-          console.error('Error removing meal plan entry:', error);
-        }
-      });
+  private updateConsumedMacros(trackingId: number): void {
+    this.trackingService.getConsumedMacros(trackingId).subscribe({
+      next: (macros: MacronutrientValues) => {
+        this.currentTracking.consumedMacros = macros;
+      },
+      error: (error) => {
+        console.error('Error updating macros:', error);
+      }
+    });
   }
 
   onSearchByUserId(): void {
     if (this.searchUserId && this.searchUserId > 0) {
       this.getTrackingByUserId(this.searchUserId);
     } else {
-      console.warn('Please enter a valid user ID');
+      console.warn('Ingresa un ID válido');
     }
   }
 
@@ -185,7 +185,7 @@ export class TrackingManagementComponent implements OnInit, AfterViewInit {
     if ('trackingId' in event && 'entry' in event) {
       this.addMealPlanEntry(event.trackingId, event.entry);
     } else {
-      console.error('Invalid event structure for mealPlanEntryAdded:', event);
+      console.error('Estructura inválida para evento entry added:', event);
     }
   }
 
@@ -193,7 +193,7 @@ export class TrackingManagementComponent implements OnInit, AfterViewInit {
     if ('entryId' in event && 'entry' in event) {
       this.updateMealPlanEntry(event.entryId, event.entry);
     } else {
-      console.error('Invalid event structure for mealPlanEntryUpdated:', event);
+      console.error('Estructura inválida para evento entry updated:', event);
     }
   }
 
@@ -213,32 +213,62 @@ export class TrackingManagementComponent implements OnInit, AfterViewInit {
   }
 
   onDeleteMealPlanEntry(entry: MealPlanEntry): void {
-    if (confirm(`Are you sure you want to delete the meal entry: ${entry.foodName}?`)) {
+    if (confirm(`¿Estás seguro de eliminar: ${entry.foodName}?`)) {
       this.removeMealPlanEntry(this.currentTracking.id, entry.id);
     }
   }
 
+  private addMealPlanEntry(trackingId: number, request: CreateMealPlanEntryRequest): void {
+    this.trackingService.createMealPlanEntry(trackingId, request).subscribe({
+      next: () => {
+        this.loadMealPlanEntries(trackingId);
+        this.updateConsumedMacros(trackingId);
+        this.showMealEntryForm = false;
+        this.editingMealEntry = null;
+      },
+      error: (error) => {
+        console.error('Error al agregar comida:', error);
+      }
+    });
+  }
+
+  private updateMealPlanEntry(entryId: number, request: UpdateMealPlanEntryRequest): void {
+    this.trackingService.updateMealPlanEntry(entryId, request).subscribe({
+      next: () => {
+        this.loadMealPlanEntries(this.currentTracking.id);
+        this.updateConsumedMacros(this.currentTracking.id);
+        this.showMealEntryForm = false;
+        this.editingMealEntry = null;
+      },
+      error: (error) => {
+        console.error('Error al actualizar comida:', error);
+      }
+    });
+  }
+
+  private removeMealPlanEntry(trackingId: number, entryId: number): void {
+    this.trackingService.removeMealPlanEntry(trackingId, entryId).subscribe({
+      next: () => {
+        this.loadMealPlanEntries(trackingId);
+        this.updateConsumedMacros(trackingId);
+      },
+      error: (error) => {
+        console.error('Error al eliminar comida:', error);
+      }
+    });
+  }
+
   getProgressPercentage(macroType: 'calories' | 'protein' | 'carbs' | 'fats'): number {
-    if (!this.currentTracking.consumedMacros || !this.currentTracking.trackingGoal) {
-      return 0;
-    }
+    if (!this.currentTracking.consumedMacros || !this.currentTracking.trackingGoal) return 0;
 
     const consumed = this.currentTracking.consumedMacros[macroType] || 0;
     let target = 0;
 
     switch (macroType) {
-      case 'calories':
-        target = this.currentTracking.trackingGoal.targetCalories;
-        break;
-      case 'protein':
-        target = this.currentTracking.trackingGoal.targetProtein;
-        break;
-      case 'carbs':
-        target = this.currentTracking.trackingGoal.targetCarbs;
-        break;
-      case 'fats':
-        target = this.currentTracking.trackingGoal.targetFats;
-        break;
+      case 'calories': target = this.currentTracking.trackingGoal.targetCalories; break;
+      case 'protein': target = this.currentTracking.trackingGoal.targetProtein; break;
+      case 'carbs': target = this.currentTracking.trackingGoal.targetCarbs; break;
+      case 'fats': target = this.currentTracking.trackingGoal.targetFats; break;
     }
 
     return target > 0 ? Math.min((consumed / target) * 100, 100) : 0;
