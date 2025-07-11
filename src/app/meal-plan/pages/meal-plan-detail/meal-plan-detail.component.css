@@ -130,7 +130,7 @@
 /* Textos de solo lectura */
 .description-text,
 .goal-text {
-  color: #495057;
+  color: #121313;
   font-size: 1rem;
   background: #f8f9fa;
   border-radius: 8px;
@@ -478,12 +478,12 @@
 .section ng-template p,
 .section p:not(.entry-item p) {
   text-align: center;
-  color: #6c757d;
+  color: #1d1919;
   font-style: italic;
-  background: #f8f9fa;
+  font-weight: bold;
+  background: #c8d5e5;
   padding: 1.5rem;
   border-radius: 12px;
-  border: 2px dashed #dee2e6;
   margin: 0;
   display: flex;
   align-items: center;

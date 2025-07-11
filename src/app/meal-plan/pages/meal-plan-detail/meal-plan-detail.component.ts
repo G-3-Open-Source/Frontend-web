@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MealPlanService } from '../../services/meal-plan.service';
 import {NgForOf, NgIf} from '@angular/common';
+import {MealPlanEntriesDetail} from '../../model/meal-plan.entity';
 
 @Component({
   selector: 'app-meal-plan-detail',
@@ -20,7 +21,7 @@ export class MealPlanDetailComponent implements OnInit {
   editMode = false;
   planForm: FormGroup;
   showDeleteModal = false;
-
+  entries: MealPlanEntriesDetail[] = [];
   daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   mealTypes = ['Desayuno', 'Comida', 'Cena', 'Snack'];
 
@@ -29,7 +30,8 @@ export class MealPlanDetailComponent implements OnInit {
     private planService: MealPlanService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private mealPlanService: MealPlanService
   ) {
     this.planForm = this.fb.group({
       name: ['', Validators.required],
@@ -48,6 +50,21 @@ export class MealPlanDetailComponent implements OnInit {
     const planId: any = this.route.snapshot.paramMap.get('id');
     this.loadPlan(planId);
     this.planForm.disable(); // Deshabilitar el formulario inicialmente
+
+
+    const mealPlanId = this.route.snapshot.paramMap.get('id');
+    if (mealPlanId) {
+    this.mealPlanService.getMealPlanEntriesWithRecipeInfo(parseInt(mealPlanId, 10)).subscribe({
+      next: (data) => {
+        this.entries = data;
+        console.log('Entries recibidas:', data);
+      },
+      error: (err) => {
+        console.error('Error al cargar entries:', err);
+      }
+    });
+
+    }
   }
 
   loadPlan(id: string): void {

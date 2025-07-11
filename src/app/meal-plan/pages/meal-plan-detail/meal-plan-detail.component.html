@@ -59,14 +59,14 @@
             <input *ngIf="editMode" type="number" formControlName="calories" class="form-input" placeholder="Calorías por día" step="0.1" />
           </div>
         </div>
-
         <div class="section">
           <h3>Entradas del plan</h3>
-          <div *ngIf="plan?.entries?.length > 0; else noEntries">
-            <div *ngFor="let entry of plan.entries" class="entry-item">
-              <p>Receta: {{ entry.day }}</p>
-              <p>Día: {{ daysOfWeek[entry.day - 1] }}</p>
-              <p>Tipo de comida: {{ mealTypes[entry.mealPlanType - 1] }}</p>
+          <div *ngIf="entries.length > 0; else noEntries">
+            <div *ngFor="let entry of entries" class="entry-item">
+              <p><strong>Receta:</strong> {{ entry.recipeName }}</p>
+              <p><strong>Descripción:</strong> {{ entry.recipeDescription }}</p>
+              <p><strong>Día:</strong> {{ daysOfWeek[entry.day - 1] }}</p>
+              <p><strong>Tipo de comida:</strong> {{ mealTypes[entry.mealPlanTypeId - 1] }}</p>
             </div>
           </div>
           <ng-template #noEntries>
