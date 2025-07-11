@@ -1,21 +1,13 @@
-.form-section {
-  display: table;
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 300px;
+  width: 100%;
+  max-width: 500px;
+  padding-top: 8px;
 }
 
-.form-row {
-  display: table-cell;
-  max-width: 2400px;
-}
-
-.form-row .mat-raised-button {
-  margin-right: 8px;
-}
-
-.form-row .mat-form-field {
-  margin-right: 8px;
-}
-
-.form-row #age-form-field {
-  margin-right: 8px;
-  width: 15%;
+mat-dialog-actions {
+  padding-top: 12px;
 }
