@@ -47,5 +47,67 @@
     "rights": "Copyright © 2025 {{ api }}, All rights reserved",
     "intro": "Developed ",
     "author": "by {{ team }} Team"
+  },
+  "tracking": {
+    "title": "Tracking Management",
+    "infoTitle": "Tracking Information",
+    "date": "Date",
+    "goalTitle": "Macronutrient Objective",
+    "calories": "Calories",
+    "carbs": "Carbs",
+    "proteins": "Protein",
+    "fats": "Fats",
+    "entriesTitle": "Meal Plan Entries",
+    "addEntry": "Add Meal Entry",
+    "noTracking": {
+      "title": "No Tracking Selected",
+      "description": "Search for a user ID to view their tracking information and manage meal plan entries."
+    },
+    "noEntries": {
+      "title": "No Meal Entries",
+      "description": "This tracking doesn't have any meal entries yet. Click \"Add Meal Entry\" to get started."
+    }
+  },
+  "mealEntryForm": {
+    "addTitle": "Add Meal Entry from Recipe",
+    "editTitle": "Edit Meal Entry",
+    "userId": "User ID",
+    "recipeId": "Recipe ID",
+    "mealPlanType": "Meal Type",
+    "dayNumber": "Day Number",
+    "addButton": "Add Entry",
+    "updateButton": "Update Entry",
+    "cancelButton": "Cancel",
+    "actions": "Actions",
+    "editTooltip": "Edit Entry",
+    "deleteTooltip": "Delete Entry"
+  },
+  "profile": {
+    "title": {
+      "view": "{{ name }}'s Profile",
+      "create": "Create Your Profile"
+    },
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "birthDate": "Birth Date",
+      "isActive": "Active",
+      "healthProfile": "Health Profile",
+      "gender": "Gender",
+      "height": "Height (cm)",
+      "weight": "Weight (kg)",
+      "userScore": "User Score",
+      "activityLevel": "Activity Level",
+      "objective": "Objective",
+      "allergies": "Allergies",
+      "none": "None"
+    },
+    "buttons": {
+      "saveChanges": "Save Changes",
+      "createProfile": "Create Profile",
+      "edit": "Edit"
+    }
   }
+
 }

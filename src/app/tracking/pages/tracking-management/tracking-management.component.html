@@ -1,25 +1,25 @@
 <div class="tracking-management-container">
-  <h2>Tracking Management</h2>
+  <h2>{{ 'tracking.title' | translate }}</h2>
 
   <!-- Tracking Information and Macronutrients Section -->
   <div class="tracking-info-section" *ngIf="currentTracking.id">
-    <h3>Tracking Information</h3>
+    <h3>{{ 'tracking.infoTitle' | translate }}</h3>
 
     <!-- Tracking Details -->
     <div class="tracking-details">
       <div class="detail-item">
-        <strong>Date:</strong> {{currentTracking.date | date:'shortDate'}}
+        <strong>{{ 'tracking.date' | translate }}:</strong> {{currentTracking.date | date:'shortDate'}}
       </div>
     </div>
 
     <!-- Macronutrient Summary -->
     <div class="macro-summary">
-      <h4>Macronutrient Objective</h4>
+      <h4>{{ 'tracking.goalTitle' | translate }}</h4>
       <div class="macro-cards">
         <div class="macro-card calories">
           <div class="macro-header">
             <mat-icon>local_fire_department</mat-icon>
-            <h5>Calories</h5>
+            <h5>{{ 'tracking.calories' | translate }}</h5>
           </div>
           <div class="macro-progress">
             <div class="progress-values">
@@ -34,7 +34,7 @@
         <div class="macro-card protein">
           <div class="macro-header">
             <mat-icon>fitness_center</mat-icon>
-            <h5>Protein</h5>
+            <h5>{{ 'tracking.proteins' | translate }}</h5>
           </div>
           <div class="macro-progress">
             <div class="progress-values">
@@ -49,7 +49,7 @@
         <div class="macro-card carbs">
           <div class="macro-header">
             <mat-icon>grain</mat-icon>
-            <h5>Carbs</h5>
+            <h5>{{ 'tracking.carbs' | translate }}</h5>
           </div>
           <div class="macro-progress">
             <div class="progress-values">
@@ -64,7 +64,7 @@
         <div class="macro-card fats">
           <div class="macro-header">
             <mat-icon>opacity</mat-icon>
-            <h5>Fats</h5>
+            <h5>{{ 'tracking.fats' | translate }}</h5>
           </div>
           <div class="macro-progress">
             <div class="progress-values">
@@ -82,10 +82,10 @@
   <!-- Meal Plan Management Section -->
   <div class="meal-plan-section" *ngIf="currentTracking.id">
     <div class="section-header">
-      <h3>Meal Plan Entries</h3>
+      <h3>{{ 'tracking.entriesTitle' | translate }}</h3>
       <button mat-raised-button color="primary" (click)="showAddMealEntryForm()" *ngIf="!showMealEntryForm">
         <mat-icon>add</mat-icon>
-        Add Meal Entry
+        {{ 'tracking.addEntry' | translate }}
       </button>
     </div>
 
@@ -107,27 +107,26 @@
 
         <!-- Recipe ID -->
         <ng-container matColumnDef="recipeId">
-          <th mat-header-cell *matHeaderCellDef>Recipe ID</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'mealEntryForm.recipeId' | translate }}</th>
           <td mat-cell *matCellDef="let entry">{{entry.recipeId}}</td>
         </ng-container>
 
         <!-- Meal Plan Type -->
         <ng-container matColumnDef="mealPlanType">
-          <th mat-header-cell *matHeaderCellDef>Meal Plan Type</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'mealEntryForm.mealPlanType' | translate }}</th>
           <td mat-cell *matCellDef="let entry">{{entry.mealPlanType}}</td>
         </ng-container>
 
         <!-- Day Number -->
         <ng-container matColumnDef="dayNumber">
-          <th mat-header-cell *matHeaderCellDef>Day Number</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'mealEntryForm.dayNumber' | translate }}</th>
           <td mat-cell *matCellDef="let entry">{{entry.dayNumber}}</td>
         </ng-container>
 
-        <!-- ... los otros campos como mealType, foodName, quantity, etc ... -->
 
         <!-- Actions -->
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'mealEntryForm.actions' | translate }}</th>
           <td mat-cell *matCellDef="let entry">
             <button mat-icon-button color="primary" (click)="onEditMealEntry(entry)" matTooltip="Edit Entry">
               <mat-icon>edit</mat-icon>
@@ -148,15 +147,15 @@
     <!-- Empty State for Meal Entries -->
     <div class="empty-state" *ngIf="selectedTrackingMealEntries.length === 0">
       <mat-icon>restaurant</mat-icon>
-      <h4>No Meal Entries</h4>
-      <p>This tracking doesn't have any meal entries yet. Click "Add Meal Entry" to get started.</p>
+      <h4>{{ 'tracking.noEntries.title' | translate }}</h4>
+      <p>{{ 'tracking.noEntries.description' | translate }}</p>
     </div>
   </div>
 
   <!-- Empty State for Tracking -->
   <div class="empty-state" *ngIf="!currentTracking.id">
     <mat-icon>search</mat-icon>
-    <h3>No Tracking Selected</h3>
-    <p>Search for a user ID to view their tracking information and manage meal plan entries.</p>
+    <h3>{{ 'tracking.noTracking.title' | translate }}</h3>
+    <p>{{ 'tracking.noTracking.description' | translate }}</p>
   </div>
 </div>
