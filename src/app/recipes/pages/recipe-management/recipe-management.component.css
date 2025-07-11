@@ -6,13 +6,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
 }
 
-.cards-wrapper h2 {
+.recipe-title {
+  font-size: 2rem;
+  font-weight: 600;
   margin-bottom: 20px;
-  font-size: 1.8rem;
-  color: #333;
+  color: #2e7d32;
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
 }
 
 .cards-container {
@@ -21,30 +27,69 @@
   gap: 24px;
   width: 100%;
   max-width: 1024px;
+  margin: 0 auto;
   box-sizing: border-box;
 }
 
 .recipe-card {
+  position: relative;
+  background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 150%;
 }
 
 .recipe-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(0, 128, 0, 0.15);
 }
 
 .recipe-card mat-card-header {
-  background: linear-gradient(135deg, #4caf50 0%, #a8e063 100%);
-  color: white;
+  background: linear-gradient(135deg, #4caf50 0%, #a5d6a7 100%);
+  color: #fff;
+  padding: 16px;
+}
+
+.recipe-card mat-card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.recipe-card mat-card-subtitle {
+  font-size: 0.95rem;
+}
+
+.recipe-card mat-card-content {
+  padding: 16px;
+  flex-grow: 1;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.recipe-card mat-card-content p {
+  margin: 8px 0;
+  line-height: 1.4;
+}
+
+.recipe-card mat-card-actions {
+  padding: 8px 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  background-color: #f9f9f9;
 }
 
 .difficulty-badge {
-  padding: 4px 8px;
-  border-radius: 8px;
+  padding: 4px 10px;
+  border-radius: 12px;
   font-size: 0.75rem;
   font-weight: bold;
   text-transform: capitalize;
+  display: inline-block;
 }
 
 .easy-difficulty {
@@ -60,26 +105,6 @@
 .hard-difficulty {
   background-color: #ffebee;
   color: #c62828;
-}
-
-.fab-button {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-  z-index: 1000;
-}
-
-.recipe-title {
-  text-align: center;
-  color: #2e7d32;
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-
-.add-button-container {
-  text-align: center;
-  margin-bottom: 24px;
 }
 
 .add-button-container button {

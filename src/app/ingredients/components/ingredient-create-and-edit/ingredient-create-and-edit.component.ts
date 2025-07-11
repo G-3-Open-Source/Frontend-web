@@ -1,55 +1,42 @@
-import { Component } from '@angular/core';
-
-import { EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { Ingredient } from "../../model/ingredient.entity";
-import { FormsModule, NgForm } from "@angular/forms";
-import { MatFormField } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { MatButtonModule } from "@angular/material/button";
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { NgForm, FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { Ingredient } from '../../model/ingredient.entity';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-ingredient-create-and-edit',
-  imports: [MatFormField, MatInputModule, MatButtonModule, FormsModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    FormsModule
+  ],
   templateUrl: './ingredient-create-and-edit.component.html',
   styleUrl: './ingredient-create-and-edit.component.css'
 })
 export class IngredientCreateAndEditComponent {
+  ingredient: Ingredient;
 
-  // Attributes
-  @Input() ingredient: Ingredient;
-  @Input() editMode: boolean = false;
-  @Output() ingredientAdded: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
-  @Output() ingredientUpdated: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
-  @Output() editCanceled: EventEmitter<any> = new EventEmitter();
-  @ViewChild('ingredientForm', {static: false}) ingredientForm!: NgForm;
-
-  // Methods
-  constructor() {
-    this.ingredient = {} as Ingredient;
+  constructor(
+    public dialogRef: MatDialogRef<IngredientCreateAndEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { ingredient: Ingredient }
+  ) {
+    this.ingredient = { ...data.ingredient };
   }
 
-  // Private methods
-  private resetEditState(): void {
-    this.ingredient = {} as Ingredient;
-    this.editMode = false;
-    this.ingredientForm.resetForm();
-  }
-
-  // Event Handlers
-
-  onSubmit(): void {
-    if (this.ingredientForm.form.valid) {
-      let emitter: EventEmitter<Ingredient> = this.editMode ? this.ingredientUpdated : this.ingredientAdded;
-      emitter.emit(this.ingredient);
-      this.resetEditState();
-    } else {
-      console.error('Invalid data in form');
+  onSubmit(form: NgForm): void {
+    if (form.valid) {
+      this.dialogRef.close(this.ingredient);
     }
   }
 
   onCancel(): void {
-    this.editCanceled.emit();
-    this.resetEditState();
+    this.dialogRef.close();
   }
-
 }

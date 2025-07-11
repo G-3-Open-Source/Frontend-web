@@ -11,4 +11,10 @@ export class RecipeService extends BaseService<Recipe> {
     super(http );
     this.resourceEndpoint = '/recipes';
   }
+  addIngredientToRecipe(recipeId: number, ingredientId: number) {
+    return this.http.put(`${this.basePath}/recipes/${recipeId}/add-ingredient`, {
+      ingredientId
+    }, this.httpOptions);
+  }
+
 }
