@@ -1,18 +1,37 @@
-import { Component } from '@angular/core';
-import { AfterViewInit, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { MatIconModule } from "@angular/material/icon";
-import { RecipeService } from "../../services/recipe.service";
-import { Recipe } from "../../model/recipe.entity";
-import { RecipeCreateAndEditComponent } from "../../components/recipe-create-and-edit/recipe-create-and-edit.component";
-import { NgClass } from "@angular/common";
-import { TranslateModule } from "@ngx-translate/core";
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { NgClass, NgFor, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { RecipeService } from '../../services/recipe.service';
+import { Recipe } from '../../model/recipe.entity';
+import { RecipeCreateAndEditComponent } from '../../components/recipe-create-and-edit/recipe-create-and-edit.component';
 
 @Component({
   selector: 'app-recipe-management',
-  imports: [MatPaginator, MatSort, MatIconModule, RecipeCreateAndEditComponent, MatTableModule, NgClass, TranslateModule],
+  standalone: true,
+  imports: [
+    MatTableModule,
+    MatPaginator,
+    MatSort,
+    MatIconModule,
+    MatCardModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatDialogModule,
+    NgClass,
+    NgFor,
+    NgIf,
+    TranslateModule,
+    RecipeCreateAndEditComponent
+  ],
   templateUrl: './recipe-management.component.html',
   styleUrl: './recipe-management.component.css'
 })
@@ -36,15 +55,22 @@ export class RecipeManagementComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
-  constructor(private recipeService: RecipeService) {
+  constructor(
+    private recipeService: RecipeService,
+    private dialog: MatDialog
+  ) {
     this.isEditMode = false;
     this.recipeData = {} as Recipe;
     this.dataSource = new MatTableDataSource<Recipe>();
   }
 
-  private resetEditState(): void {
-    this.isEditMode = false;
-    this.recipeData = {} as Recipe;
+  ngOnInit(): void {
+    this.getAllRecipes();
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   private getAllRecipes(): void {
@@ -58,15 +84,14 @@ export class RecipeManagementComponent implements OnInit, AfterViewInit {
     this.recipeService.create(this.recipeData)
       .subscribe((response: Recipe) => {
         this.dataSource.data.push({ ...response });
-        this.dataSource.data = this.dataSource.data.map(recipe => recipe);
+        this.dataSource.data = [...this.dataSource.data]; // trigger refresh
       });
   }
 
   private updateRecipe(): void {
-    const recipeToUpdate = this.recipeData;
-    this.recipeService.update(this.recipeData.id, recipeToUpdate)
+    this.recipeService.update(this.recipeData.id, this.recipeData)
       .subscribe((response: Recipe) => {
-        this.dataSource.data = this.dataSource.data.map((recipe: Recipe) =>
+        this.dataSource.data = this.dataSource.data.map(recipe =>
           recipe.id === response.id ? response : recipe
         );
       });
@@ -75,42 +100,52 @@ export class RecipeManagementComponent implements OnInit, AfterViewInit {
   private deleteRecipe(recipeId: number): void {
     this.recipeService.delete(recipeId)
       .subscribe(() => {
-        this.dataSource.data = this.dataSource.data.filter((recipe: Recipe) => recipe.id !== recipeId);
+        this.dataSource.data = this.dataSource.data.filter(recipe => recipe.id !== recipeId);
       });
   }
 
-  onEditItem(element: Recipe) {
-    this.isEditMode = true;
-    this.recipeData = element;
+  openCreateDialog(): void {
+    const dialogRef = this.dialog.open(RecipeCreateAndEditComponent, {
+      width: '500px',
+      data: { editMode: false }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.recipeData = result;
+        this.createRecipe();
+      }
+    });
   }
 
-  onDeleteItem(element: Recipe) {
-    this.deleteRecipe(element.id);
+  openEditDialog(recipe: Recipe): void {
+    const dialogRef = this.dialog.open(RecipeCreateAndEditComponent, {
+      width: '500px',
+      data: { editMode: true, recipe }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.recipeData = result;
+        this.updateRecipe();
+      }
+    });
   }
 
-  onCancelEdit() {
-    this.resetEditState();
-    this.getAllRecipes();
+  onDeleteItem(recipe: Recipe): void {
+    this.deleteRecipe(recipe.id);
   }
 
-  onRecipeAdded(element: Recipe) {
-    this.recipeData = element;
-    this.createRecipe();
-    this.resetEditState();
-  }
-
-  onRecipeUpdated(element: Recipe) {
-    this.recipeData = element;
-    this.updateRecipe();
-    this.resetEditState();
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  ngOnInit(): void {
-    this.getAllRecipes();
+  recipeDifficultyClass(difficulty: string): string {
+    switch (difficulty?.toLowerCase()) {
+      case 'easy':
+        return 'easy-difficulty';
+      case 'medium':
+        return 'medium-difficulty';
+      case 'hard':
+        return 'hard-difficulty';
+      default:
+        return '';
+    }
   }
 }

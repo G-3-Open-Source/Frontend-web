@@ -1,43 +1,47 @@
-<!-- Formulario Crear/Editar Receta (con userId) -->
-<h4>{{ editMode ? 'Edit Recipe' : 'New Recipe' }}</h4>
-<div class="form-section">
-  <form (submit)="onSubmit()" #recipeForm="ngForm" class="form-row">
-    <mat-form-field>
-      <input matInput placeholder="Name" name="name" required [(ngModel)]="recipe.name">
-    </mat-form-field>
+<h2 mat-dialog-title>{{ editMode ? 'Edit Recipe' : 'New Recipe' }}</h2>
 
-    <mat-form-field>
-      <input matInput placeholder="Description" name="description" required [(ngModel)]="recipe.description">
-    </mat-form-field>
+<form class="modal-form" (ngSubmit)="onSubmit()" #form="ngForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput required [(ngModel)]="recipe.name" name="name" />
+  </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Category" name="category" required [(ngModel)]="recipe.category">
-    </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput required [(ngModel)]="recipe.description" name="description"></textarea>
+  </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Recipe Type" name="recipeType" required [(ngModel)]="recipe.recipeType">
-    </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Category</mat-label>
+    <input matInput required [(ngModel)]="recipe.category" name="category" />
+  </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Preparation Time" name="preparationTime" type="number" required [(ngModel)]="recipe.preparationTime">
-    </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Recipe Type</mat-label>
+    <input matInput required [(ngModel)]="recipe.recipeType" name="recipeType" />
+  </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Difficulty" name="difficulty" required [(ngModel)]="recipe.difficulty">
-    </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Preparation Time (min)</mat-label>
+    <input matInput type="number" required [(ngModel)]="recipe.preparationTime" name="preparationTime" />
+  </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="User ID" name="userId" type="number" required [(ngModel)]="recipe.userId">
-    </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Difficulty</mat-label>
+    <mat-select required [(ngModel)]="recipe.difficulty" name="difficulty">
+      <mat-option value="Easy">Easy</mat-option>
+      <mat-option value="Medium">Medium</mat-option>
+      <mat-option value="Hard">Hard</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <ng-container>
-      @if (editMode === true) {
-        <button mat-raised-button color="primary">Update</button>
-        <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
-      }
-      @else {
-        <button mat-raised-button color="primary">Add</button>
-      }
-    </ng-container>
-  </form>
-</div>
+  <mat-form-field appearance="outline">
+    <mat-label>User ID</mat-label>
+    <input matInput type="number" required [(ngModel)]="recipe.userId" name="userId" />
+  </mat-form-field>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCancel()">Cancel</button>
+    <button mat-flat-button color="primary">{{ editMode ? 'Update' : 'Create' }}</button>
+  </mat-dialog-actions>
+</form>

@@ -1,47 +1,57 @@
-import { Component } from '@angular/core';
-import { EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { Recipe } from "../../model/recipe.entity";
-import { FormsModule, NgForm } from "@angular/forms";
-import { MatFormField } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { MatButtonModule } from "@angular/material/button";
+import { Component, Inject } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOption, MatSelect } from '@angular/material/select';
+import { MatDialogActions, MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Recipe } from '../../model/recipe.entity';
 
 @Component({
   selector: 'app-recipe-create-and-edit',
-  imports: [MatFormField, MatInputModule, MatButtonModule, FormsModule],
+  standalone: true,
+  imports: [
+    FormsModule,
+    MatFormField,
+    MatInputModule,
+    MatButtonModule,
+    MatSelect,
+    MatOption,
+    MatDialogActions,
+    MatDialogModule
+  ],
   templateUrl: './recipe-create-and-edit.component.html',
   styleUrl: './recipe-create-and-edit.component.css'
 })
 export class RecipeCreateAndEditComponent {
-  @Input() recipe: Recipe;
-  @Input() editMode: boolean = false;
-  @Output() recipeAdded: EventEmitter<Recipe> = new EventEmitter<Recipe>();
-  @Output() recipeUpdated: EventEmitter<Recipe> = new EventEmitter<Recipe>();
-  @Output() editCanceled: EventEmitter<any> = new EventEmitter();
-  @ViewChild('recipeForm', { static: false }) recipeForm!: NgForm;
+  recipe: Recipe;
+  editMode: boolean;
 
-  constructor() {
-    this.recipe = {} as Recipe;
-  }
-
-  private resetEditState(): void {
-    this.recipe = {} as Recipe;
-    this.editMode = false;
-    this.recipeForm.resetForm();
+  constructor(
+    private dialogRef: MatDialogRef<RecipeCreateAndEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.editMode = data.editMode;
+    this.recipe = data.recipe ? { ...data.recipe } : {} as Recipe;
   }
 
   onSubmit(): void {
-    if (this.recipeForm.form.valid) {
-      const emitter: EventEmitter<Recipe> = this.editMode ? this.recipeUpdated : this.recipeAdded;
-      emitter.emit(this.recipe);
-      this.resetEditState();
+    if (
+      this.recipe.name &&
+      this.recipe.description &&
+      this.recipe.category &&
+      this.recipe.recipeType &&
+      this.recipe.preparationTime &&
+      this.recipe.difficulty &&
+      this.recipe.userId
+    ) {
+      this.dialogRef.close(this.recipe);
     } else {
-      console.error('Invalid data in form');
+      console.warn('Formulario incompleto');
     }
   }
 
   onCancel(): void {
-    this.editCanceled.emit();
-    this.resetEditState();
+    this.dialogRef.close(null);
   }
 }
