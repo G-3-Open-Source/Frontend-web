@@ -25,6 +25,7 @@ import { RecommendationTemplate } from '../../model/recommendation-template.enti
 export class RecommendationManagementComponent implements OnInit {
   dataSource: any[] = [];
   templates: RecommendationTemplate[] = [];
+  userId: number | null = null;
 
   constructor(
     private recommendationsService: RecommendationsService,
@@ -33,10 +34,64 @@ export class RecommendationManagementComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const storedUserId = localStorage.getItem('userId');
+    this.userId = storedUserId ? +storedUserId : null;
+
     this.templateService.getAllArray().subscribe((templates) => {
       this.templates = templates;
-      this.getAllRecommendations();
 
+      if (this.userId) {
+        // Nueva lógica: solo auto-asignar si el usuario no tiene recomendaciones
+        this.recommendationsService.getByUserId(this.userId).subscribe({
+          next: (recommendations: Recommendation[]) => {
+            if (recommendations && recommendations.length > 0) {
+              this.dataSource = recommendations.map(rec => ({
+                ...rec,
+                template: this.templates.find(
+                  t => t.id == (rec.templateId ?? rec.template?.id)
+                )
+              }));
+            } else {
+              // Si no hay recomendaciones, auto-asignar
+              this.recommendationsService.autoAssignToUser(this.userId as number).subscribe({
+                next: (autoRecommendations: Recommendation[]) => {
+                  this.dataSource = autoRecommendations.map(rec => ({
+                    ...rec,
+                    template: this.templates.find(
+                      t => t.id == (rec.templateId ?? rec.template?.id)
+                    )
+                  }));
+                },
+                error: (err: any) => {
+                  console.error('Error auto-assign recommendations:', err);
+                  this.dataSource = [];
+                }
+              });
+            }
+          },
+          error: (err: any) => {
+            console.error('Error obteniendo recomendaciones del usuario:', err);
+            this.dataSource = [];
+          }
+        });
+      } else {
+        // Modo anterior: cargar todas si no hay userId
+        this.getAllRecommendations();
+      }
+    });
+  }
+
+  private getRecommendationsByUserId(userId: number): void {
+    this.recommendationsService.getByUserId(userId).subscribe({
+      next: (response: Recommendation[]) => {
+        this.dataSource = response.map(rec => ({
+          ...rec,
+          template: this.templates.find(
+            t => t.id == (rec.templateId ?? rec.template?.id)
+          )
+        }));
+      },
+      error: (err: any) => console.error('Error loading recommendations by userId:', err)
     });
   }
 
