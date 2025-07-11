@@ -1,0 +1,77 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #4caf50;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.75rem;
+  cursor: pointer;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.nav-links a:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+}
+.right-section {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+}
+
+.right-actions .profile-icon mat-icon {
+  font-size: 28px;
+  color: #333; /* color propio, no blanco */
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.right-actions .profile-icon mat-icon:hover {
+  color: #1976d2;
+}

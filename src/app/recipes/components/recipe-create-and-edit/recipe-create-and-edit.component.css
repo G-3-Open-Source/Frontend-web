@@ -1,0 +1,13 @@
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 300px;
+  width: 100%;
+  max-width: 500px;
+  padding-top: 8px;
+}
+
+mat-dialog-actions {
+  padding-top: 12px;
+}

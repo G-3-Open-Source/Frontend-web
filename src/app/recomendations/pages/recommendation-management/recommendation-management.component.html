@@ -1,0 +1,38 @@
+<div class="cards-wrapper">
+  <h2>{{ 'recommendation.title' | translate }}</h2>
+  <div class="cards-container">
+    <mat-card class="recommendation-card" *ngFor="let element of dataSource">
+      <mat-card-header>
+        <mat-card-title>
+          <ng-container *ngIf="element.template && element.template.title; else noTemplate">
+            {{ element.template.title }}
+          </ng-container>
+          <ng-template #noTemplate>
+            <span class="text-muted">Sin template asignado</span>
+          </ng-template>
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{ element.timeOfDay }} &nbsp; {{ element.createdAt | date:'short' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>{{ 'recommendation.id' | translate }}:</strong> {{ element.id }}</p>
+        <p><strong>{{ 'recommendation.reason' | translate }}:</strong> {{ element.reason }}</p>
+        <p><strong>{{ 'recommendation.notes' | translate }}:</strong> {{ element.notes }}</p>
+        <p><strong>{{ 'recommendation.score' | translate }}:</strong> {{ element.score }}</p>
+        <p>
+          <strong>{{ 'recommendation.status' | translate }}:</strong>
+          <span [class]="'status-badge ' + element.status">{{ element.status }}</span>
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-icon-button (click)="openEditDialog(element)" matTooltip="Editar">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteRecommendation(element.id)" matTooltip="Eliminar">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

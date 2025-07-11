@@ -1,0 +1,161 @@
+<div class="tracking-management-container">
+  <h2>{{ 'tracking.title' | translate }}</h2>
+
+  <!-- Tracking Information and Macronutrients Section -->
+  <div class="tracking-info-section" *ngIf="currentTracking.id">
+    <h3>{{ 'tracking.infoTitle' | translate }}</h3>
+
+    <!-- Tracking Details -->
+    <div class="tracking-details">
+      <div class="detail-item">
+        <strong>{{ 'tracking.date' | translate }}:</strong> {{currentTracking.date | date:'shortDate'}}
+      </div>
+    </div>
+
+    <!-- Macronutrient Summary -->
+    <div class="macro-summary">
+      <h4>{{ 'tracking.goalTitle' | translate }}</h4>
+      <div class="macro-cards">
+        <div class="macro-card calories">
+          <div class="macro-header">
+            <mat-icon>local_fire_department</mat-icon>
+            <h5>{{ 'tracking.calories' | translate }}</h5>
+          </div>
+          <div class="macro-progress">
+            <div class="progress-values">
+              <span class="target">{{currentTracking.trackingGoal?.targetCalories || 0}}</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="getProgressPercentage('calories')"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="macro-card protein">
+          <div class="macro-header">
+            <mat-icon>fitness_center</mat-icon>
+            <h5>{{ 'tracking.proteins' | translate }}</h5>
+          </div>
+          <div class="macro-progress">
+            <div class="progress-values">
+              <span class="target">{{currentTracking.trackingGoal?.targetProtein || 0}}g</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="getProgressPercentage('protein')"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="macro-card carbs">
+          <div class="macro-header">
+            <mat-icon>grain</mat-icon>
+            <h5>{{ 'tracking.carbs' | translate }}</h5>
+          </div>
+          <div class="macro-progress">
+            <div class="progress-values">
+              <span class="target">{{currentTracking.trackingGoal?.targetCarbs || 0}}g</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="getProgressPercentage('carbs')"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="macro-card fats">
+          <div class="macro-header">
+            <mat-icon>opacity</mat-icon>
+            <h5>{{ 'tracking.fats' | translate }}</h5>
+          </div>
+          <div class="macro-progress">
+            <div class="progress-values">
+              <span class="target">{{currentTracking.trackingGoal?.targetFats || 0}}g</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="getProgressPercentage('fats')"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meal Plan Management Section -->
+  <div class="meal-plan-section" *ngIf="currentTracking.id">
+    <div class="section-header">
+      <h3>{{ 'tracking.entriesTitle' | translate }}</h3>
+      <button mat-raised-button color="primary" (click)="showAddMealEntryForm()" *ngIf="!showMealEntryForm">
+        <mat-icon>add</mat-icon>
+        {{ 'tracking.addEntry' | translate }}
+      </button>
+    </div>
+
+    <!-- Meal Entry Form -->
+    <div class="meal-entry-form" *ngIf="showMealEntryForm">
+      <app-tracking-create-and-edit
+        [tracking]="currentTracking"
+        [editingMealEntry]="editingMealEntry"
+        (mealPlanEntryAdded)="onMealPlanEntryAdded($event)"
+        (mealPlanEntryUpdated)="onMealPlanEntryUpdated($event)"
+        (editCanceled)="onEditCanceled()">
+      </app-tracking-create-and-edit>
+    </div>
+
+    <!-- Meal Entries Table -->
+    <div class="table-container" *ngIf="selectedTrackingMealEntries.length > 0">
+      <table mat-table [dataSource]="mealEntriesDataSource" class="meal-entries-table">
+
+
+        <!-- Recipe ID -->
+        <ng-container matColumnDef="recipeId">
+          <th mat-header-cell *matHeaderCellDef>{{ 'mealEntryForm.recipeId' | translate }}</th>
+          <td mat-cell *matCellDef="let entry">{{entry.recipeId}}</td>
+        </ng-container>
+
+        <!-- Meal Plan Type -->
+        <ng-container matColumnDef="mealPlanType">
+          <th mat-header-cell *matHeaderCellDef>{{ 'mealEntryForm.mealPlanType' | translate }}</th>
+          <td mat-cell *matCellDef="let entry">{{entry.mealPlanType}}</td>
+        </ng-container>
+
+        <!-- Day Number -->
+        <ng-container matColumnDef="dayNumber">
+          <th mat-header-cell *matHeaderCellDef>{{ 'mealEntryForm.dayNumber' | translate }}</th>
+          <td mat-cell *matCellDef="let entry">{{entry.dayNumber}}</td>
+        </ng-container>
+
+
+        <!-- Actions -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>{{ 'mealEntryForm.actions' | translate }}</th>
+          <td mat-cell *matCellDef="let entry">
+            <button mat-icon-button color="primary" (click)="onEditMealEntry(entry)" matTooltip="Edit Entry">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="onDeleteMealPlanEntry(entry)" matTooltip="Delete Entry">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="mealEntriesColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: mealEntriesColumns;"></tr>
+      </table>
+
+      <mat-paginator #mealEntriesPaginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+
+    <!-- Empty State for Meal Entries -->
+    <div class="empty-state" *ngIf="selectedTrackingMealEntries.length === 0">
+      <mat-icon>restaurant</mat-icon>
+      <h4>{{ 'tracking.noEntries.title' | translate }}</h4>
+      <p>{{ 'tracking.noEntries.description' | translate }}</p>
+    </div>
+  </div>
+
+  <!-- Empty State for Tracking -->
+  <div class="empty-state" *ngIf="!currentTracking.id">
+    <mat-icon>search</mat-icon>
+    <h3>{{ 'tracking.noTracking.title' | translate }}</h3>
+    <p>{{ 'tracking.noTracking.description' | translate }}</p>
+  </div>
+</div>

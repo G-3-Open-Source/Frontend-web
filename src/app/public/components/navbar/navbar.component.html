@@ -1,0 +1,27 @@
+<header class="navbar">
+  <button class="menu-toggle" (click)="toggleSidebar()">
+    <span *ngIf="!sidenav.opened">&#9776;</span>
+    <span *ngIf="sidenav.opened">&times;</span>
+  </button>
+<!-- <img src="src/assets/logo.png" alt="Logo" class="logo" />-->
+  <div class="center-section">
+    <span class="logo">
+      <h1 class="title">NutriSmart</h1>
+    </span>
+  </div>
+
+<!--  <nav class="nav-links">
+    <a *ngFor="let option of options" [routerLink]="option.path">{{ option.title }}</a>
+  </nav>-->
+  <div class="right-actions">
+
+    <a [routerLink]="'/profiles'" class="profile-icon" matTooltip="Perfil">
+      <mat-icon>person</mat-icon>
+    </a>
+    <app-language-switcher></app-language-switcher>
+  </div>
+
+
+</header>
+
+

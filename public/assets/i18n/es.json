@@ -1,0 +1,119 @@
+{
+  "filter": {
+    "label": "Filtro",
+    "placeholder": "Ingrese texto para filtrar"
+  },
+  "title": {
+    "recipes": "Recetas",
+    "ingredients": "Ingredientes",
+    "add": "Nuevo Ingrediente",
+    "edit": "Editar Ingrediente"
+  },
+  "ingredient": {
+    "id": "N.º",
+    "name": "Nombre",
+    "category": "Categoría",
+    "calories": "Calorías",
+    "carbohydrates": "Carbohidratos",
+    "proteins": "Proteínas",
+    "fats": "Grasas",
+    "allergies": "Alergias",
+    "recipes": "Recetas",
+    "actions": "Acciones",
+    "add": "Añadir Ingrediente",
+    "macronutrientValuesId": "ID de Valores de Macronutrientes"
+
+  },
+  "recommendation": {
+    "title": "Recomendaciones",
+    "id": "ID",
+    "meal_plan_id": "ID Plan Alimenticio",
+    "user_id": "ID Usuario",
+    "reason": "Motivo",
+    "time_of_day": "Momento del día",
+    "created_at": "Fecha de creación",
+    "notes": "Notas",
+    "score": "Puntuación",
+    "status": "Estado",
+    "actions": "Acciones"
+  },
+  "recipe": {
+    "id": "N.º",
+    "name": "Nombre",
+    "ingredients": "Ingredientes",
+    "recipeType": "Tipo de Receta",
+    "description": "Descripción",
+    "category": "Categoria",
+    "preparationTime": "Tiempo de Preparación (Minutos)",
+    "difficulty": "Dificultad",
+    "userId": "ID Usuario",
+    "add": "Añadir Receta"
+  },
+  "footer": {
+    "rights": "Copyright © 2025 {{ api }}, Todos los derechos reservados",
+    "intro": "Desarrollado ",
+    "author": "por el equipo {{ team }}"
+  },
+  "tracking": {
+    "title": "Gestión de Seguimiento",
+    "infoTitle": "Información del Seguimiento",
+    "date": "Fecha",
+    "goalTitle": "Objetivo de Macronutrientes",
+    "calories": "Calorías",
+    "carbs": "Carbohidratos",
+    "proteins": "Proteínas",
+    "fats": "Grasas",
+    "entriesTitle": "Entradas del Plan Alimenticio",
+    "addEntry": "Agregar Entrada de Comida",
+    "noTracking": {
+      "title": "Sin Seguimiento Seleccionado",
+      "description": "Busca un ID de usuario para ver su información de seguimiento y gestionar las entradas del plan alimenticio."
+    },
+    "noEntries": {
+      "title": "Sin Entradas de Comida",
+      "description": "Este seguimiento aún no tiene entradas de comida. Haz clic en \"Agregar Entrada de Comida\" para comenzar."
+    }
+  },
+  "mealEntryForm": {
+    "addTitle": "Agregar Entrada de Comida desde Receta",
+    "editTitle": "Editar Entrada de Comida",
+    "userId": "ID de Usuario",
+    "recipeId": "ID de Receta",
+    "mealPlanType": "Tipo de Comida",
+    "dayNumber": "Número de Día",
+    "addButton": "Agregar Entrada",
+    "updateButton": "Actualizar Entrada",
+    "cancelButton": "Cancelar",
+    "actions": "Acciones",
+    "editTooltip": "Editar Entrada",
+    "deleteTooltip": "Eliminar Entrada"
+  },
+  "profile": {
+    "title": {
+      "view": "Perfil de {{ name }}",
+      "create": "Crear tu perfil"
+    },
+    "form": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "birthDate": "Fecha de nacimiento",
+      "isActive": "Activo",
+      "healthProfile": "Perfil de salud",
+      "gender": "Género",
+      "height": "Altura (cm)",
+      "weight": "Peso (kg)",
+      "userScore": "Puntuación del usuario",
+      "activityLevel": "Nivel de actividad",
+      "objective": "Objetivo",
+      "allergies": "Alergias",
+      "none": "Ninguno"
+    },
+    "buttons": {
+      "saveChanges": "Guardar cambios",
+      "createProfile": "Crear perfil",
+      "edit": "Editar"
+    }
+  }
+
+}

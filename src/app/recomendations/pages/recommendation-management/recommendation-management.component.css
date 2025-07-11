@@ -1,0 +1,111 @@
+/* Contenedor general */
+.cards-wrapper {
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+  background: #fff; /* Fondo blanco */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Contenedor de cards: 2 por fila, 50% cada una */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Estilo de la card */
+.recommendation-card {
+  position: relative;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+}
+
+.recommendation-card mat-card-header {
+  background: linear-gradient(135deg, #4caf50 0%, #a8e063 100%);
+  color: #fff;
+  padding: 16px;
+}
+
+.recommendation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(76, 175, 80, 0.18);
+}
+.recommendation-card mat-card-title {
+  font-size: 1.25rem;
+  text-align: center;
+  margin: 0;
+}
+
+.recommendation-card mat-card-subtitle {
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Contenido de la card */
+.recommendation-card mat-card-content {
+  padding: 16px;
+  flex-grow: 1;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.recommendation-card mat-card-content p {
+  margin: 8px 0;
+  line-height: 1.4;
+}
+
+/* Estilos para las badges de estado */
+.status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.status-badge.active {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.pending {
+  background-color: #fff8e1;
+  color: #ff8f00;
+}
+
+.status-badge.inactive {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+/* Acciones de la card */
+.recommendation-card mat-card-actions {
+  padding: 8px 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  background-color: #f9f9f9;
+}
+
+/* Responsive: 1 card por fila en pantallas chicas */
+@media (max-width: 900px) {
+  .cards-container {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+}

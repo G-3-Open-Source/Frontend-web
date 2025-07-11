@@ -1,0 +1,109 @@
+<div class="profile-container">
+  <h2 *ngIf="!editMode">{{ 'profile.title.view' | translate:{ name: profileForm.get('name')?.value || '-' } }}</h2>
+  <h2 *ngIf="editMode">{{ 'profile.title.create' | translate }}</h2>
+
+  <form [formGroup]="profileForm" class="profile-form">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'profile.form.name' | translate }}</mat-label>
+      <input matInput formControlName="name" [readonly]="!editMode">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'profile.form.email' | translate }}</mat-label>
+      <input matInput formControlName="email" [readonly]="!editMode">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" *ngIf="editMode">
+      <mat-label>{{ 'profile.form.password' | translate }}</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'profile.form.birthDate' | translate }}</mat-label>
+      <input matInput type="date" formControlName="birthDate" [readonly]="!editMode">
+    </mat-form-field>
+
+    <mat-checkbox formControlName="isActive" [disabled]="!editMode">
+      {{ 'profile.form.isActive' | translate }}
+    </mat-checkbox>
+
+    <h3>{{ 'profile.form.healthProfile' | translate }}</h3>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'profile.form.gender' | translate }}</mat-label>
+      <input matInput formControlName="gender" [readonly]="!editMode">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'profile.form.height' | translate }}</mat-label>
+      <input matInput type="number" formControlName="height" [readonly]="!editMode">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'profile.form.weight' | translate }}</mat-label>
+      <input matInput type="number" formControlName="weight" [readonly]="!editMode">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'profile.form.userScore' | translate }}</mat-label>
+      <input matInput type="number" formControlName="userScore" [readonly]="!editMode">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'profile.form.activityLevel' | translate }}</mat-label>
+      <mat-select formControlName="activityLevelId" [disabled]="!editMode">
+        <mat-option [value]="null">{{ 'profile.form.none' | translate }}</mat-option>
+        <mat-option *ngFor="let lvl of activityLevels" [value]="lvl.id">
+          {{ lvl.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'profile.form.objective' | translate }}</mat-label>
+      <mat-select formControlName="objectiveId" [disabled]="!editMode">
+        <mat-option [value]="null">{{ 'profile.form.none' | translate }}</mat-option>
+        <mat-option *ngFor="let obj of objectives" [value]="obj.id">
+          {{ obj.objectiveName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'profile.form.allergies' | translate }}</mat-label>
+      <mat-select formControlName="allergyIds" multiple [disabled]="!editMode">
+        <mat-option *ngFor="let al of allergies" [value]="al.id">
+          {{ al.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="btn-container">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="loading"
+        *ngIf="editMode"
+        type="button"
+        (click)="save()"
+      >
+        {{ userProfile ? ('profile.buttons.saveChanges' | translate) : ('profile.buttons.createProfile' | translate) }}
+        <mat-progress-spinner
+          *ngIf="loading"
+          diameter="20"
+          mode="indeterminate"
+        ></mat-progress-spinner>
+      </button>
+
+      <button
+        mat-raised-button
+        color="accent"
+        *ngIf="!editMode"
+        type="button"
+        (click)="edit()"
+      >
+        {{ 'profile.buttons.edit' | translate }}
+      </button>
+    </div>
+  </form>
+</div>

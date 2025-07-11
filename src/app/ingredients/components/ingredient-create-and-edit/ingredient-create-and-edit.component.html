@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Nuevo Ingrediente</h2>
+
+<form #ingredientForm="ngForm" (ngSubmit)="onSubmit(ingredientForm)" class="form-container">
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre</mat-label>
+    <input matInput name="name" required [(ngModel)]="ingredient.name">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Calorías</mat-label>
+    <input matInput type="number" name="calories" required [(ngModel)]="ingredient.calories">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Carbohidratos</mat-label>
+    <input matInput type="number" name="carbohydrates" required [(ngModel)]="ingredient.carbohydrates">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Proteínas</mat-label>
+    <input matInput type="number" name="proteins" required [(ngModel)]="ingredient.proteins">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Grasas</mat-label>
+    <input matInput type="number" name="fats" required [(ngModel)]="ingredient.fats">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>ID Macronutrientes</mat-label>
+    <input matInput type="number" name="macronutrientValuesId" required [(ngModel)]="ingredient.macronutrientValuesId">
+  </mat-form-field>
+
+  <div class="form-actions">
+    <button mat-raised-button color="primary" type="submit">Agregar</button>
+    <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>

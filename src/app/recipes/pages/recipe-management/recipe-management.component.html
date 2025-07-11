@@ -1,0 +1,46 @@
+<div class="cards-wrapper">
+  <h2 class="recipe-title">{{ 'title.recipes' | translate }}</h2>
+
+  <!-- Botón flotante para crear receta -->
+  <div class="add-button-container">
+    <button mat-raised-button color="primary" (click)="openCreateDialog()">
+      <mat-icon>add</mat-icon> {{ 'recipe.add' | translate }}
+    </button>
+  </div>
+
+
+  <!-- Cards de Recetas -->
+  <div class="cards-container">
+    <mat-card class="recipe-card" *ngFor="let element of dataSource.data">
+      <mat-card-header>
+        <mat-card-title>{{ element.name }}</mat-card-title>
+        <mat-card-subtitle>{{ element.category }} • {{ element.recipeType }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p><strong>{{ 'recipe.description' | translate }}:</strong> {{ element.description }}</p>
+        <p><strong>{{ 'recipe.preparationTime' | translate }}:</strong> {{ element.preparationTime }} min</p>
+        <p>
+          <strong>{{ 'recipe.difficulty' | translate }}:</strong>
+          <span class="difficulty-badge" [ngClass]="recipeDifficultyClass(element.difficulty)">
+            {{ element.difficulty }}
+          </span>
+        </p>
+        <p><strong>{{ 'recipe.userId' | translate }}:</strong> {{ element.userId }}</p>
+        <p><strong>{{ 'recipe.ingredients' | translate }}:</strong> {{ element.ingredients?.join(', ') }}</p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-icon-button (click)="openEditDialog(element)" matTooltip="Editar">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onDeleteItem(element)" matTooltip="Eliminar">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="openAddIngredientDialog(element)" matTooltip="Agregar ingrediente">
+          <mat-icon>playlist_add</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

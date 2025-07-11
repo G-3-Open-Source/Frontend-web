@@ -1,0 +1,17 @@
+
+<div class="auth-container">
+  @if (isSignedIn) {
+    <div class="auth-container" style="margin-bottom: 20px;">
+      <span class="welcome-message">Welcome, {{ currentUserName }}</span>
+      <button class="sign-out-btn" (click)="onSignOut()">Sign Out</button>
+    </div>
+  } @else {
+
+  <div class="auth-container">
+    <button class="auth-btn" (click)="onSignIn()">Sign In</button>
+    <button class="auth-btn" (click)="onSignUp()">Sign Up</button>
+  </div>
+  }
+</div>
+
+

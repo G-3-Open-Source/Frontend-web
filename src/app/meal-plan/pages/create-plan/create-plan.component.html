@@ -1,0 +1,107 @@
+<div class="container">
+  <h2>Crear Nuevo Plan</h2>
+  <form [formGroup]="planForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>Nombre del plan:</label>
+      <input formControlName="name" type="text" />
+    </div>
+
+    <div>
+      <label>Descripción:</label>
+      <textarea formControlName="description"></textarea>
+    </div>
+
+    <div class="macro-row">
+      <div>
+        <label>Carbohidratos (g):</label>
+        <input formControlName="carbs" type="number" step="0.1" />
+      </div>
+      <div>
+        <label>Proteínas (g):</label>
+        <input formControlName="proteins" type="number" step="0.1" />
+      </div>
+      <div>
+        <label>Grasas (g):</label>
+        <input formControlName="fats" type="number" step="0.1" />
+      </div>
+    </div>
+
+    <div>
+      <label>Calorías (Kcal):</label>
+      <input formControlName="calories" type="number" step="0.1" />
+    </div>
+
+<!--    <div>
+      <label>Profile ID:</label>
+      <input formControlName="profileId" type="number" />
+    </div>-->
+
+    <div>
+      <label>Categoría:</label>
+      <select formControlName="category">
+        <option value="">-- Selecciona --</option>
+        <option value="Perder peso">Perder peso</option>
+        <option value="Ganar músculo">Ganar músculo</option>
+        <option value="Mantener peso">Mantener peso</option>
+        <option value="Mejorar salud">Mejorar salud</option>
+      </select>
+    </div>
+
+    <div class="current-container">
+      <input formControlName="isCurrent" type="checkbox" />
+      <label>Marcar como plan actual</label>
+    </div>
+
+    <div>
+      <label>Tags (separados por comas):</label>
+      <input formControlName="tags" type="text" placeholder="tag1, tag2, tag3" />
+    </div>
+
+    <div class="entries-section">
+      <h3>Recetas del Plan</h3>
+      <div formArrayName="entries">
+        <div *ngFor="let entry of entriesArray.controls; let i = index" [formGroupName]="i" class="entry-row">
+          <div>
+            <label>Receta:</label>
+            <select formControlName="recipeId">
+              <option value="">-- Selecciona una receta --</option>
+              <option *ngFor="let recipe of recipes" [value]="recipe.id">
+                {{ recipe.name }}
+              </option>
+            </select>
+          </div>
+          <div>
+            <label>Día:</label>
+<!--            <input formControlName="day" type="number" min="1" max="7" />-->
+            <select formControlName="day">
+              <option value="1">Lunes</option>
+              <option value="2">Martes</option>
+              <option value="3">Miércoles</option>
+              <option value="4">Jueves</option>
+              <option value="5">Viernes</option>
+              <option value="6">Sábado</option>
+              <option value="7">Domingo</option>
+            </select>
+          </div>
+          <div>
+            <label>Tipo:</label>
+            <select formControlName="mealPlanTypeId">
+              <option value="1">Desayuno</option>
+              <option value="2">Almuerzo</option>
+              <option value="3">Cena</option>
+              <option value="4">Snack</option>
+            </select>
+
+          </div>
+          <button type="button" (click)="removeEntry(i)">Eliminar</button>
+        </div>
+      </div>
+      <button type="button" (click)="addEntry()">Agregar Entrada</button>
+    </div>
+
+    <div class="buttons">
+      <button type="submit" [disabled]="!planForm.valid">Guardar</button>
+      <button type="reset" (click)="resetForm()">Cancelar</button>
+    </div>
+  </form>
+</div>

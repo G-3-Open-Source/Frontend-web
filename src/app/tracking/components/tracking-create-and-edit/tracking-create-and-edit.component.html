@@ -1,0 +1,37 @@
+<!-- Meal Plan Entry Form -->
+<div class="form-section">
+  <h4>{{ editingMealEntry ? 'Edit Meal Entry' : 'Add Meal Entry from Recipe' }}</h4>
+  <form (ngSubmit)="onSubmitMealEntry()" #mealEntryForm="ngForm" class="form-row">
+
+    <mat-form-field>
+      <mat-label>User ID</mat-label>
+      <input matInput type="number" name="userId" required [(ngModel)]="mealEntryData.userId">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Recipe ID</mat-label>
+      <input matInput type="number" name="recipeId" required [(ngModel)]="mealEntryData.recipeId">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Meal Type</mat-label>
+      <mat-select name="mealPlanType" required [(ngModel)]="mealEntryData.mealPlanType">
+        <mat-option *ngFor="let type of mealTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Day Number</mat-label>
+      <input matInput type="number" name="dayNumber" required [(ngModel)]="mealEntryData.dayNumber">
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">
+        {{ editingMealEntry ? 'Update Entry' : 'Add Entry' }}
+      </button>
+      <button mat-raised-button color="warn" type="button" (click)="onCancelMealEntry()">Cancel</button>
+    </div>
+  </form>
+</div>

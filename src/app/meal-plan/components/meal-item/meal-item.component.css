@@ -1,0 +1,81 @@
+.meal-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 1rem auto;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.info-container{
+
+}
+.meal-card:hover {
+  transform: scale(1.01);
+}
+
+.meal-card-header {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.meal-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.meal-subtitle {
+  font-size: 0.95rem;
+  color: #718096;
+}
+
+.meal-description {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.meal-tags {
+  margin-bottom: 0.75rem;
+}
+
+.tag {
+  background-color: #edf2f7;
+  color: #2b6cb0;
+  font-size: 0.85rem;
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  margin-right: 0.5rem;
+  display: inline-block;
+}
+
+.meal-detail {
+  font-size: 0.9rem;
+  color: #4a5568;
+  margin: 0.25rem 0;
+}
+
+.meal-card-actions {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+.meal-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.meal-btn:hover {
+  background-color: #2d6330;
+}

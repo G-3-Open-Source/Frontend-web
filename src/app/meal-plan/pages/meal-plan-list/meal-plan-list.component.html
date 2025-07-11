@@ -1,0 +1,31 @@
+<section class="meal-plans-container">
+  <h2 class="title">Planes de Comida</h2>
+
+  <div class="filters-container">
+    <div class="filter">
+      <label for="calorieFilter">Filtrar por Calorías</label>
+      <select id="calorieFilter" [(ngModel)]="selectedCalories" (change)="filterByCalories()">
+        <option value="">Todos</option>
+        <option *ngFor="let calorie of calories" [value]="calorie">{{ calorie }}</option>
+      </select>
+    </div>
+
+    <div class="filter">
+      <label for="tagFilter">Filtrar por Tags</label>
+      <select id="tagFilter" [(ngModel)]="selectedTag" (change)="filterByTag()">
+        <option value="">Todos</option>
+        <option *ngFor="let tag of tags" [value]="tag">{{ tag }}</option>
+      </select>
+    </div>
+
+    <div class="filter-buttons">
+      <button (click)="resetFilters()">Mostrar Todos los Planes</button>
+      <button class="create" (click)="goToCreateMealPlan()">Crear Nuevo Plan</button>
+    </div>
+  </div>
+
+  <div class="meal-grid">
+    <app-meal-item *ngFor="let plan of filteredMealPlans" [plan]="plan"></app-meal-item>
+  </div>
+</section>
+

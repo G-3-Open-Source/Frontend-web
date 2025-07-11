@@ -1,0 +1,534 @@
+{
+  "tracking_goals": [
+    {
+      "id": 1,
+      "user_id": 101,
+      "daily_calories": 2200,
+      "daily_protein": 150,
+      "daily_carbs": 250,
+      "daily_fat": 70
+    }
+  ],
+  "tracking": [
+    {
+      "id": 1,
+      "date": "2025-05-14",
+      "time_of_day": "breakfast",
+      "quantity": 1,
+      "notes": "Desayuno saludable con avena",
+      "recipe_id": 10,
+      "user_id": 101,
+      "calories": 350,
+      "created_at": "2025-05-14T08:15:00Z"
+    },
+    {
+      "id": 2,
+      "date": "2025-05-14",
+      "time_of_day": "lunch",
+      "quantity": 1.5,
+      "notes": "Ensalada de pollo con arroz",
+      "recipe_id": 12,
+      "user_id": 101,
+      "calories": 600,
+      "created_at": "2025-05-14T13:10:00Z"
+    },
+    {
+      "id": 3,
+      "date": "2025-05-14",
+      "time_of_day": "dinner",
+      "quantity": 1,
+      "notes": "Pescado con papas al horno",
+      "recipe_id": 14,
+      "user_id": 101,
+      "calories": 500,
+      "created_at": "2025-05-14T20:45:00Z"
+    }
+  ],
+  "recommendations": [
+    {
+      "id": 1,
+      "meal_plan_id": 101,
+      "user_id": 1,
+      "reason": "Importancia de las proteínas",
+      "time_of_day": "mañana",
+      "created_at": "2025-05-15T08:00:00Z",
+      "notes": "Incluya fuentes de proteínas magras como pollo, pescado o legumbres en sus comidas.",
+      "score": 8.5,
+      "status": "activa"
+    },
+    {
+      "id": 2,
+      "meal_plan_id": 102,
+      "user_id": 1,
+      "reason": "Balance de carbohidratos",
+      "time_of_day": "tarde",
+      "created_at": "2025-05-15T12:30:00Z",
+      "notes": "Reduzca el consumo de carbohidratos simples en la tarde.",
+      "score": 7.2,
+      "status": "activa"
+    },
+    {
+      "id": 3,
+      "meal_plan_id": 103,
+      "user_id": 2,
+      "reason": "Hidratación adecuada",
+      "time_of_day": "todo el día",
+      "created_at": "2025-05-16T09:15:00Z",
+      "notes": "Beba al menos 2 litros de agua durante el día.",
+      "score": 9.1,
+      "status": "pendiente"
+    },
+    {
+      "id": 4,
+      "meal_plan_id": 104,
+      "user_id": 3,
+      "reason": "Suplementos vitamínicos",
+      "time_of_day": "noche",
+      "created_at": "2025-05-16T18:45:00Z",
+      "notes": "Considere tomar un complejo B antes de dormir.",
+      "score": 6.8,
+      "status": "inactiva"
+    }
+  ],
+  "meal-plan": [
+    {
+      "id": "1",
+      "name": "Plan Keto Inicial",
+      "description": "Plan bajo en carbohidratos para comenzar una dieta cetogénica.",
+      "total_carbs": 50,
+      "total_proteins": 120,
+      "total_fats": 130,
+      "calories_per_day": 1800,
+      "goal": "Perder peso",
+      "is_current": true,
+      "profile_id": 1,
+      "created_at": "2025-05-01T08:00:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Plan Hipercalórico Musculación",
+      "description": "Ideal para aumentar masa muscular.",
+      "total_carbs": 200,
+      "total_proteins": 161,
+      "total_fats": 50,
+      "calories_per_day": 3200,
+      "goal": "Ganar masa muscular",
+      "is_current": false,
+      "profile_id": 2,
+      "created_at": "2025-05-03T09:15:00Z"
+    },
+    {
+      "id": "3",
+      "name": "Plan Vegano Equilibrado",
+      "description": "Comidas 100% veganas con balance de macronutrientes.",
+      "total_carbs": 250,
+      "total_proteins": 50,
+      "total_fats": 23,
+      "calories_per_day": 1400,
+      "goal": "Mejorar salud",
+      "is_current": false,
+      "profile_id": 3,
+      "created_at": "2025-04-20T10:00:00Z"
+    },
+    {
+      "id": "4",
+      "name": "Plan Intermitente 16/8",
+      "description": "Plan con ayuno intermitente y comidas densas en nutrientes.",
+      "total_carbs": 100,
+      "total_proteins": 110,
+      "total_fats": 90,
+      "calories_per_day": 2000,
+      "goal": "Controlar apetito",
+      "is_current": false,
+      "profile_id": 4,
+      "created_at": "2025-04-10T07:30:00Z"
+    },
+    {
+      "id": "5",
+      "name": "Plan Detox",
+      "description": "Plan a base de frutas, verduras y jugos naturales.",
+      "total_carbs": 150,
+      "total_proteins": 70,
+      "total_fats": 40,
+      "calories_per_day": 1600,
+      "goal": "Desintoxicar cuerpo",
+      "is_current": false,
+      "profile_id": 5,
+      "created_at": "2025-03-15T11:00:00Z"
+    },
+    {
+      "id": "6",
+      "name": "Plan Senior Vitalidad",
+      "description": "Plan diseñado para personas mayores con requerimientos especiales.",
+      "total_carbs": 180,
+      "total_proteins": 90,
+      "total_fats": 60,
+      "calories_per_day": 1900,
+      "goal": "Mantener energía",
+      "is_current": true,
+      "profile_id": 6,
+      "created_at": "2025-05-05T12:00:00Z"
+    },
+    {
+      "id": "7",
+      "name": "Plan Bajo en Sodio",
+      "description": "Enfocado en controlar la presión arterial.",
+      "total_carbs": 200,
+      "total_proteins": 100,
+      "total_fats": 80,
+      "calories_per_day": 2100,
+      "goal": "Salud cardiovascular",
+      "is_current": false,
+      "profile_id": 7,
+      "created_at": "2025-04-25T14:00:00Z"
+    },
+    {
+      "id": "8",
+      "name": "Plan Estudiante Activo",
+      "description": "Diseñado para jóvenes activos física y mentalmente.",
+      "total_carbs": 250,
+      "total_proteins": 130,
+      "total_fats": 80,
+      "calories_per_day": 2600,
+      "goal": "Rendimiento físico y cognitivo",
+      "is_current": true,
+      "profile_id": 8,
+      "created_at": "2025-04-22T08:30:00Z"
+    },
+    {
+      "id": "10",
+      "name": "Plan Fit Exprés",
+      "description": "Plan de corta duración para definir y perder grasa.",
+      "total_carbs": 130,
+      "total_proteins": 140,
+      "total_fats": 50,
+      "calories_per_day": 1900,
+      "goal": "Definición muscular",
+      "is_current": true,
+      "profile_id": 10,
+      "created_at": "2025-05-10T10:20:00Z"
+    }
+  ],
+  "meal_plan_day_meals": [
+    {
+      "meal_plan_id": 1,
+      "recipe_id": 3,
+      "meal_plan_type_id": 2,
+      "day_number": 1,
+      "id": "1fb8"
+    },
+    {
+      "meal_plan_id": 2,
+      "recipe_id": 5,
+      "meal_plan_type_id": 1,
+      "day_number": 2,
+      "id": "07a1"
+    },
+    {
+      "meal_plan_id": 3,
+      "recipe_id": 2,
+      "meal_plan_type_id": 3,
+      "day_number": 3,
+      "id": "2f6d"
+    },
+    {
+      "meal_plan_id": 4,
+      "recipe_id": 7,
+      "meal_plan_type_id": 1,
+      "day_number": 1,
+      "id": "620b"
+    },
+    {
+      "meal_plan_id": 5,
+      "recipe_id": 1,
+      "meal_plan_type_id": 2,
+      "day_number": 4,
+      "id": "3f32"
+    }
+  ],
+  "meal_plan_types": [
+    {
+      "id": "1",
+      "type": "breakfast"
+    },
+    {
+      "id": "2",
+      "type": "lunch"
+    },
+    {
+      "id": "3",
+      "type": "dinner"
+    }
+  ],
+  "meal_plan_tags": [
+    {
+      "id": "1",
+      "name": "keto",
+      "meal_plan_id": 1
+    },
+    {
+      "id": "2",
+      "name": "vegan",
+      "meal_plan_id": 2
+    },
+    {
+      "id": "3",
+      "name": "low-carb",
+      "meal_plan_id": 3
+    },
+    {
+      "id": "4",
+      "name": "high-protein",
+      "meal_plan_id": 4
+    },
+    {
+      "id": "5",
+      "name": "gluten-free",
+      "meal_plan_id": 5
+    }
+  ],
+  "ingredients": [
+    {
+      "id": 1,
+      "name": "Tomato",
+      "category": "Vegetable",
+      "calories": 18,
+      "carbs": 3.9,
+      "proteins": 0.9,
+      "fats": 0.2,
+      "allergies": "",
+      "recipes": 1
+    },
+    {
+      "id": 2,
+      "name": "Chicken Breast",
+      "category": "Meat",
+      "calories": 165,
+      "carbs": 0,
+      "proteins": 31,
+      "fats": 3.6,
+      "allergies": "",
+      "recipes": 2
+    },
+    {
+      "id": 3,
+      "name": "Almond Milk",
+      "category": "Dairy Alternative",
+      "calories": 15,
+      "carbs": 1.3,
+      "proteins": 0.6,
+      "fats": 1.2,
+      "allergies": "nuts",
+      "recipes": 6
+    },
+    {
+      "id": 4,
+      "name": "Egg",
+      "category": "Protein",
+      "calories": 78,
+      "carbs": 0.6,
+      "proteins": 6,
+      "fats": 5,
+      "allergies": "eggs",
+      "recipes": 4
+    },
+    {
+      "id": 5,
+      "name": "Spinach",
+      "category": "Vegetable",
+      "calories": 23,
+      "carbs": 3.6,
+      "proteins": 2.9,
+      "fats": 0.4,
+      "allergies": "",
+      "recipes": 6
+    },
+    {
+      "id": 6,
+      "name": "Peanut Butter",
+      "category": "Spread",
+      "calories": 588,
+      "carbs": 20,
+      "proteins": 25,
+      "fats": 50,
+      "allergies": "nuts",
+      "recipes": 7
+    },
+    {
+      "id": 7,
+      "name": "Quinoa",
+      "category": "Grain",
+      "calories": 120,
+      "carbs": 21.3,
+      "proteins": 4.4,
+      "fats": 1.9,
+      "allergies": "",
+      "recipes": 8
+    },
+    {
+      "id": 8,
+      "name": "Salmon",
+      "category": "Fish",
+      "calories": 208,
+      "carbs": 0,
+      "proteins": 20,
+      "fats": 13,
+      "allergies": "fish",
+      "recipes": 10
+    }
+  ],
+  "recipes": [
+    {
+      "id": 1,
+      "name": "Tallarin Rojo",
+      "ingredients": "Fideos, Pomarola",
+      "description": "Plato tradicional de pasta con salsa de tomate.",
+      "category": "Almuerzo",
+      "preparationTime": 30,
+      "difficulty": "Fácil"
+    },
+    {
+      "id": 2,
+      "name": "Ensalada",
+      "ingredients": "Vegetales, Limon",
+      "description": "Ensalada fresca con aderezo de limón.",
+      "category": "Cena",
+      "preparationTime": 10,
+      "difficulty": "Muy fácil"
+    },
+    {
+      "recommendations": [
+        {
+          "id": 1,
+          "meal_plan_id": 101,
+          "user_id": 1,
+          "reason": "Importancia de las proteínas",
+          "time_of_day": "mañana",
+          "created_at": "2025-05-15T08:00:00Z",
+          "notes": "Incluya fuentes de proteínas magras como pollo, pescado o legumbres en sus comidas.",
+          "score": 8.5,
+          "status": "activa"
+        },
+        {
+          "id": 2,
+          "meal_plan_id": 102,
+          "user_id": 1,
+          "reason": "Balance de carbohidratos",
+          "time_of_day": "tarde",
+          "created_at": "2025-05-15T12:30:00Z",
+          "notes": "Reduzca el consumo de carbohidratos simples en la tarde.",
+          "score": 7.2,
+          "status": "activa"
+        },
+        {
+          "id": 3,
+          "meal_plan_id": 103,
+          "user_id": 2,
+          "reason": "Hidratación adecuada",
+          "time_of_day": "todo el día",
+          "created_at": "2025-05-16T09:15:00Z",
+          "notes": "Beba al menos 2 litros de agua durante el día.",
+          "score": 9.1,
+          "status": "pendiente"
+        },
+        {
+          "id": 4,
+          "meal_plan_id": 104,
+          "user_id": 3,
+          "reason": "Suplementos vitamínicos",
+          "time_of_day": "noche",
+          "created_at": "2025-05-16T18:45:00Z",
+          "notes": "Considere tomar un complejo B antes de dormir.",
+          "score": 6.8,
+          "status": "inactiva"
+        }
+      ]
+    }
+  ],
+  "user-profiles": [
+    {
+      "id": 1,
+      "gender": "Male",
+      "height": 1,
+      "weight": 70,
+      "userScore": 85,
+      "activityLevelId": 1,
+      "activityLevelName": "Sedentary",
+      "objectiveId": 1,
+      "objectiveName": "Lose Weight",
+      "allergyNames": [
+        "Nut Allergy",
+        "Gluten Allergy"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Héctor Ríos",
+      "email": "hector@example.com",
+      "password": "••••••",
+      "isActive": true,
+      "birthDate": "1990-05-15",
+      "userProfileId": 1
+    }
+  ],
+  "objectives": [
+    {
+      "id": 1,
+      "objectiveName": "Lose Weight",
+      "score": 50,
+      "description": "Objective to reduce body weight through diet and exercise."
+    },
+    {
+      "id": 2,
+      "objectiveName": "Gain Muscle",
+      "score": 70,
+      "description": "Objective to increase muscle mass with strength training and diet."
+    }
+  ],
+  "allergies": [
+    {
+      "id": 1,
+      "name": "Nut Allergy",
+      "relatedIngredients": [
+        {
+          "name": "Almonds"
+        },
+        {
+          "name": "Pecans"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Gluten Allergy",
+      "relatedIngredients": [
+        {
+          "name": "Wheat"
+        },
+        {
+          "name": "Barley"
+        }
+      ]
+    }
+  ],
+  "activity-levels": [
+    {
+      "id": 1,
+      "name": "Sedentary",
+      "description": "Little or no exercise",
+      "activityFactor": 1.2,
+      "createdAt": "2025-07-07T00:00:00.000Z",
+      "updatedAt": "2025-07-07T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Active",
+      "description": "Moderate exercise 3-5 days/week",
+      "activityFactor": 1.55,
+      "createdAt": "2025-07-07T00:00:00.000Z",
+      "updatedAt": "2025-07-07T00:00:00.000Z"
+    }
+  ]
+}
