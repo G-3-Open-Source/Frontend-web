@@ -13,6 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RecipeService } from '../../services/recipe.service';
 import { Recipe } from '../../model/recipe.entity';
 import { RecipeCreateAndEditComponent } from '../../components/recipe-create-and-edit/recipe-create-and-edit.component';
+import {AddIngredientToRecipeComponent} from './add-ingredient-to-recipe.component';
 
 @Component({
   selector: 'app-recipe-management',
@@ -148,4 +149,20 @@ export class RecipeManagementComponent implements OnInit, AfterViewInit {
         return '';
     }
   }
+
+  openAddIngredientDialog(recipe: Recipe): void {
+    const dialogRef = this.dialog.open(AddIngredientToRecipeComponent, {
+      width: '400px',
+      data: { recipeId: recipe.id }
+    });
+
+    dialogRef.afterClosed().subscribe(ingredientId => {
+      if (ingredientId) {
+        this.recipeService.addIngredientToRecipe(recipe.id, ingredientId).subscribe(() => {
+          this.getAllRecipes(); // refrescar lista
+        });
+      }
+    });
+  }
+
 }

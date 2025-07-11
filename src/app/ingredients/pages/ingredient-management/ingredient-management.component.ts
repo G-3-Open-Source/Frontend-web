@@ -1,128 +1,98 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { NgClass, NgFor, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { AfterViewInit, OnInit, ViewChild} from '@angular/core';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { MatIconModule } from "@angular/material/icon";
-import { IngredientsService } from "../../services/ingredients.service";
-import { Ingredient } from "../../model/ingredient.entity";
-import { IngredientCreateAndEditComponent } from "../../components/ingredient-create-and-edit/ingredient-create-and-edit.component";
-import { NgClass } from "@angular/common";
-import { TranslateModule } from "@ngx-translate/core";
+import { Ingredient } from '../../model/ingredient.entity';
+import { IngredientsService } from '../../services/ingredients.service';
+import { IngredientCreateAndEditComponent } from '../../components/ingredient-create-and-edit/ingredient-create-and-edit.component';
 
 @Component({
   selector: 'app-ingredient-management',
-  imports: [MatPaginator, MatSort, MatIconModule, IngredientCreateAndEditComponent, MatTableModule, NgClass, TranslateModule],
+  standalone: true,
+  imports: [
+    MatPaginator,
+    MatSort,
+    MatIconModule,
+    MatCardModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatDialogModule,
+    NgClass,
+    NgFor,
+    NgIf,
+    TranslateModule,
+    IngredientCreateAndEditComponent
+  ],
   templateUrl: './ingredient-management.component.html',
   styleUrl: './ingredient-management.component.css'
 })
-export class IngredientManagementComponent implements OnInit, AfterViewInit  {
-
-  // Atributos
+export class IngredientManagementComponent implements OnInit, AfterViewInit {
   ingredientData: Ingredient;
-  dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = [
-    'id', 'name', 'calories', 'carbohydrates', 'proteins', 'fats', 'macronutrientValuesId', 'actions'
-  ];
-  isEditMode: boolean;
+  dataSource!: MatTableDataSource<Ingredient>;
 
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
-  // Constructor
-  constructor(private ingredientService: IngredientsService) {
-    this.isEditMode = false;
+  constructor(
+    private ingredientService: IngredientsService,
+    private dialog: MatDialog
+  ) {
     this.ingredientData = {} as Ingredient;
-    this.dataSource = new MatTableDataSource<any>();
-  }
-
-  // Métodos privados
-  private resetEditState(): void {
-    this.isEditMode = false;
-    this.ingredientData = {} as Ingredient;
-  }
-
-  // Acciones CRUD
-
-  private getAllIngredients(): void {
-    this.ingredientService.getAll()
-      .subscribe((response: any) => {
-        this.dataSource.data = response;
-      });
-  };
-
-  private createIngredient(): void {
-    this.ingredientService.create(this.ingredientData)
-      .subscribe((response: any) => {
-        this.dataSource.data.push({ ...response });
-        this.dataSource.data = this.dataSource.data
-          .map((ingredient: Ingredient) => {
-            return ingredient;
-          }); // Trigger Angular change detection
-      });
-  };
-
-  private updateIngredient(): void {
-    let ingredientToUpdate: Ingredient = this.ingredientData;
-    this.ingredientService.update(this.ingredientData.id, ingredientToUpdate)
-      .subscribe((response: any) => {
-        this.dataSource.data = this.dataSource.data.map((ingredient: Ingredient) => {
-          if (ingredient.id === response.id) {
-            return response;
-          }
-          return ingredient;
-        });
-      });
-  };
-
-  private deleteIngredient(ingredientId: number): void {
-    this.ingredientService.delete(ingredientId)
-      .subscribe(() => {
-        this.dataSource.data = this.dataSource.data.filter((ingredient: Ingredient) => {
-          return ingredient.id !== ingredientId ? ingredient : false;
-        });
-      });
-  };
-
-  // Manejadores de eventos de UI
-
-  onEditItem(arg: Ingredient | Event): void {
-    const element = arg as Ingredient;
-    this.isEditMode = true;
-    this.ingredientData = element;
-  }
-
-  onDeleteItem(element: Ingredient) {
-    this.deleteIngredient(element.id);
-  }
-
-  onCancelEdit() {
-    this.resetEditState();
-    this.getAllIngredients();
-  }
-
-  onIngredientAdded(element: Ingredient) {
-    this.ingredientData = element;
-    this.createIngredient();
-    this.resetEditState();
-  }
-
-  onIngredientUpdated(element: Ingredient) {
-    this.ingredientData = element;
-    this.updateIngredient();
-    this.resetEditState();
-  }
-
-  // Ciclo de vida
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource = new MatTableDataSource<Ingredient>();
   }
 
   ngOnInit(): void {
     this.getAllIngredients();
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  private getAllIngredients(): void {
+    this.ingredientService.getAll()
+      .subscribe((response: any) => {
+        this.dataSource.data = response;
+      });
+  }
+
+  private createIngredient(): void {
+    this.ingredientService.create(this.ingredientData).subscribe((response: Ingredient) => {
+      this.dataSource.data.push({ ...response });
+      this.dataSource.data = [...this.dataSource.data];
+    });
+  }
+
+  private deleteIngredient(ingredientId: number): void {
+    this.ingredientService.delete(ingredientId).subscribe(() => {
+      this.dataSource.data = this.dataSource.data.filter(i => i.id !== ingredientId);
+    });
+  }
+
+  openCreateDialog(): void {
+    const dialogRef = this.dialog.open(IngredientCreateAndEditComponent, {
+      width: '500px',
+      data: { ingredient: {} as Ingredient }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.ingredientData = result;
+        this.createIngredient();
+      }
+    });
+  }
+
+  onDeleteItem(element: Ingredient): void {
+    this.deleteIngredient(element.id);
+  }
 }

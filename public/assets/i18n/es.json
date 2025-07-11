@@ -14,12 +14,14 @@
     "name": "Nombre",
     "category": "Categoría",
     "calories": "Calorías",
-    "carbs": "Carbohidratos",
+    "carbohydrates": "Carbohidratos",
     "proteins": "Proteínas",
     "fats": "Grasas",
     "allergies": "Alergias",
     "recipes": "Recetas",
-    "actions": "Acciones"
+    "actions": "Acciones",
+    "add": "Añadir Ingrediente",
+    "macronutrientValuesId": "ID de Valores de Macronutrientes"
 
   },
   "recommendation": {
@@ -44,7 +46,8 @@
     "category": "Categoria",
     "preparationTime": "Tiempo de Preparación (Minutos)",
     "difficulty": "Dificultad",
-    "userId": "ID Usuario"
+    "userId": "ID Usuario",
+    "add": "Añadir Receta"
   },
   "footer": {
     "rights": "Copyright © 2025 {{ api }}, Todos los derechos reservados",

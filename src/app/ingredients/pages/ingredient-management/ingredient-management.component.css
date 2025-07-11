@@ -1,12 +1,90 @@
-.table-wrapper {
-  width: 1024px;
-  margin: 50px auto;
+.cards-wrapper {
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+  background: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-table {
+.ingredient-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #2e7d32;
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.ingredient-card {
+  position: relative;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   width: 100%;
 }
 
-tr.editable-row {
-  background-color: lightblue;
+.ingredient-card mat-card-header {
+  background: linear-gradient(135deg, #66bb6a 0%, #a5d6a7 100%);
+  color: #fff;
+  padding: 16px;
+}
+
+.ingredient-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(76, 175, 80, 0.18);
+}
+
+.ingredient-card mat-card-title {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.ingredient-card mat-card-subtitle {
+  font-size: 0.9rem;
+}
+
+.ingredient-card mat-card-content {
+  padding: 16px;
+  flex-grow: 1;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.ingredient-card mat-card-content p {
+  margin: 8px 0;
+  line-height: 1.4;
+}
+
+.ingredient-card mat-card-actions {
+  padding: 8px 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  background-color: #f9f9f9;
+}
+
+@media (max-width: 900px) {
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
 }

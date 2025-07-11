@@ -1,72 +1,35 @@
-<!-- Ingredient catalogue -->
-<div class="table-wrapper">
-  <h3>{{ 'title.ingredients' | translate }}</h3>
+<div class="cards-wrapper">
+  <h2 class="ingredient-title">{{ 'title.ingredients' | translate }}</h2>
 
-  <!-- Add/Edit Form -->
-  <app-ingredient-create-and-edit
-    (editCanceled)="onCancelEdit()"
-    (ingredientAdded)="onIngredientAdded($event)"
-    (ingredientUpdated)="onIngredientUpdated($event)"
-    [editMode]="isEditMode"
-    [ingredient]="ingredientData" />
+  <!-- Botón para crear nuevo ingrediente -->
+  <div class="add-button-container">
+    <button mat-raised-button color="primary" (click)="openCreateDialog()">
+      <mat-icon>add</mat-icon> {{ 'ingredient.add' | translate }}
+    </button>
+  </div>
 
-  <!-- Data Table -->
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
-         matSort matSortActive="name" matSortDirection="asc">
+  <!-- Cards de Ingredientes -->
+  <div class="cards-container">
+    <mat-card class="ingredient-card" *ngFor="let element of dataSource.data">
+      <mat-card-header>
+        <mat-card-title>{{ element.name }}</mat-card-title>
+        <mat-card-subtitle>ID: {{ element.id }}</mat-card-subtitle>
+      </mat-card-header>
 
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-      <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
-    </ng-container>
+      <mat-card-content>
+        <p><strong>{{ 'ingredient.calories' | translate }}:</strong> {{ element.calories }}</p>
+        <p><strong>{{ 'ingredient.carbohydrates' | translate }}:</strong> {{ element.carbohydrates }}</p>
+        <p><strong>{{ 'ingredient.proteins' | translate }}:</strong> {{ element.proteins }}</p>
+        <p><strong>{{ 'ingredient.fats' | translate }}:</strong> {{ element.fats }}</p>
+        <p><strong>{{ 'ingredient.macronutrientValuesId' | translate }}:</strong> {{ element.macronutrientValuesId }}</p>
+      </mat-card-content>
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-      <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="calories">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Calorías </th>
-      <td mat-cell *matCellDef="let element"> {{ element.calories }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="carbohydrates">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Carbohidratos </th>
-      <td mat-cell *matCellDef="let element"> {{ element.carbohydrates }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="proteins">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Proteínas </th>
-      <td mat-cell *matCellDef="let element"> {{ element.proteins }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="fats">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Grasas </th>
-      <td mat-cell *matCellDef="let element"> {{ element.fats }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="macronutrientValuesId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Macronutrientes </th>
-      <td mat-cell *matCellDef="let element"> {{ element.macronutrientValuesId }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Acciones </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button color="primary" (click)="onEditItem(element)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="onDeleteItem(element)">
+      <mat-card-actions>
+        <button mat-icon-button (click)="onDeleteItem(element)" matTooltip="Eliminar">
           <mat-icon>delete</mat-icon>
         </button>
-      </td>
-    </ng-container>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"
-        [ngClass]="{'editable-row': ingredientData.id === row.id }">
-    </tr>
-  </table>
-
-  <!-- Paginador -->
-  <mat-paginator [pageSizeOptions]="[5, 10, 15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
 </div>
