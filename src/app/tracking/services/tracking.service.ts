@@ -94,5 +94,30 @@ export class TrackingService extends BaseService<Tracking> {
     return this.httpClient.get<BackendTrackingGoal>(`${this.basePath}/tracking-goals/user/${userId}`, this.httpOptions);
   }
 
+  /**
+   * Crear tracking goal desde profile objective
+   * @param profileId ID del profile
+   * @returns Observable con el ID del tracking goal creado
+   */
+  createTrackingGoalFromProfile(profileId: number): Observable<number> {
+    return this.httpClient.post<number>(`${this.basePath}/tracking-goals/from-profile/${profileId}`, {}, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * Actualizar tracking goal desde profile objective
+   * @param profileId ID del profile
+   * @returns Observable void
+   */
+  updateTrackingGoalFromProfile(profileId: number): Observable<void> {
+    return this.httpClient.put<void>(`${this.basePath}/tracking-goals/from-profilng see/${profileId}`, {}, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
 
 }

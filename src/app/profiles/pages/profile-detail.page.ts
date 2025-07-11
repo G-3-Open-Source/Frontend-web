@@ -132,7 +132,9 @@ export class ProfileDetailPage implements OnInit {
       finalize(() => this.loading = false)
     ).subscribe(resultUser => {
       if (resultUser) {
-        this.user = resultUser;
+        // Guarda solo el ID como string
+        localStorage.setItem('userId', resultUser.toString());
+
         this.snackBar.open('Cuenta creada con éxito', 'Cerrar', { duration: 3000 });
         this.editMode = false;
         this.profileForm.disable();

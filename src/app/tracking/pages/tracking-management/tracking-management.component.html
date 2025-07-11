@@ -1,22 +1,6 @@
 <div class="tracking-management-container">
   <h2>Tracking Management</h2>
 
-  <!-- Search Section -->
-  <div class="search-section">
-    <mat-form-field appearance="outline">
-      <mat-label>Search by User ID</mat-label>
-      <input matInput type="number" [(ngModel)]="searchUserId" placeholder="Enter User ID">
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="onSearchByUserId()">
-      <mat-icon>search</mat-icon>
-      Search
-    </button>
-    <button mat-raised-button color="warn" (click)="clearSearch()">
-      <mat-icon>clear</mat-icon>
-      Clear
-    </button>
-  </div>
-
   <!-- Tracking Information and Macronutrients Section -->
   <div class="tracking-info-section" *ngIf="currentTracking.id">
     <h3>Tracking Information</h3>
@@ -30,7 +14,7 @@
 
     <!-- Macronutrient Summary -->
     <div class="macro-summary">
-      <h4>Macronutrient Progress</h4>
+      <h4>Macronutrient Objective</h4>
       <div class="macro-cards">
         <div class="macro-card calories">
           <div class="macro-header">
@@ -39,8 +23,6 @@
           </div>
           <div class="macro-progress">
             <div class="progress-values">
-              <span class="consumed">{{currentTracking.consumedMacros?.calories || 0}}</span>
-              <span class="separator">/</span>
               <span class="target">{{currentTracking.trackingGoal?.targetCalories || 0}}</span>
             </div>
             <div class="progress-bar">
@@ -56,8 +38,6 @@
           </div>
           <div class="macro-progress">
             <div class="progress-values">
-              <span class="consumed">{{currentTracking.consumedMacros?.protein || 0}}g</span>
-              <span class="separator">/</span>
               <span class="target">{{currentTracking.trackingGoal?.targetProtein || 0}}g</span>
             </div>
             <div class="progress-bar">
@@ -73,8 +53,6 @@
           </div>
           <div class="macro-progress">
             <div class="progress-values">
-              <span class="consumed">{{currentTracking.consumedMacros?.carbs || 0}}g</span>
-              <span class="separator">/</span>
               <span class="target">{{currentTracking.trackingGoal?.targetCarbs || 0}}g</span>
             </div>
             <div class="progress-bar">
@@ -90,8 +68,6 @@
           </div>
           <div class="macro-progress">
             <div class="progress-values">
-              <span class="consumed">{{currentTracking.consumedMacros?.fats || 0}}g</span>
-              <span class="separator">/</span>
               <span class="target">{{currentTracking.trackingGoal?.targetFats || 0}}g</span>
             </div>
             <div class="progress-bar">
