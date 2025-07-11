@@ -20,3 +20,12 @@ export class Recommendation {
     this.status = "";
   }
 }
+
+export interface UpdateRecommendationRequest {
+  reason: string;
+  timeOfDay: string;
+  notes: string;
+  score: number;
+  status: string;
+  // Agrega/ajusta campos según lo que espere tu backend
+}

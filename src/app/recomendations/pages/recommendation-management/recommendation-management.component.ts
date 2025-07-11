@@ -156,7 +156,8 @@ export class RecommendationManagementComponent implements OnInit {
   }
 
   private updateRecommendation(recommendation: Recommendation): void {
-    this.recommendationsService.update(recommendation.id, recommendation).subscribe({
+    const { id, ...rest } = recommendation;
+    this.recommendationsService.updateRecommendation(id, rest).subscribe({
       next: (response: Recommendation) => {
         const index = this.dataSource.findIndex(item => item.id === response.id);
         if (index !== -1) {
