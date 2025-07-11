@@ -37,10 +37,10 @@
 
     <div class="button-row">
       <button mat-raised-button color="warn" type="button" (click)="onCancel()">
-        {{ 'button.cancel' | translate }}
+        Cancel
       </button>
       <button mat-raised-button color="primary" type="submit" [disabled]="!recommendationForm.valid">
-        {{ data.isEditMode ? ('button.update' | translate) : ('button.add' | translate) }}
+        Update
       </button>
     </div>
   </form>

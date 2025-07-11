@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Recommendation } from '../model/recommendation.entity';
+import {Recommendation, UpdateRecommendationRequest} from '../model/recommendation.entity';
 import { BaseService } from '../../shared/services/base.service';
-import { Observable } from 'rxjs';
+import {catchError, Observable, retry} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,13 +21,32 @@ export class RecommendationsService extends BaseService<Recommendation> {
     );
   }
 
-  // Auto-asignar recomendaciones a un usuario (sin enviar body)
   autoAssignToUser(userId: number): Observable<Recommendation[]> {
-    // No se envía body, solo los parámetros de configuración si es necesario (como headers)
     return this.http.post<Recommendation[]>(
       `${this.basePath}${this.resourceEndpoint}/auto-assign/${userId}`,
-      undefined,
-      this.httpOptions
+      undefined // body vacío, pero no null
     );
   }
+
+  /**
+   * Actualiza una recomendación
+   * @param recommendationId ID de la recomendación a actualizar
+   * @param request Objeto con los campos a actualizar (sin el id)
+   */
+  updateRecommendation(recommendationId: number, request: UpdateRecommendationRequest): Observable<Recommendation> {
+    return this.http.put<Recommendation>(
+      `${this.basePath}${this.resourceEndpoint}/${recommendationId}`,
+      request,
+      this.httpOptions
+    ).pipe(
+      retry(2),
+      catchError(this.handleError)
+    );
+  }
+
+
+
+
+
+
 }
