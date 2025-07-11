@@ -1,77 +1,38 @@
-<!-- Recommendation catalogue -->
-<div class="table-wrapper">
-  <h3>{{ 'title.recommendations' | translate }}</h3>
-
-  <!-- Botón para agregar nueva recomendación -->
-  <button mat-raised-button color="primary" (click)="openAddDialog()" class="add-button">
-    <mat-icon>add</mat-icon> {{ 'title.add' | translate }}
-  </button>
-
-  <!-- Data Table -->
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
-         matSort matSortActive="reason" matSortDirection="asc">
-
-    <!-- ID Column -->
-    <ng-container matColumnDef="id">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'recommendation.id' | translate }}</th>
-      <td *matCellDef="let element" mat-cell>{{ element.id }}</td>
-    </ng-container>
-
-    <!-- Reason Column -->
-    <ng-container matColumnDef="reason">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'recommendation.reason' | translate }}</th>
-      <td *matCellDef="let element" mat-cell>{{ element.reason }}</td>
-    </ng-container>
-
-    <!-- Time of Day Column -->
-    <ng-container matColumnDef="time_of_day">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'recommendation.time_of_day' | translate }}</th>
-      <td *matCellDef="let element" mat-cell>{{ element.time_of_day }}</td>
-    </ng-container>
-
-    <!-- Created At Column -->
-    <ng-container matColumnDef="created_at">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'recommendation.created_at' | translate }}</th>
-      <td *matCellDef="let element" mat-cell>{{ element.created_at | date:'short' }}</td>
-    </ng-container>
-
-    <!-- Notes Column -->
-    <ng-container matColumnDef="notes">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'recommendation.notes' | translate }}</th>
-      <td *matCellDef="let element" mat-cell>{{ element.notes }}</td>
-    </ng-container>
-
-    <!-- Score Column -->
-    <ng-container matColumnDef="score">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'recommendation.score' | translate }}</th>
-      <td *matCellDef="let element" mat-cell>{{ element.score }}</td>
-    </ng-container>
-
-    <!-- Status Column -->
-    <ng-container matColumnDef="status">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'recommendation.status' | translate }}</th>
-      <td *matCellDef="let element" mat-cell>
-        <span [class]="'status-badge ' + element.status">{{ element.status }}</span>
-      </td>
-    </ng-container>
-
-    <!-- Actions Column -->
-    <ng-container matColumnDef="actions">
-      <th *matHeaderCellDef mat-header-cell>{{ 'recommendation.actions' | translate }}</th>
-      <td *matCellDef="let element" mat-cell>
-        <button mat-icon-button (click)="openEditDialog(element)" matTooltip="Edit">
+<div class="cards-wrapper">
+  <h2>{{ 'recommendation.title' | translate }}</h2>
+  <div class="cards-container">
+    <mat-card class="recommendation-card" *ngFor="let element of dataSource">
+      <mat-card-header>
+        <mat-card-title>
+          <ng-container *ngIf="element.template && element.template.title; else noTemplate">
+            {{ element.template.title }}
+          </ng-container>
+          <ng-template #noTemplate>
+            <span class="text-muted">Sin template asignado</span>
+          </ng-template>
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{ element.timeOfDay }} &nbsp; {{ element.createdAt | date:'short' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>{{ 'recommendation.id' | translate }}:</strong> {{ element.id }}</p>
+        <p><strong>{{ 'recommendation.reason' | translate }}:</strong> {{ element.reason }}</p>
+        <p><strong>{{ 'recommendation.notes' | translate }}:</strong> {{ element.notes }}</p>
+        <p><strong>{{ 'recommendation.score' | translate }}:</strong> {{ element.score }}</p>
+        <p>
+          <strong>{{ 'recommendation.status' | translate }}:</strong>
+          <span [class]="'status-badge ' + element.status">{{ element.status }}</span>
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-icon-button (click)="openEditDialog(element)" matTooltip="Editar">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="deleteRecommendation(element.id)" matTooltip="Delete">
+        <button mat-icon-button (click)="deleteRecommendation(element.id)" matTooltip="Eliminar">
           <mat-icon>delete</mat-icon>
         </button>
-      </td>
-    </ng-container>
-
-    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
-  </table>
-
-  <!-- Paginator -->
-  <mat-paginator [pageSizeOptions]="[5, 10, 15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>

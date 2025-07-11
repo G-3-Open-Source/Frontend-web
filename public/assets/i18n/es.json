@@ -23,6 +23,7 @@
 
   },
   "recommendation": {
+    "title": "Recomendaciones",
     "id": "ID",
     "meal_plan_id": "ID Plan Alimenticio",
     "user_id": "ID Usuario",

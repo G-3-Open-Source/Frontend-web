@@ -7,11 +7,15 @@
       <input matInput name="reason" [(ngModel)]="data.recommendation.reason" required>
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>{{ 'recommendation.time_of_day' | translate }}</mat-label>
-      <input matInput name="time_of_day" [(ngModel)]="data.recommendation.time_of_day">
-    </mat-form-field>
-
+      <mat-form-field>
+          <mat-label>{{ 'recommendation.time_of_day' | translate }}</mat-label>
+          <mat-select name="timeOfDay" [(ngModel)]="data.recommendation.timeOfDay">
+              <mat-option value="MORNING">Morning</mat-option>
+              <mat-option value="AFTERNOON">Afternoon</mat-option>
+              <mat-option value="EVENING">Evening</mat-option>
+              <mat-option value="ALL_DAY">All Day</mat-option>
+          </mat-select>
+      </mat-form-field>
     <mat-form-field>
       <mat-label>{{ 'recommendation.notes' | translate }}</mat-label>
       <input matInput name="notes" [(ngModel)]="data.recommendation.notes"/>

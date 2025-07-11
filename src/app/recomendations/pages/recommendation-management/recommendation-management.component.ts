@@ -1,90 +1,56 @@
-import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
-import {
-  MatCell, MatCellDef,
-  MatColumnDef,
-  MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
-  MatTable,
-  MatTableDataSource
-} from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { CommonModule } from '@angular/common';
 import { RecommendationsService } from '../../services/recommendations.service';
 import { Recommendation } from '../../model/recommendation.entity';
 import { RecommendationFormDialogComponent } from '../../../public/components/recommendation-form-dialog/recommendation-form-dialog.component';
-import {DatePipe} from '@angular/common';
-import {MatButton, MatIconButton} from '@angular/material/button';
-import {MatTooltip} from '@angular/material/tooltip';
+import { RecommendationTemplateService } from '../../services/recommendation-template.service';
+import { RecommendationTemplate } from '../../model/recommendation-template.entity';
 
 @Component({
   selector: 'app-recommendation-management',
+  standalone: true,
   templateUrl: './recommendation-management.component.html',
   styleUrls: ['./recommendation-management.component.css'],
-  standalone: true,
   imports: [
-    MatPaginatorModule,
-    MatSortModule,
+    MatCardModule,
     MatIconModule,
     TranslateModule,
-    DatePipe,
-    MatTable,
-    MatButton,
-    MatColumnDef,
-    MatHeaderCellDef,
-    MatHeaderCell,
-    MatCell,
-    MatIconButton,
-    MatHeaderRow,
-    MatRow,
-    MatTooltip,
-    MatCellDef,
-    MatHeaderRowDef,
-    MatRowDef,
+    CommonModule
   ]
 })
-export class RecommendationManagementComponent implements OnInit, AfterViewInit {
-  recommendationData: Recommendation = new Recommendation();
-  dataSource = new MatTableDataSource<Recommendation>();
-  displayedColumns: string[] = [
-    'id',
-    'reason',
-    'time_of_day',
-    'created_at',
-    'notes',
-    'score',
-    'status',
-    'actions'
-  ];
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+export class RecommendationManagementComponent implements OnInit {
+  dataSource: any[] = [];
+  templates: RecommendationTemplate[] = [];
 
   constructor(
     private recommendationsService: RecommendationsService,
+    private templateService: RecommendationTemplateService,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.getAllRecommendations();
-  }
+    this.templateService.getAllArray().subscribe((templates) => {
+      this.templates = templates;
+      this.getAllRecommendations();
 
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    });
   }
 
   private getAllRecommendations(): void {
-    this.recommendationsService.getAll().subscribe({
-      next: (response: Recommendation | Recommendation[]) => {
-        this.dataSource.data = Array.isArray(response) ? response : [response];
+    this.recommendationsService.getAllArray().subscribe({
+      next: (response: Recommendation[]) => {
+        this.dataSource = response.map(rec => ({
+          ...rec,
+          template: this.templates.find(
+            t => t.id == (rec.templateId ?? rec.template?.id)
+          )
+        }));
       },
-      error: (err: any) => {
-        console.error('Error loading recommendations:', err);
-      }
+      error: (err: any) => console.error('Error loading recommendations:', err)
     });
   }
 
@@ -93,7 +59,8 @@ export class RecommendationManagementComponent implements OnInit, AfterViewInit 
       width: '600px',
       data: {
         recommendation: new Recommendation(),
-        isEditMode: false
+        isEditMode: false,
+        templates: this.templates
       }
     });
 
@@ -109,7 +76,8 @@ export class RecommendationManagementComponent implements OnInit, AfterViewInit 
       width: '600px',
       data: {
         recommendation: { ...element },
-        isEditMode: true
+        isEditMode: true,
+        templates: this.templates
       }
     });
 
@@ -123,36 +91,38 @@ export class RecommendationManagementComponent implements OnInit, AfterViewInit 
   private createRecommendation(recommendation: Recommendation): void {
     this.recommendationsService.create(recommendation).subscribe({
       next: (response: Recommendation) => {
-        this.dataSource.data = [...this.dataSource.data, response];
+        const template = this.templates.find(
+          t => t.id == (response.templateId ?? response.template?.id)
+        );
+        this.dataSource = [...this.dataSource, { ...response, template }];
       },
-      error: (err: any) => {
-        console.error('Error creating recommendation:', err);
-      }
+      error: (err: any) => console.error('Error creating recommendation:', err)
     });
   }
 
   private updateRecommendation(recommendation: Recommendation): void {
     this.recommendationsService.update(recommendation.id, recommendation).subscribe({
       next: (response: Recommendation) => {
-        this.dataSource.data = this.dataSource.data.map(item =>
-          item.id === response.id ? response : item
-        );
+        const index = this.dataSource.findIndex(item => item.id === response.id);
+        if (index !== -1) {
+          const template = this.templates.find(
+            t => t.id == (response.templateId ?? response.template?.id)
+          );
+          this.dataSource[index] = { ...response, template };
+          this.dataSource = [...this.dataSource];
+        }
       },
-      error: (err: any) => {
-        console.error('Error updating recommendation:', err);
-      }
+      error: (err: any) => console.error('Error updating recommendation:', err)
     });
   }
 
   deleteRecommendation(id: number): void {
-    if (confirm('Are you sure you want to delete this recommendation?')) {
+    if (confirm('¿Está seguro de que desea eliminar esta recomendación?')) {
       this.recommendationsService.delete(id).subscribe({
         next: () => {
-          this.dataSource.data = this.dataSource.data.filter(item => item.id !== id);
+          this.dataSource = this.dataSource.filter(item => item.id !== id);
         },
-        error: (err: any) => {
-          console.error('Error deleting recommendation:', err);
-        }
+        error: (err: any) => console.error('Error deleting recommendation:', err)
       });
     }
   }

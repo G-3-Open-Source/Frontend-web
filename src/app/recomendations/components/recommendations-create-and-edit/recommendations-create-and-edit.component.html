@@ -1,18 +1,21 @@
-<!-- Create and Edit Form -->
 <h4>{{ editMode ? 'Edit Recommendation' : 'New Recommendation' }}</h4>
 <div class="form-section">
-
-  <form (submit)="onSubmit()" #recommendationForm='ngForm' class="form-row">
+  <form (submit)="onSubmit()" #recommendationForm="ngForm" class="form-row">
     <mat-form-field>
       <input matInput placeholder="Reason" name="reason" required [(ngModel)]="recommendation.reason">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Time of Day" name="time_of_day" [(ngModel)]="recommendation.time_of_day">
+      <mat-select placeholder="Time of Day" name="timeOfDay" [(ngModel)]="recommendation.timeOfDay">
+        <mat-option value="MORNING">Morning</mat-option>
+        <mat-option value="AFTERNOON">Afternoon</mat-option>
+        <mat-option value="EVENING">Evening</mat-option>
+        <mat-option value="ALL_DAY">All Day</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Notes" name="notes" [(ngModel)]="recommendation.notes"/>
+      <input matInput placeholder="Notes" name="notes" [(ngModel)]="recommendation.notes">
     </mat-form-field>
 
     <mat-form-field>
@@ -28,14 +31,9 @@
     </mat-form-field>
 
     <ng-container>
-      @if (editMode === true) {
-        <button mat-raised-button color="primary">Update</button>
-        <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
-      }
-      @else {
-        <button mat-raised-button color="primary">Add</button>
-      }
+      <button mat-raised-button color="primary" *ngIf="editMode">Update</button>
+      <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancel</button>
+      <button mat-raised-button color="primary" *ngIf="!editMode">Add</button>
     </ng-container>
   </form>
-
 </div>

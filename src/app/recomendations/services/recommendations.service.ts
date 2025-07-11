@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BaseService } from "../../shared/services/base.service";
-import { HttpClient } from "@angular/common/http";
-import { Recommendation } from "../model/recommendation.entity";
+import { HttpClient } from '@angular/common/http';
+;
+import { Recommendation } from '../model/recommendation.entity';
+import {BaseService} from '../../shared/services/base.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,6 @@ import { Recommendation } from "../model/recommendation.entity";
 export class RecommendationsService extends BaseService<Recommendation> {
   constructor(http: HttpClient) {
     super(http);
-    this.resourceEndpoint = '/recommendations';
+    this.resourceEndpoint = '/recommendations'; // Define el endpoint correcto
   }
 }
