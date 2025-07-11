@@ -84,5 +84,33 @@
     "actions": "Acciones",
     "editTooltip": "Editar Entrada",
     "deleteTooltip": "Eliminar Entrada"
+  },
+  "profile": {
+    "title": {
+      "view": "Perfil de {{ name }}",
+      "create": "Crear tu perfil"
+    },
+    "form": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "birthDate": "Fecha de nacimiento",
+      "isActive": "Activo",
+      "healthProfile": "Perfil de salud",
+      "gender": "Género",
+      "height": "Altura (cm)",
+      "weight": "Peso (kg)",
+      "userScore": "Puntuación del usuario",
+      "activityLevel": "Nivel de actividad",
+      "objective": "Objetivo",
+      "allergies": "Alergias",
+      "none": "Ninguno"
+    },
+    "buttons": {
+      "saveChanges": "Guardar cambios",
+      "createProfile": "Crear perfil",
+      "edit": "Editar"
+    }
   }
+
 }
